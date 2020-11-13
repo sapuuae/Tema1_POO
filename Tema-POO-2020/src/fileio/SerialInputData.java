@@ -38,12 +38,14 @@ public final class SerialInputData extends ShowInput {
 
     @Override
     public String toString() {
-        return "SerialInputData{" + " title= "
-                + super.getTitle() + " " + " year= "
-                + super.getYear() + " cast {"
-                + super.getCast() + " }\n" + " genres {"
-                + super.getGenres() + " }\n "
-                + " numberSeason= " + numberOfSeasons
-                + ", seasons=" + seasons + "\n\n" + '}';
+        return "SerialInputData{"
+                + "numberOfSeasons=" + numberOfSeasons
+                + ", seasons=" + seasons
+                + ", numberSeason=" + getNumberSeason()
+                + ", title='" + getTitle() + '\''
+                + ", year=" + getYear()
+                + ", cast=" + getCast()
+                + ", genres=" + getGenres()
+                + '}';
     }
 }
