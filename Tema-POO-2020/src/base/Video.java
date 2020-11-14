@@ -7,6 +7,7 @@ public abstract class Video {
     private final int year;
     private final ArrayList<String> cast;
     private final ArrayList<String> genres;
+    private int numberOfApparitions;
 
     public Video(final String title, final int year,
                  final ArrayList<String> cast, final ArrayList<String> genres) {
@@ -30,5 +31,13 @@ public abstract class Video {
 
     public final ArrayList<String> getGenres() {
         return genres;
+    }
+
+    public int getNumberOfApparitions() {
+        return numberOfApparitions;
+    }
+
+    public void setNumberOfApparitions(int numberOfApparitions) {
+        this.numberOfApparitions = numberOfApparitions;
     }
 }

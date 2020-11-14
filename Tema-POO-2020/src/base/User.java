@@ -3,15 +3,15 @@ package base;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class Users {
+public class User {
     private final String userSubType;
     private final ArrayList<String> favoriteMovies;
     private final String username;
     private final Map<String, Integer> history;
 
 
-    public Users(final String userSubType, final ArrayList<String> favoriteMovies,
-                 final String username, final Map<String, Integer> history) {
+    public User(final String userSubType, final ArrayList<String> favoriteMovies,
+                final String username, final Map<String, Integer> history) {
         this.userSubType = userSubType;
         this.favoriteMovies = favoriteMovies;
         this.username = username;
@@ -33,6 +33,14 @@ public class Users {
 
     public final String getUserSubType() {
         return userSubType;
+    }
+
+    public void addFavorite(Video video) {
+        boolean isInMap = this.history.containsKey(video.getTitle());
+        if (isInMap) {
+            favoriteMovies.add(video.getTitle());
+            video.setNumberOfApparitions(video.getNumberOfApparitions() + 1);
+        }
     }
 
 

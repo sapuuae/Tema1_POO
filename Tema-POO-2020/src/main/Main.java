@@ -1,5 +1,6 @@
 package main;
 
+import base.DataList;
 import checker.Checkstyle;
 import checker.Checker;
 import common.Constants;
@@ -8,6 +9,7 @@ import fileio.InputLoader;
 import fileio.Writer;
 import org.json.simple.JSONArray;
 
+import javax.xml.crypto.Data;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -71,7 +73,8 @@ public final class Main {
         JSONArray arrayResult = new JSONArray();
 
         //TODO add here the entry point to your implementation
-        System.out.println(input.getMovies());
+        DataList data = new DataList(input);
+
         fileWriter.closeJSON(arrayResult);
     }
 }
