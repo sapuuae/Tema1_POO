@@ -1,5 +1,8 @@
 Starting audit...
 [ERROR] /home/andrei/Desktop/Teme/Teme Java/Tema 1/Tema-POO-2020/./src/main/Main.java:12:8: Unused import - javax.xml.crypto.Data. [UnusedImports]
-[ERROR] /home/andrei/Desktop/Teme/Teme Java/Tema 1/Tema-POO-2020/./src/base/DataList.java:22:5: Missing a Javadoc comment. [MissingJavadocMethod]
+[ERROR] /home/andrei/Desktop/Teme/Teme Java/Tema 1/Tema-POO-2020/./src/base/DataList.java:86:5: Missing a Javadoc comment. [MissingJavadocMethod]
+[ERROR] /home/andrei/Desktop/Teme/Teme Java/Tema 1/Tema-POO-2020/./src/base/DataList.java:95:5: Missing a Javadoc comment. [MissingJavadocMethod]
+[ERROR] /home/andrei/Desktop/Teme/Teme Java/Tema 1/Tema-POO-2020/./src/base/DataList.java:104:5: Missing a Javadoc comment. [MissingJavadocMethod]
+[ERROR] /home/andrei/Desktop/Teme/Teme Java/Tema 1/Tema-POO-2020/./src/base/DataList.java:117:5: Missing a Javadoc comment. [MissingJavadocMethod]
 Audit done.
-Checkstyle ends with 2 errors.
+Checkstyle ends with 5 errors.

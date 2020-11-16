@@ -1,6 +1,11 @@
 package base;
 
-import fileio.*;
+import fileio.ActionInputData;
+import fileio.ActorInputData;
+import fileio.Input;
+import fileio.MovieInputData;
+import fileio.SerialInputData;
+import fileio.UserInputData;
 
 import java.util.ArrayList;
 
@@ -23,6 +28,9 @@ public class DataList {
         this.initArrays();
     }
 
+    /**
+     Put the fields in the arrays.
+     */
     public final void initArrays() {
         /*
         Convert data from input variable to
@@ -75,7 +83,7 @@ public class DataList {
         }
     }
 
-    public User getUser(ArrayList<User> list, String username) {
+    public final User getUser(final ArrayList<User> list, final String username) {
         for (User user : list) {
             if (user.getUsername().equals(username)) {
                 return user;
@@ -84,7 +92,7 @@ public class DataList {
         return null;
     }
 
-    public Video getVideo(ArrayList<Video> list, String videoTitle) {
+    public final Video getVideo(final ArrayList<Video> list, final String videoTitle) {
         for (Video video : list) {
             if (video.getTitle().equals(videoTitle)) {
                 return video;
@@ -93,24 +101,47 @@ public class DataList {
         return null;
     }
 
+    public final void getUsernameAndVideo(final String username, final String videoTitle,
+                                    final UserWrapper userWrapper,
+                                    final VideoWrapper videoWrapper) {
+        User addedUser = getUser(this.userArrayList, username);
+        userWrapper.setInteriorUser(addedUser);
+        Video addedVideo = getVideo(this.movieArrayList, videoTitle);
+        if (addedVideo == null) {
+            addedVideo = getVideo(this.showArrayList, videoTitle);
+        }
+        videoWrapper.setInteriorVideo(addedVideo);
+    }
 
-    public void checkCommands(Input input) {
-        for (int i = 0; i < input.getCommands().size(); i++) {
-            ActionInputData actionData = input.getCommands().get(i);
+
+    public final void checkCommands(final Input dataInput) {
+        for (int i = 0; i < dataInput.getCommands().size(); i++) {
+            ActionInputData actionData = dataInput.getCommands().get(i);
             if (actionData.getActionType().equals("command")) {
                 if (actionData.getType().equals("favorite")) {
-                    String username = actionData.getUsername();
-                    String videoTitle = actionData.getTitle();
-                    User indexUser = getUser(this.userArrayList, username);
-                    Video addedVideo = getVideo(this.movieArrayList, videoTitle);
-                    if (addedVideo == null) {
-                        getVideo(this.showArrayList, videoTitle);
-                    }
-                    if (indexUser == null || addedVideo == null) {
+                    UserWrapper getTheUser = new UserWrapper();
+                    VideoWrapper getTheVideo = new VideoWrapper();
+                    getUsernameAndVideo(actionData.getUsername(), actionData.getTitle(),
+                            getTheUser, getTheVideo);
+                    if (getTheUser.getInteriorUser() == null
+                        || getTheVideo.getInteriorVideo() == null) {
                         return;
                     } else {
-                        indexUser.addFavorite(addedVideo);
+                        getTheUser.getInteriorUser().addFavorite(getTheVideo.getInteriorVideo());
                     }
+                } else if (actionData.getType().equals("view")) {
+                    UserWrapper getTheUser = new UserWrapper();
+                    VideoWrapper getTheVideo = new VideoWrapper();
+                    getUsernameAndVideo(actionData.getUsername(), actionData.getTitle(),
+                            getTheUser, getTheVideo);
+                    if (getTheUser.getInteriorUser() == null
+                        || getTheVideo.getInteriorVideo() == null) {
+                        return;
+                    } else {
+                        getTheUser.getInteriorUser().
+                                makeItViewed(getTheVideo.getInteriorVideo());
+                    }
+
                 }
             }
         }

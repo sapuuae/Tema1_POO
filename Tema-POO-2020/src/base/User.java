@@ -35,14 +35,28 @@ public class User {
         return userSubType;
     }
 
-    public void addFavorite(Video video) {
+    /**
+     Add the Video to user's favorites.
+     */
+    public final void addFavorite(final Video video) {
         boolean isInMap = this.history.containsKey(video.getTitle());
         if (isInMap) {
             favoriteMovies.add(video.getTitle());
-            video.setNumberOfApparitions(video.getNumberOfApparitions() + 1);
+            video.setNumberofAparitionsInFavorite(
+                    video.getNumberofAparitionsInFavorite() + 1);
         }
     }
-
+    /**
+     Add the video to history or increment the number of viewed times.
+     */
+    public final void makeItViewed(final Video video) {
+        boolean isInMap = this.history.containsKey(video.getTitle());
+        if (isInMap) {
+            history.put(video.getTitle(), history.get(video.getTitle()) + 1);
+        } else {
+            history.put(video.getTitle(), 1);
+        }
+    }
 
     @Override
     public final String toString() {

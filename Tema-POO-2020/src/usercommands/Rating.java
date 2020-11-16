@@ -1,4 +1,4 @@
-package UsersCommands;
+package usercommands;
 
 public class Rating {
 }
