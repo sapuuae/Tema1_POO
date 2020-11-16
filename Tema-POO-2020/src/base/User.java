@@ -63,11 +63,12 @@ public class User {
                 if (video.getTitle().equals(forChecking)) {
                     arrayResult.add(fileWriter.writeFile(actionId, "?",
                             "error -> " + video.getTitle() + " is already in favourite list"));
-                    break;
+                    return;
                 }
-                return;
             }
             favoriteMovies.add(video.getTitle());
+            arrayResult.add(fileWriter.writeFile(actionId, "?",
+                    "success -> " + video.getTitle() + " was added as favourite"));
             video.setNumberofAparitionsInFavorite(
                     video.getNumberofAparitionsInFavorite() + 1);
         } else {
