@@ -1,7 +1,10 @@
 package base;
 
 import entertainment.Season;
+import fileio.Writer;
+import org.json.simple.JSONArray;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -52,12 +55,24 @@ public class User {
     /**
      Add the Video to user's favorites.
      */
-    public final void addFavorite(final Video video) {
+    public final void addFavorite(final Video video, JSONArray arrayResult,
+                                  int actionId, Writer fileWriter) throws IOException {
         boolean isInMap = this.history.containsKey(video.getTitle());
         if (isInMap) {
+            for (String forChecking : favoriteMovies) {
+                if (video.getTitle().equals(forChecking)) {
+                    arrayResult.add(fileWriter.writeFile(actionId, "?",
+                            "error -> " + video.getTitle() + " is already in favourite list"));
+                    break;
+                }
+                return;
+            }
             favoriteMovies.add(video.getTitle());
             video.setNumberofAparitionsInFavorite(
                     video.getNumberofAparitionsInFavorite() + 1);
+        } else {
+            arrayResult.add(fileWriter.writeFile(actionId, "?",
+                    "error -> " + video.getTitle() + " is not seen"));
         }
     }
     /**

@@ -2,13 +2,10 @@ package base;
 
 import entertainment.MySeason;
 import entertainment.Season;
-import fileio.ActionInputData;
-import fileio.ActorInputData;
-import fileio.Input;
-import fileio.MovieInputData;
-import fileio.SerialInputData;
-import fileio.UserInputData;
+import fileio.*;
+import org.json.simple.JSONArray;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class DataList {
@@ -126,7 +123,8 @@ public class DataList {
     }
 
 
-    public final void checkCommands(final Input dataInput) {
+    public final void checkCommands(final Input dataInput, JSONArray arrayResult,
+                                    Writer fileWriter) throws IOException {
         for (int i = 0; i < dataInput.getCommands().size(); i++) {
             ActionInputData actionData = dataInput.getCommands().get(i);
             /*
@@ -145,21 +143,10 @@ public class DataList {
                         || getTheVideo.getInteriorVideo() == null) {
                         return;
                     } else {
-                        getTheUser.getInteriorUser().addFavorite(getTheVideo.getInteriorVideo());
+                        getTheUser.getInteriorUser().addFavorite(getTheVideo.getInteriorVideo(),
+                                arrayResult, actionData.getActionId(), fileWriter);
                     }
                 } else if (actionData.getType().equals("view")) {
-                    UserWrapper getTheUser = new UserWrapper();
-                    VideoWrapper getTheVideo = new VideoWrapper();
-                    getUsernameAndVideo(actionData.getUsername(), actionData.getTitle(),
-                            getTheUser, getTheVideo);
-                    if (getTheUser.getInteriorUser() == null
-                        || getTheVideo.getInteriorVideo() == null) {
-                        return;
-                    } else {
-                        getTheUser.getInteriorUser().
-                                makeItViewed(getTheVideo.getInteriorVideo());
-                    }
-                } else if(actionData.getType().equals("rating")) {
                     UserWrapper getTheUser = new UserWrapper();
                     VideoWrapper getTheVideo = new VideoWrapper();
                     getUsernameAndVideo(actionData.getUsername(), actionData.getTitle(),
@@ -168,16 +155,29 @@ public class DataList {
                             || getTheVideo.getInteriorVideo() == null) {
                         return;
                     } else {
-                        if (actionData.getSeasonNumber() == 0) {
-                            getTheUser.getInteriorUser().addRatingVideo(
-                                    getTheVideo.getInteriorVideo(), actionData.getGrade());
-                        } else {
-                            getTheUser.getInteriorUser().addRatingVideo(
-                                    getTheVideo.getInteriorVideo(),
-                                    actionData.getGrade(), actionData.getSeasonNumber());
-                        }
+                        getTheUser.getInteriorUser().
+                                makeItViewed(getTheVideo.getInteriorVideo());
                     }
                 }
+//                } else if(actionData.getType().equals("rating")) {
+//                    UserWrapper getTheUser = new UserWrapper();
+//                    VideoWrapper getTheVideo = new VideoWrapper();
+//                    getUsernameAndVideo(actionData.getUsername(), actionData.getTitle(),
+//                            getTheUser, getTheVideo);
+//                    if (getTheUser.getInteriorUser() == null
+//                            || getTheVideo.getInteriorVideo() == null) {
+//                        return;
+//                    } else {
+//                        if (actionData.getSeasonNumber() == 0) {
+//                            getTheUser.getInteriorUser().addRatingVideo(
+//                                    getTheVideo.getInteriorVideo(), actionData.getGrade());
+//                        } else {
+//                            getTheUser.getInteriorUser().addRatingVideo(
+//                                    getTheVideo.getInteriorVideo(),
+//                                    actionData.getGrade(), actionData.getSeasonNumber());
+//                        }
+//                    }
+//                }
             }
         }
     }
