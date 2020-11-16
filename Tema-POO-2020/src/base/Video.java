@@ -7,7 +7,9 @@ public abstract class Video {
     private final int year;
     private final ArrayList<String> cast;
     private final ArrayList<String> genres;
+    private double rating;
     private int numberofAparitionsInFavorite;
+    private int numberOfRatings;
 
     public Video(final String title, final int year,
                  final ArrayList<String> cast, final ArrayList<String> genres) {
@@ -39,5 +41,25 @@ public abstract class Video {
 
     public final void setNumberofAparitionsInFavorite(final int numberofAparitionsInFavorite) {
         this.numberofAparitionsInFavorite = numberofAparitionsInFavorite;
+    }
+
+    public int getNumberOfRatings() {
+        return numberOfRatings;
+    }
+
+    public void setNumberOfRatings(int numberOfRatings) {
+        this.numberOfRatings = numberOfRatings;
+    }
+
+    public void avgRating() {
+
+    }
+
+    public final void setRating(final Double rating) {
+        this.rating = rating;
+    }
+
+    public final Double getRating() {
+        return rating;
     }
 }

@@ -1,8 +1,12 @@
 Starting audit...
+[ERROR] /home/andrei/Desktop/Teme/Teme Java/Tema 1/Tema-POO-2020/./src/entertainment/MySeason.java:41:5: Missing a Javadoc comment. [MissingJavadocMethod]
+[ERROR] /home/andrei/Desktop/Teme/Teme Java/Tema 1/Tema-POO-2020/./src/entertainment/MySeason.java:41:30: Parameter avgRating should be final. [FinalParameters]
 [ERROR] /home/andrei/Desktop/Teme/Teme Java/Tema 1/Tema-POO-2020/./src/main/Main.java:12:8: Unused import - javax.xml.crypto.Data. [UnusedImports]
-[ERROR] /home/andrei/Desktop/Teme/Teme Java/Tema 1/Tema-POO-2020/./src/base/DataList.java:86:5: Missing a Javadoc comment. [MissingJavadocMethod]
+[ERROR] /home/andrei/Desktop/Teme/Teme Java/Tema 1/Tema-POO-2020/./src/base/User.java:3:8: Unused import - entertainment.Season. [UnusedImports]
+[ERROR] /home/andrei/Desktop/Teme/Teme Java/Tema 1/Tema-POO-2020/./src/base/User.java:75:5: Missing a Javadoc comment. [MissingJavadocMethod]
 [ERROR] /home/andrei/Desktop/Teme/Teme Java/Tema 1/Tema-POO-2020/./src/base/DataList.java:95:5: Missing a Javadoc comment. [MissingJavadocMethod]
 [ERROR] /home/andrei/Desktop/Teme/Teme Java/Tema 1/Tema-POO-2020/./src/base/DataList.java:104:5: Missing a Javadoc comment. [MissingJavadocMethod]
-[ERROR] /home/andrei/Desktop/Teme/Teme Java/Tema 1/Tema-POO-2020/./src/base/DataList.java:117:5: Missing a Javadoc comment. [MissingJavadocMethod]
+[ERROR] /home/andrei/Desktop/Teme/Teme Java/Tema 1/Tema-POO-2020/./src/base/DataList.java:113:5: Missing a Javadoc comment. [MissingJavadocMethod]
+[ERROR] /home/andrei/Desktop/Teme/Teme Java/Tema 1/Tema-POO-2020/./src/base/DataList.java:126:5: Missing a Javadoc comment. [MissingJavadocMethod]
 Audit done.
-Checkstyle ends with 5 errors.
+Checkstyle ends with 9 errors.

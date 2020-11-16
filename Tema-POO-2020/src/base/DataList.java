@@ -1,5 +1,7 @@
 package base;
 
+import entertainment.MySeason;
+import entertainment.Season;
 import fileio.ActionInputData;
 import fileio.ActorInputData;
 import fileio.Input;
@@ -14,10 +16,10 @@ public class DataList {
 
     private ArrayList<User> userArrayList;
     /**
-    creez o lista pentru filme
+        creez o lista pentru filme
     */
     private ArrayList<Video> movieArrayList;
-    /*
+    /**
         creez o lista pentru seriale
      */
     private ArrayList<Video> showArrayList;
@@ -53,7 +55,7 @@ public class DataList {
         }
 
         /*
-        Complete data from movies list
+         * Complete data from movieslist.
          */
         for (int i = 0; i < input.getMovies().size(); i++) {
             MovieInputData movieData = input.getMovies().get(i);
@@ -64,12 +66,22 @@ public class DataList {
             movieArrayList.add(newMovie);
         }
 
+        /*
+         * Complete data from showlist.
+         */
         for (int i = 0; i < input.getSerials().size(); i++) {
             SerialInputData serialData = input.getSerials().get(i);
+            ArrayList<Season> seasonList = serialData.getSeasons();
+            ArrayList<MySeason> newSeasonList = new ArrayList<>();
+            for (Season normalSeason : seasonList) {
+                MySeason newSeason = new MySeason(normalSeason.getCurrentSeason(),
+                        normalSeason.getDuration());
+                newSeasonList.add(newSeason);
+            }
             Show newShow = new Show(serialData.getTitle(),
                     serialData.getYear(), serialData.getCast(),
                     serialData.getGenres(), serialData.getNumberSeason(),
-                    serialData.getSeasons());
+                    newSeasonList);
 
             showArrayList.add(newShow);
         }
@@ -117,7 +129,13 @@ public class DataList {
     public final void checkCommands(final Input dataInput) {
         for (int i = 0; i < dataInput.getCommands().size(); i++) {
             ActionInputData actionData = dataInput.getCommands().get(i);
+            /*
+                Verify the commands.
+             */
             if (actionData.getActionType().equals("command")) {
+                /*
+                 * Run the favorite command.
+                 */
                 if (actionData.getType().equals("favorite")) {
                     UserWrapper getTheUser = new UserWrapper();
                     VideoWrapper getTheVideo = new VideoWrapper();
@@ -141,7 +159,24 @@ public class DataList {
                         getTheUser.getInteriorUser().
                                 makeItViewed(getTheVideo.getInteriorVideo());
                     }
-
+                } else if(actionData.getType().equals("rating")) {
+                    UserWrapper getTheUser = new UserWrapper();
+                    VideoWrapper getTheVideo = new VideoWrapper();
+                    getUsernameAndVideo(actionData.getUsername(), actionData.getTitle(),
+                            getTheUser, getTheVideo);
+                    if (getTheUser.getInteriorUser() == null
+                            || getTheVideo.getInteriorVideo() == null) {
+                        return;
+                    } else {
+                        if (actionData.getSeasonNumber() == 0) {
+                            getTheUser.getInteriorUser().addRatingVideo(
+                                    getTheVideo.getInteriorVideo(), actionData.getGrade());
+                        } else {
+                            getTheUser.getInteriorUser().addRatingVideo(
+                                    getTheVideo.getInteriorVideo(),
+                                    actionData.getGrade(), actionData.getSeasonNumber());
+                        }
+                    }
                 }
             }
         }

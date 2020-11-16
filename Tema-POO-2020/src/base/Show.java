@@ -1,16 +1,16 @@
 package base;
 
-import entertainment.Season;
+import entertainment.MySeason;
 
 import java.util.ArrayList;
 
 public class Show extends Video {
     private final int numberOfSeasons;
-    private final ArrayList<Season> seasons;
+    private final ArrayList<MySeason> seasons;
 
     public Show(final String title, final int year, final ArrayList<String> cast,
                 final ArrayList<String> genres, final int numberOfSeasons,
-                final ArrayList<Season> seasons) {
+                final ArrayList<MySeason> seasons) {
         super(title, year, cast, genres);
         this.numberOfSeasons = numberOfSeasons;
         this.seasons = seasons;
@@ -20,8 +20,18 @@ public class Show extends Video {
         return numberOfSeasons;
     }
 
-    public final ArrayList<Season> getSeasons() {
+    public final ArrayList<MySeason> getSeasons() {
         return seasons;
+    }
+
+    @Override
+    public final void avgRating() {
+        double sum = 0;
+        for (MySeason theSeason : seasons) {
+            sum += theSeason.getAvgRating();
+        }
+        sum /= this.numberOfSeasons;
+        this.setRating(sum);
     }
 
     @Override
