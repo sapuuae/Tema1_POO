@@ -1,6 +1,5 @@
 package base;
 
-import entertainment.Season;
 import fileio.Writer;
 import org.json.simple.JSONArray;
 
@@ -44,6 +43,7 @@ public class User {
 
     /**
      * mark the video as rated by the user
+     *
      * @param videoTitle for the title
      */
     public final void addToRated(final String videoTitle) {
@@ -53,10 +53,11 @@ public class User {
     }
 
     /**
-     Add the Video to user's favorites.
+     * Add the Video to user's favorites.
      */
-    public final void addFavorite(final Video video, JSONArray arrayResult,
-                                  int actionId, Writer fileWriter) throws IOException {
+    public final void addFavorite(final Video video, final JSONArray arrayResult,
+                                  final int actionId, final Writer fileWriter)
+            throws IOException {
         boolean isInMap = this.history.containsKey(video.getTitle());
         if (isInMap) {
             for (String forChecking : favoriteMovies) {
@@ -76,43 +77,83 @@ public class User {
                     "error -> " + video.getTitle() + " is not seen"));
         }
     }
+
     /**
-     Add the video to history or increment the number of viewed times.
+     * Add the video to history or increment the number of viewed times.
      */
-    public final void makeItViewed(final Video video) {
+    public final void makeItViewed(final Video video, final JSONArray arrayResult,
+                                   final int actionId, final Writer fileWriter)
+            throws IOException {
         boolean isInMap = this.history.containsKey(video.getTitle());
         if (isInMap) {
             history.put(video.getTitle(), history.get(video.getTitle()) + 1);
         } else {
             history.put(video.getTitle(), 1);
         }
+        arrayResult.add(fileWriter.writeFile(actionId, "?",
+                "success -> " + video.getTitle() + " was viewed with total views "
+                        + "of " + history.get(video.getTitle())));
     }
 
     /**
      * Add the rating for the movie.
+     *
      * @param video the movie which will get the rating
      * @param grade movie grade from user
      */
-    public final void addRatingVideo(final Video video, final Double grade) {
-        if (history.containsKey(video.getTitle())
+    public final void addRatingVideo(final Video video, final Double grade,
+                                     final JSONArray arrayResult, final Writer fileWriter,
+                                     final int actionId) throws IOException {
+        if (!this.history.containsKey(video.getTitle())) {
+            arrayResult.add(fileWriter.writeFile(actionId, "?",
+                    "error -> " + video.getTitle() + " is not seen"));
+            return;
+        }
+        if (checkSettedRating.containsKey(video.getTitle())) {
+            arrayResult.add(fileWriter.writeFile(actionId, "?",
+                    "error -> " + video.getTitle() + " has been already rated" ));
+            return;
+        }
+        if (this.history.containsKey(video.getTitle())
                 && !checkSettedRating.containsKey(video.getTitle())) {
-            video.setRating(grade);
+            Movie theMovie = (Movie) video;
+            theMovie.avgRating(grade);
             checkSettedRating.put(video.getTitle(), true);
+            arrayResult.add(fileWriter.writeFile(actionId, "?",
+                    "success -> " + video.getTitle() + " was rated with " + grade
+            + " by " + this.username));
         }
     }
 
     /**
      * Add the rating for the season.
-     * @param video the show of whose season will take the rating
-     * @param grade grade of the season
+     *
+     * @param video        the show of whose season will take the rating
+     * @param grade        grade of the season
      * @param seasonNumber the number of the season in list
      */
 
-    public final void addRatingVideo(final Video video, final Double grade,
-                                     final int seasonNumber) {
+    public final void addRatingVideo(final Video video, final Double grade, final int actionId,
+                                     final int seasonNumber, final JSONArray arrayResult,
+                                     final Writer fileWriter) throws IOException {
+        boolean isInMap = this.history.containsKey((video.getTitle()));
+        if (!isInMap) {
+            arrayResult.add(fileWriter.writeFile(actionId, "?",
+                    "error -> " + video.getTitle() + " is not seen"));
+            return;
+        }
+        if (checkSettedRating.containsKey(video.getTitle())) {
+            arrayResult.add(fileWriter.writeFile(actionId, "?",
+                    "error -> " + video.getTitle() + " has been already rated" ));
+            return;
+        }
         Show internalShow = (Show) video;
         internalShow.getSeasons().get(seasonNumber - 1).setAvgRating(grade);
         internalShow.avgRating();
+        arrayResult.add(fileWriter.writeFile(actionId, "?",
+                "success -> " + video.getTitle() + " was rated with " + grade
+                        + " by " + this.username));
+        checkSettedRating.put(video.getTitle(), true);
     }
 
     @Override

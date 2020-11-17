@@ -2,7 +2,13 @@ package base;
 
 import entertainment.MySeason;
 import entertainment.Season;
-import fileio.*;
+import fileio.ActionInputData;
+import fileio.ActorInputData;
+import fileio.Input;
+import fileio.MovieInputData;
+import fileio.SerialInputData;
+import fileio.UserInputData;
+import fileio.Writer;
 import org.json.simple.JSONArray;
 
 import java.io.IOException;
@@ -13,11 +19,11 @@ public class DataList {
 
     private ArrayList<User> userArrayList;
     /**
-        creez o lista pentru filme
-    */
+     * creez o lista pentru filme
+     */
     private ArrayList<Video> movieArrayList;
     /**
-        creez o lista pentru seriale
+     * creez o lista pentru seriale
      */
     private ArrayList<Video> showArrayList;
     private ArrayList<Actor> actorArrayList;
@@ -28,7 +34,7 @@ public class DataList {
     }
 
     /**
-     Put the fields in the arrays.
+     * Put the fields in the arrays.
      */
     public final void initArrays() {
         /*
@@ -52,7 +58,7 @@ public class DataList {
         }
 
         /*
-         * Complete data from movieslist.
+         * Complete data from movies list.
          */
         for (int i = 0; i < input.getMovies().size(); i++) {
             MovieInputData movieData = input.getMovies().get(i);
@@ -64,7 +70,7 @@ public class DataList {
         }
 
         /*
-         * Complete data from showlist.
+         * Complete data from show list.
          */
         for (int i = 0; i < input.getSerials().size(); i++) {
             SerialInputData serialData = input.getSerials().get(i);
@@ -75,6 +81,7 @@ public class DataList {
                         normalSeason.getDuration());
                 newSeasonList.add(newSeason);
             }
+//            System.out.println(newSeasonList);
             Show newShow = new Show(serialData.getTitle(),
                     serialData.getYear(), serialData.getCast(),
                     serialData.getGenres(), serialData.getNumberSeason(),
@@ -111,8 +118,8 @@ public class DataList {
     }
 
     public final void getUsernameAndVideo(final String username, final String videoTitle,
-                                    final UserWrapper userWrapper,
-                                    final VideoWrapper videoWrapper) {
+                                          final UserWrapper userWrapper,
+                                          final VideoWrapper videoWrapper) {
         User addedUser = getUser(this.userArrayList, username);
         userWrapper.setInteriorUser(addedUser);
         Video addedVideo = getVideo(this.movieArrayList, videoTitle);
@@ -123,8 +130,8 @@ public class DataList {
     }
 
 
-    public final void checkCommands(final Input dataInput, JSONArray arrayResult,
-                                    Writer fileWriter) throws IOException {
+    public final void checkCommands(final Input dataInput, final JSONArray arrayResult,
+                                    final Writer fileWriter) throws IOException {
         for (int i = 0; i < dataInput.getCommands().size(); i++) {
             ActionInputData actionData = dataInput.getCommands().get(i);
             /*
@@ -134,50 +141,35 @@ public class DataList {
                 /*
                  * Run the favorite command.
                  */
-                if (actionData.getType().equals("favorite")) {
-                    UserWrapper getTheUser = new UserWrapper();
-                    VideoWrapper getTheVideo = new VideoWrapper();
-                    getUsernameAndVideo(actionData.getUsername(), actionData.getTitle(),
-                            getTheUser, getTheVideo);
-                    if (getTheUser.getInteriorUser() == null
+                UserWrapper getTheUser = new UserWrapper();
+                VideoWrapper getTheVideo = new VideoWrapper();
+                getUsernameAndVideo(actionData.getUsername(), actionData.getTitle(),
+                        getTheUser, getTheVideo);
+                if (getTheUser.getInteriorUser() == null
                         || getTheVideo.getInteriorVideo() == null) {
-                        return;
-                    } else {
-                        getTheUser.getInteriorUser().addFavorite(getTheVideo.getInteriorVideo(),
-                                arrayResult, actionData.getActionId(), fileWriter);
-                    }
+                    return;
+                }
+                User myUser = getTheUser.getInteriorUser();
+                Video myVideo = getTheVideo.getInteriorVideo();
+                /*
+                    Check favorite command.
+                 */
+                if (actionData.getType().equals("favorite")) {
+                    myUser.addFavorite(myVideo,
+                            arrayResult, actionData.getActionId(), fileWriter);
                 } else if (actionData.getType().equals("view")) {
-                    UserWrapper getTheUser = new UserWrapper();
-                    VideoWrapper getTheVideo = new VideoWrapper();
-                    getUsernameAndVideo(actionData.getUsername(), actionData.getTitle(),
-                            getTheUser, getTheVideo);
-                    if (getTheUser.getInteriorUser() == null
-                            || getTheVideo.getInteriorVideo() == null) {
-                        return;
+                    myUser.makeItViewed(myVideo,
+                            arrayResult, actionData.getActionId(), fileWriter);
+                } else if (actionData.getType().equals("rating")) {
+                    if (actionData.getSeasonNumber() == 0) {
+                        myUser.addRatingVideo(myVideo, actionData.getGrade(),
+                                arrayResult, fileWriter, actionData.getActionId());
                     } else {
-                        getTheUser.getInteriorUser().
-                                makeItViewed(getTheVideo.getInteriorVideo());
+                        myUser.addRatingVideo(myVideo, actionData.getGrade(),
+                                actionData.getActionId(), actionData.getSeasonNumber(),
+                                arrayResult, fileWriter);
                     }
                 }
-//                } else if(actionData.getType().equals("rating")) {
-//                    UserWrapper getTheUser = new UserWrapper();
-//                    VideoWrapper getTheVideo = new VideoWrapper();
-//                    getUsernameAndVideo(actionData.getUsername(), actionData.getTitle(),
-//                            getTheUser, getTheVideo);
-//                    if (getTheUser.getInteriorUser() == null
-//                            || getTheVideo.getInteriorVideo() == null) {
-//                        return;
-//                    } else {
-//                        if (actionData.getSeasonNumber() == 0) {
-//                            getTheUser.getInteriorUser().addRatingVideo(
-//                                    getTheVideo.getInteriorVideo(), actionData.getGrade());
-//                        } else {
-//                            getTheUser.getInteriorUser().addRatingVideo(
-//                                    getTheVideo.getInteriorVideo(),
-//                                    actionData.getGrade(), actionData.getSeasonNumber());
-//                        }
-//                    }
-//                }
             }
         }
     }

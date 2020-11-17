@@ -1,5 +1,8 @@
 package entertainment;
 
+import fileio.Writer;
+import org.json.simple.JSONArray;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +17,7 @@ public final class MySeason {
      */
     private List<Double> ratings;
 
-    private Double avgRating;
+    private double avgRating;
 
     public MySeason(final int currentSeason, final int duration) {
         this.currentSeason = currentSeason;
@@ -45,6 +48,7 @@ public final class MySeason {
             sum += rating;
         }
         this.avgRating = sum / this.ratings.size();
+
     }
 
     public List<Double> getRatings() {

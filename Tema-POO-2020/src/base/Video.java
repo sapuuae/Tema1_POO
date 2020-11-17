@@ -43,14 +43,17 @@ public abstract class Video {
         this.numberofAparitionsInFavorite = numberofAparitionsInFavorite;
     }
 
-    public int getNumberOfRatings() {
+    public final int getNumberOfRatings() {
         return numberOfRatings;
     }
 
-    public void setNumberOfRatings(int numberOfRatings) {
+    public final void setNumberOfRatings(final int numberOfRatings) {
         this.numberOfRatings = numberOfRatings;
     }
 
+    /**
+     * Makes the rating for Movie/Show.
+     */
     public void avgRating() {
 
     }

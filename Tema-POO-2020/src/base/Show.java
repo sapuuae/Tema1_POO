@@ -27,7 +27,7 @@ public class Show extends Video {
     @Override
     public final void avgRating() {
         double sum = 0;
-        for (MySeason theSeason : seasons) {
+        for (MySeason theSeason : this.seasons) {
             sum += theSeason.getAvgRating();
         }
         sum /= this.numberOfSeasons;
