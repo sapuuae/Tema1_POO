@@ -3,11 +3,12 @@ Starting audit...
 [ERROR] /home/andrei/Desktop/Teme/Teme Java/Tema 1/Tema-POO-2020/./src/entertainment/MySeason.java:4:8: Unused import - org.json.simple.JSONArray. [UnusedImports]
 [ERROR] /home/andrei/Desktop/Teme/Teme Java/Tema 1/Tema-POO-2020/./src/entertainment/MySeason.java:44:5: Missing a Javadoc comment. [MissingJavadocMethod]
 [ERROR] /home/andrei/Desktop/Teme/Teme Java/Tema 1/Tema-POO-2020/./src/base/Movie.java:8:5: Missing a Javadoc comment. [MissingJavadocMethod]
-[ERROR] /home/andrei/Desktop/Teme/Teme Java/Tema 1/Tema-POO-2020/./src/base/User.java:114:80: ')' is preceded with whitespace. [ParenPad]
-[ERROR] /home/andrei/Desktop/Teme/Teme Java/Tema 1/Tema-POO-2020/./src/base/User.java:147:80: ')' is preceded with whitespace. [ParenPad]
-[ERROR] /home/andrei/Desktop/Teme/Teme Java/Tema 1/Tema-POO-2020/./src/base/DataList.java:102:5: Missing a Javadoc comment. [MissingJavadocMethod]
-[ERROR] /home/andrei/Desktop/Teme/Teme Java/Tema 1/Tema-POO-2020/./src/base/DataList.java:111:5: Missing a Javadoc comment. [MissingJavadocMethod]
-[ERROR] /home/andrei/Desktop/Teme/Teme Java/Tema 1/Tema-POO-2020/./src/base/DataList.java:120:5: Missing a Javadoc comment. [MissingJavadocMethod]
-[ERROR] /home/andrei/Desktop/Teme/Teme Java/Tema 1/Tema-POO-2020/./src/base/DataList.java:133:5: Missing a Javadoc comment. [MissingJavadocMethod]
+[ERROR] /home/andrei/Desktop/Teme/Teme Java/Tema 1/Tema-POO-2020/./src/base/DataList.java:108:5: Missing a Javadoc comment. [MissingJavadocMethod]
+[ERROR] /home/andrei/Desktop/Teme/Teme Java/Tema 1/Tema-POO-2020/./src/base/DataList.java:118:68: Must have at least one statement. [EmptyBlock]
+[ERROR] /home/andrei/Desktop/Teme/Teme Java/Tema 1/Tema-POO-2020/./src/usage/Command.java:36:5: Missing a Javadoc comment. [MissingJavadocMethod]
+[ERROR] /home/andrei/Desktop/Teme/Teme Java/Tema 1/Tema-POO-2020/./src/usage/Command.java:45:5: Missing a Javadoc comment. [MissingJavadocMethod]
+[ERROR] /home/andrei/Desktop/Teme/Teme Java/Tema 1/Tema-POO-2020/./src/usage/Command.java:82:5: Missing a Javadoc comment. [MissingJavadocMethod]
+[ERROR] /home/andrei/Desktop/Teme/Teme Java/Tema 1/Tema-POO-2020/./src/usage/Command.java:91:5: Missing a Javadoc comment. [MissingJavadocMethod]
+[ERROR] /home/andrei/Desktop/Teme/Teme Java/Tema 1/Tema-POO-2020/./src/usage/Command.java:100:5: Missing a Javadoc comment. [MissingJavadocMethod]
 Audit done.
-Checkstyle ends with 10 errors.
+Checkstyle ends with 11 errors.

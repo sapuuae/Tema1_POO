@@ -10,22 +10,28 @@ import fileio.SerialInputData;
 import fileio.UserInputData;
 import fileio.Writer;
 import org.json.simple.JSONArray;
+import usage.Command;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class DataList {
     private final Input input;
-
+    /*
+    Users' list.
+     */
     private ArrayList<User> userArrayList;
-    /**
-     * creez o lista pentru filme
+    /*
+    Movies' list.
      */
     private ArrayList<Video> movieArrayList;
-    /**
-     * creez o lista pentru seriale
+    /*
+    Serials' list,
      */
     private ArrayList<Video> showArrayList;
+    /*
+    Actors' list.
+     */
     private ArrayList<Actor> actorArrayList;
 
     public DataList(final Input input) {
@@ -99,77 +105,18 @@ public class DataList {
         }
     }
 
-    public final User getUser(final ArrayList<User> list, final String username) {
-        for (User user : list) {
-            if (user.getUsername().equals(username)) {
-                return user;
-            }
-        }
-        return null;
-    }
-
-    public final Video getVideo(final ArrayList<Video> list, final String videoTitle) {
-        for (Video video : list) {
-            if (video.getTitle().equals(videoTitle)) {
-                return video;
-            }
-        }
-        return null;
-    }
-
-    public final void getUsernameAndVideo(final String username, final String videoTitle,
-                                          final UserWrapper userWrapper,
-                                          final VideoWrapper videoWrapper) {
-        User addedUser = getUser(this.userArrayList, username);
-        userWrapper.setInteriorUser(addedUser);
-        Video addedVideo = getVideo(this.movieArrayList, videoTitle);
-        if (addedVideo == null) {
-            addedVideo = getVideo(this.showArrayList, videoTitle);
-        }
-        videoWrapper.setInteriorVideo(addedVideo);
-    }
-
-
-    public final void checkCommands(final Input dataInput, final JSONArray arrayResult,
-                                    final Writer fileWriter) throws IOException {
+    public final void checkActions(final Input dataInput, final JSONArray arrayResult,
+                                   final Writer fileWriter) throws IOException {
         for (int i = 0; i < dataInput.getCommands().size(); i++) {
             ActionInputData actionData = dataInput.getCommands().get(i);
             /*
-                Verify the commands.
+                Verify the actions.
              */
             if (actionData.getActionType().equals("command")) {
-                /*
-                 * Run the favorite command.
-                 */
-                UserWrapper getTheUser = new UserWrapper();
-                VideoWrapper getTheVideo = new VideoWrapper();
-                getUsernameAndVideo(actionData.getUsername(), actionData.getTitle(),
-                        getTheUser, getTheVideo);
-                if (getTheUser.getInteriorUser() == null
-                        || getTheVideo.getInteriorVideo() == null) {
-                    return;
-                }
-                User myUser = getTheUser.getInteriorUser();
-                Video myVideo = getTheVideo.getInteriorVideo();
-                /*
-                    Check favorite command.
-                 */
-                if (actionData.getType().equals("favorite")) {
-                    myUser.addFavorite(myVideo,
-                            arrayResult, actionData.getActionId(), fileWriter);
-                } else if (actionData.getType().equals("view")) {
-                    myUser.makeItViewed(myVideo,
-                            arrayResult, actionData.getActionId(), fileWriter);
-                } else if (actionData.getType().equals("rating")) {
-                    if (actionData.getSeasonNumber() == 0) {
-                        myUser.addRatingVideo(myVideo, actionData.getGrade(),
-                                arrayResult, fileWriter, actionData.getActionId());
-                    } else {
-                        myUser.addRatingVideo(myVideo, actionData.getGrade(),
-                                actionData.getActionId(), actionData.getSeasonNumber(),
-                                arrayResult, fileWriter);
-                    }
-                }
+                Command myCommand = new Command(userArrayList, movieArrayList, showArrayList);
+                myCommand.makeTheCommand(actionData, arrayResult, fileWriter);
+            } else if (actionData.getActionType().equals("query")) {
+
             }
         }
     }

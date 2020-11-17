@@ -73,7 +73,7 @@ public final class Main {
 
         //TODO add here the entry point to your implementation
         DataList data = new DataList(input);
-        data.checkCommands(input, arrayResult, fileWriter);
+        data.checkActions(input, arrayResult, fileWriter);
         fileWriter.closeJSON(arrayResult);
     }
 }

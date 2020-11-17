@@ -14,6 +14,7 @@ public class User {
     private final String username;
     private final Map<String, Integer> history;
     private final HashMap<String, Boolean> checkSettedRating;
+    private final HashMap<Integer, Boolean> settedRatingForSeason;
 
     public User(final String userSubType, final ArrayList<String> favoriteMovies,
                 final String username, final Map<String, Integer> history) {
@@ -22,6 +23,7 @@ public class User {
         this.username = username;
         this.history = history;
         this.checkSettedRating = new HashMap<>();
+        this.settedRatingForSeason = new HashMap<>();
     }
 
 
@@ -62,17 +64,20 @@ public class User {
         if (isInMap) {
             for (String forChecking : favoriteMovies) {
                 if (video.getTitle().equals(forChecking)) {
+                    //noinspection unchecked
                     arrayResult.add(fileWriter.writeFile(actionId, "?",
                             "error -> " + video.getTitle() + " is already in favourite list"));
                     return;
                 }
             }
             favoriteMovies.add(video.getTitle());
+            //noinspection unchecked
             arrayResult.add(fileWriter.writeFile(actionId, "?",
                     "success -> " + video.getTitle() + " was added as favourite"));
             video.setNumberofAparitionsInFavorite(
                     video.getNumberofAparitionsInFavorite() + 1);
         } else {
+            //noinspection unchecked
             arrayResult.add(fileWriter.writeFile(actionId, "?",
                     "error -> " + video.getTitle() + " is not seen"));
         }
@@ -90,6 +95,7 @@ public class User {
         } else {
             history.put(video.getTitle(), 1);
         }
+        //noinspection unchecked
         arrayResult.add(fileWriter.writeFile(actionId, "?",
                 "success -> " + video.getTitle() + " was viewed with total views "
                         + "of " + history.get(video.getTitle())));
@@ -105,13 +111,15 @@ public class User {
                                      final JSONArray arrayResult, final Writer fileWriter,
                                      final int actionId) throws IOException {
         if (!this.history.containsKey(video.getTitle())) {
+            //noinspection unchecked
             arrayResult.add(fileWriter.writeFile(actionId, "?",
                     "error -> " + video.getTitle() + " is not seen"));
             return;
         }
         if (checkSettedRating.containsKey(video.getTitle())) {
+            //noinspection unchecked
             arrayResult.add(fileWriter.writeFile(actionId, "?",
-                    "error -> " + video.getTitle() + " has been already rated" ));
+                    "error -> " + video.getTitle() + " has been already rated"));
             return;
         }
         if (this.history.containsKey(video.getTitle())
@@ -119,6 +127,7 @@ public class User {
             Movie theMovie = (Movie) video;
             theMovie.avgRating(grade);
             checkSettedRating.put(video.getTitle(), true);
+            //noinspection unchecked
             arrayResult.add(fileWriter.writeFile(actionId, "?",
                     "success -> " + video.getTitle() + " was rated with " + grade
             + " by " + this.username));
@@ -138,22 +147,25 @@ public class User {
                                      final Writer fileWriter) throws IOException {
         boolean isInMap = this.history.containsKey((video.getTitle()));
         if (!isInMap) {
+            //noinspection unchecked
             arrayResult.add(fileWriter.writeFile(actionId, "?",
                     "error -> " + video.getTitle() + " is not seen"));
             return;
         }
-        if (checkSettedRating.containsKey(video.getTitle())) {
+        if (settedRatingForSeason.containsKey(seasonNumber)) {
+            //noinspection unchecked
             arrayResult.add(fileWriter.writeFile(actionId, "?",
-                    "error -> " + video.getTitle() + " has been already rated" ));
+                    "error -> " + video.getTitle() + " has been already rated"));
             return;
         }
         Show internalShow = (Show) video;
         internalShow.getSeasons().get(seasonNumber - 1).setAvgRating(grade);
         internalShow.avgRating();
+        //noinspection unchecked
         arrayResult.add(fileWriter.writeFile(actionId, "?",
                 "success -> " + video.getTitle() + " was rated with " + grade
                         + " by " + this.username));
-        checkSettedRating.put(video.getTitle(), true);
+        settedRatingForSeason.put(seasonNumber, true);
     }
 
     @Override
