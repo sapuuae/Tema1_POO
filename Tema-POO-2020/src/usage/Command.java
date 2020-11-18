@@ -1,6 +1,9 @@
 package usage;
 
-import base.*;
+import base.User;
+import base.UserWrapper;
+import base.Video;
+import base.VideoWrapper;
 import fileio.ActionInputData;
 import fileio.Writer;
 import org.json.simple.JSONArray;
@@ -94,6 +97,13 @@ public class Command {
         return null;
     }
 
+    /**
+     * Return the User and Video objects.
+     * @param username username of the User object
+     * @param videoTitle title of the Video object
+     * @param userWrapper a wrapper to move the User
+     * @param videoWrapper a wrapper to move the Video
+     */
     public final void getUsernameAndVideo(final String username, final String videoTitle,
                                           final UserWrapper userWrapper,
                                           final VideoWrapper videoWrapper) {

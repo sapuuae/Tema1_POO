@@ -1,14 +1,14 @@
 package usage;
 
-import base.*;
-
+import base.Actor;
+import base.ActorsAndRating;
+import base.Video;
 import fileio.ActionInputData;
 import fileio.Writer;
 import org.json.simple.JSONArray;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 
 public final class QueryAverage {
     private final ArrayList<Video> movieArrayList;
@@ -23,7 +23,7 @@ public final class QueryAverage {
         this.actorArrayList = actorArrayList;
     }
 
-    public final Video getVideo(final ArrayList<Video> list, final String videoTitle) {
+    public Video getVideo(final ArrayList<Video> list, final String videoTitle) {
         for (Video video : list) {
             if (video.getTitle().equals(videoTitle)) {
                 return video;
@@ -32,8 +32,9 @@ public final class QueryAverage {
         return null;
     }
 
-    public final void makeTheAverage(int numberOfActors, JSONArray arrayResult,
-                                     Writer fileWriter, ActionInputData action) throws IOException {
+    public void makeTheAverage(final int numberOfActors, final JSONArray arrayResult,
+                               final Writer fileWriter, final ActionInputData action)
+            throws IOException {
         ArrayList<ActorsAndRating> theActorsWithRatings = new ArrayList<>();
         for (Actor myActor : this.actorArrayList) {
             double finalRatingForActor = 0;
@@ -49,12 +50,10 @@ public final class QueryAverage {
                     theVideo = getVideo(showArrayList, myFilm);
                 }
                 if (theVideo != null) {
-//                    System.out.println("TITLU: " + theVideo.getTitle() + " RATING: " + theVideo.getNumberOfRatings());
                     if (theVideo.getNumberOfRatings() != 0) {
                         playsInVideos++;
                         finalRatingForActor += theVideo.getRating();
                     }
-//                    System.out.println("PLAYS: " + playsInVideos);
                 }
             }
             if (playsInVideos != 0) {
@@ -64,20 +63,40 @@ public final class QueryAverage {
                 theActorsWithRatings.add(myActorWithRating);
             }
         }
-        Collections.sort(theActorsWithRatings);
+        if (action.getSortType().equals("asc")) {
+            theActorsWithRatings.sort((o1, o2) -> {
+                int c;
+                c = o1.getRatingOfActor().compareTo(o2.getRatingOfActor());
+                if (c == 0) {
+                    c = o1.getActorName().compareTo(o2.getActorName());
+                }
+                return c;
+            });
+        } else {
+            /*
+            Sort descdendent.
+             */
+            theActorsWithRatings.sort((o1, o2) -> {
+                int c;
+                c = o2.getRatingOfActor().compareTo(o1.getRatingOfActor());
+                if (c == 0) {
+                    c = o2.getActorName().compareTo(o1.getActorName());
+                }
+                return c;
+            });
+        }
+
         ArrayList<String> finalList = new ArrayList<>();
-        System.out.print("NUMAR ACTORI IN LISTA " + theActorsWithRatings.size() + " ");
-        System.out.println("NUMAR ACTORI DE LA COMANDA: " + numberOfActors);
         if (numberOfActors > theActorsWithRatings.size()) {
-            for (int i = 0; i < theActorsWithRatings.size(); i++) {
-                finalList.add(theActorsWithRatings.get(i).getActorName());
+//            theActorsWithRatings.forEach(list -> finalList.add(list.getActorName()));
+            for (ActorsAndRating theActorsWithRating : theActorsWithRatings) {
+                finalList.add(theActorsWithRating.getActorName());
             }
         } else {
         for (int i = 0; i < numberOfActors; i++) {
             finalList.add(theActorsWithRatings.get(i).getActorName());
         }
         }
-      System.out.println(finalList);
         arrayResult.add(fileWriter.writeFile(action.getActionId(), "?",
                 "Query result: " + finalList + ""));
     }

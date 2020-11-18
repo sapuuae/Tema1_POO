@@ -12,6 +12,7 @@ import fileio.Writer;
 import org.json.simple.JSONArray;
 import usage.Command;
 import usage.QueryAverage;
+import usage.QueryAwards;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -123,6 +124,10 @@ public class DataList {
                                 showArrayList, actorArrayList);
                         theAverageQuery.makeTheAverage(actionData.getNumber(), arrayResult,
                                 fileWriter, actionData);
+                    } else if (actionData.getCriteria().equals("awards")) {
+                        QueryAwards theAwardsQuery = new QueryAwards(actorArrayList,
+                                actionData.getFilters().get(actionData.getFilters().size() - 1));
+                        theAwardsQuery.makeTheSort(actionData, arrayResult, fileWriter);
                     }
                 }
             }

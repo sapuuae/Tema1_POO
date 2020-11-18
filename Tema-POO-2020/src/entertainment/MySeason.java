@@ -1,10 +1,6 @@
 package entertainment;
 
-import fileio.Writer;
-import org.json.simple.JSONArray;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public final class MySeason {

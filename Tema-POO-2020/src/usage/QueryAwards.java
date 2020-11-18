@@ -1,0 +1,85 @@
+package usage;
+
+import actor.ActorsAndAwards;
+import actor.ActorsAwards;
+import base.Actor;
+import fileio.ActionInputData;
+import fileio.Writer;
+import org.json.simple.JSONArray;
+
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+public class QueryAwards {
+    private final ArrayList<Actor> actorArrayList;
+    private final List<String> awardsForChecking;
+
+    public QueryAwards(final ArrayList<Actor> actorArrayList,
+                       final List<String> awardsForChecking) {
+        this.actorArrayList = actorArrayList;
+        this.awardsForChecking = awardsForChecking;
+    }
+
+    public final int calculateAward(final Map<ActorsAwards, Integer> theAwards) {
+        final int[] sum = {0};
+        theAwards.forEach((ActorsAwards x, Integer y) -> sum[0] += y);
+        return sum[0];
+    }
+
+    public final void makeTheSort(final ActionInputData action, final JSONArray arrayResult,
+                                  final Writer fileWriter) throws IOException {
+        ArrayList<ActorsAndAwards> lastActors = new ArrayList<>();
+
+        for (Actor myActor : actorArrayList) {
+            final int[] ok = {0};
+            Map<ActorsAwards, Integer> theAwards = myActor.getAwards();
+            for (String s : awardsForChecking) {
+                theAwards.forEach((ActorsAwards x, Integer y) -> {
+                    if (s.equalsIgnoreCase(String.valueOf(x))) {
+                        ok[0]++;
+                    }
+                });
+            }
+            if (ok[0] == awardsForChecking.size()) {
+                int sum = calculateAward(theAwards);
+                ActorsAndAwards toAdd = new ActorsAndAwards(myActor.getName(), sum);
+                lastActors.add(toAdd);
+            }
+        }
+//        System.out.println("BEFORE : " + lastActors);
+        if (action.getSortType().equals("asc")) {
+            lastActors.sort((o1, o2) -> {
+                int c;
+                c = o1.getNumberOfAwards().compareTo(o2.getNumberOfAwards());
+                if (c == 0) {
+                    c = o1.getName().compareTo(o2.getName());
+                }
+                return c;
+            });
+        } else {
+            lastActors.sort((o1, o2) -> {
+                int c;
+                c = o2.getNumberOfAwards().compareTo(o1.getNumberOfAwards());
+                if (c == 0) {
+                    c = o2.getName().compareTo(o1.getName());
+                }
+                return c;
+            });
+        }
+        ArrayList<String> finalList = new ArrayList<>();
+        if (lastActors.size() < action.getNumber()) {
+            for (ActorsAndAwards lastActor : lastActors) {
+                finalList.add(lastActor.getName());
+            }
+        } else {
+            for (int i = 0; i < action.getNumber(); i++) {
+                finalList.add(lastActors.get(i).getName());
+            }
+        }
+        arrayResult.add(fileWriter.writeFile(action.getActionId(), "?",
+                "Query result: " + finalList + ""));
+    }
+}
