@@ -11,6 +11,7 @@ import fileio.UserInputData;
 import fileio.Writer;
 import org.json.simple.JSONArray;
 import usage.Command;
+import usage.QueryAverage;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -116,7 +117,14 @@ public class DataList {
                 Command myCommand = new Command(userArrayList, movieArrayList, showArrayList);
                 myCommand.makeTheCommand(actionData, arrayResult, fileWriter);
             } else if (actionData.getActionType().equals("query")) {
-
+                if (actionData.getObjectType().equals("actors")) {
+                    if (actionData.getCriteria().equals("average")) {
+                        QueryAverage theAverageQuery = new QueryAverage(movieArrayList,
+                                showArrayList, actorArrayList);
+                        theAverageQuery.makeTheAverage(actionData.getNumber(), arrayResult,
+                                fileWriter, actionData);
+                    }
+                }
             }
         }
     }

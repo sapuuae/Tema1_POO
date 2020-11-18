@@ -109,7 +109,8 @@ public class User {
      */
     public final void addRatingVideo(final Video video, final Double grade,
                                      final JSONArray arrayResult, final Writer fileWriter,
-                                     final int actionId) throws IOException {
+                                     final int actionId)
+            throws IOException {
         if (!this.history.containsKey(video.getTitle())) {
             //noinspection unchecked
             arrayResult.add(fileWriter.writeFile(actionId, "?",
@@ -144,7 +145,8 @@ public class User {
 
     public final void addRatingVideo(final Video video, final Double grade, final int actionId,
                                      final int seasonNumber, final JSONArray arrayResult,
-                                     final Writer fileWriter) throws IOException {
+                                     final Writer fileWriter)
+            throws IOException {
         boolean isInMap = this.history.containsKey((video.getTitle()));
         if (!isInMap) {
             //noinspection unchecked
@@ -152,20 +154,23 @@ public class User {
                     "error -> " + video.getTitle() + " is not seen"));
             return;
         }
-        if (settedRatingForSeason.containsKey(seasonNumber)) {
+        String getTheSeasonAndNumber = video.getTitle() + seasonNumber;
+        if (checkSettedRating.containsKey(getTheSeasonAndNumber)) {
             //noinspection unchecked
             arrayResult.add(fileWriter.writeFile(actionId, "?",
                     "error -> " + video.getTitle() + " has been already rated"));
             return;
         }
+
         Show internalShow = (Show) video;
         internalShow.getSeasons().get(seasonNumber - 1).setAvgRating(grade);
         internalShow.avgRating();
+        internalShow.setNumberOfRatings(internalShow.getNumberOfRatings() + 1);
+        checkSettedRating.put(getTheSeasonAndNumber, true);
         //noinspection unchecked
         arrayResult.add(fileWriter.writeFile(actionId, "?",
                 "success -> " + video.getTitle() + " was rated with " + grade
                         + " by " + this.username));
-        settedRatingForSeason.put(seasonNumber, true);
     }
 
     @Override

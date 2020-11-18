@@ -18,6 +18,12 @@ public abstract class Video {
         this.cast = cast;
         this.genres = genres;
     }
+    /**
+     * Makes the rating for Movie/Show.
+     */
+    public void avgRating() {
+
+    }
 
     public final String getTitle() {
         return title;
@@ -49,13 +55,6 @@ public abstract class Video {
 
     public final void setNumberOfRatings(final int numberOfRatings) {
         this.numberOfRatings = numberOfRatings;
-    }
-
-    /**
-     * Makes the rating for Movie/Show.
-     */
-    public void avgRating() {
-
     }
 
     public final void setRating(final Double rating) {

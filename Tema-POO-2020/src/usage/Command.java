@@ -1,9 +1,6 @@
 package usage;
 
-import base.User;
-import base.UserWrapper;
-import base.Video;
-import base.VideoWrapper;
+import base.*;
 import fileio.ActionInputData;
 import fileio.Writer;
 import org.json.simple.JSONArray;
@@ -43,7 +40,7 @@ public class Command {
     }
 
     public final void makeTheCommand(final ActionInputData actionData,
-                                     final JSONArray arrayResult,  final Writer fileWriter)
+                                     final JSONArray arrayResult, final Writer fileWriter)
             throws IOException {
         /*
                 Get the User and Video for the command, using title and username.

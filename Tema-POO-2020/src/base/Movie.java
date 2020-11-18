@@ -5,13 +5,6 @@ import java.util.ArrayList;
 public class Movie extends Video {
     private final int duration;
 
-    public final void avgRating(final Double rating) {
-        double newRating = this.getRating() * this.getNumberOfRatings() + rating;
-        this.setNumberOfRatings(this.getNumberOfRatings() + 1);
-        newRating /= this.getNumberOfRatings();
-        this.setRating(newRating);
-    }
-
     public Movie(final String title, final int year,
                  final ArrayList<String> cast, final ArrayList<String> genres,
                  final int duration) {
@@ -19,18 +12,14 @@ public class Movie extends Video {
         this.duration = duration;
     }
 
-    public final int getDuration() {
-        return duration;
+    public final void avgRating(final Double rating) {
+        double newRating = this.getRating() * this.getNumberOfRatings() + rating;
+        this.setNumberOfRatings(this.getNumberOfRatings() + 1);
+        newRating /= this.getNumberOfRatings();
+        this.setRating(newRating);
     }
 
-    @Override
-    public final String toString() {
-        return "Movies{"
-                + "duration=" + duration
-                + ", title='" + getTitle() + '\''
-                + ", year=" + getYear()
-                + ", cast=" + getCast()
-                + ", genres=" + getGenres()
-                + '}';
+    public final int getDuration() {
+        return duration;
     }
 }

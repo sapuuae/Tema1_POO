@@ -4,6 +4,7 @@ import fileio.Writer;
 import org.json.simple.JSONArray;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public final class MySeason {
@@ -18,6 +19,7 @@ public final class MySeason {
     private List<Double> ratings;
 
     private double avgRating;
+
 
     public MySeason(final int currentSeason, final int duration) {
         this.currentSeason = currentSeason;
