@@ -10,7 +10,12 @@ import fileio.SerialInputData;
 import fileio.UserInputData;
 import fileio.Writer;
 import org.json.simple.JSONArray;
-import usage.*;
+import usage.Command;
+import usage.QueryAverage;
+import usage.QueryAwards;
+import usage.QueryFilters;
+import usage.QueryVideosFavorite;
+import usage.QueryVideosRating;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -51,17 +56,7 @@ public class DataList {
         movieArrayList = new ArrayList<>();
         showArrayList = new ArrayList<>();
         actorArrayList = new ArrayList<>();
-        /*
-        Complete data from users list
-         */
-        for (int i = 0; i < input.getUsers().size(); i++) {
-            UserInputData userData = input.getUsers().get(i);
-            User newUser = new User(userData.getSubscriptionType(),
-                    userData.getFavoriteMovies(), userData.getUsername(),
-                    userData.getHistory());
 
-            userArrayList.add(newUser);
-        }
 
         /*
          * Complete data from movies list.
@@ -94,6 +89,38 @@ public class DataList {
                     newSeasonList);
 
             showArrayList.add(newShow);
+        }
+
+        /*
+        Complete data from users list
+         */
+        for (int i = 0; i < input.getUsers().size(); i++) {
+            ArrayList<String> theFavorites = input.getUsers().get(i).getFavoriteMovies();
+            for (String s : theFavorites) {
+                boolean ok = true;
+                for (Video theMovie : movieArrayList) {
+                    if (theMovie.getTitle().equals(s)) {
+                        theMovie.setNumberofAparitionsInFavorite(
+                                theMovie.getNumberofAparitionsInFavorite() + 1);
+                        ok = false;
+                        break;
+                    }
+                }
+                if (ok) {
+                    for (Video theShow : showArrayList) {
+                        if (theShow.getTitle().equals(s)) {
+                            theShow.setNumberofAparitionsInFavorite(
+                                    theShow.getNumberofAparitionsInFavorite() + 1);
+                        }
+                    }
+                }
+            }
+            UserInputData userData = input.getUsers().get(i);
+            User newUser = new User(userData.getSubscriptionType(),
+                    userData.getFavoriteMovies(), userData.getUsername(),
+                    userData.getHistory());
+
+            userArrayList.add(newUser);
         }
 
         for (int i = 0; i < input.getActors().size(); i++) {
@@ -137,6 +164,10 @@ public class DataList {
                         QueryVideosRating theMoviesSorted = new QueryVideosRating(movieArrayList,
                                 actionData);
                         theMoviesSorted.sortTheMovies(arrayResult, fileWriter);
+                    } else if (actionData.getCriteria().equals("favorite")) {
+                        QueryVideosFavorite theFavorites = new QueryVideosFavorite(
+                                movieArrayList, actionData);
+                        theFavorites.showTheFavorites(arrayResult, fileWriter);
                     }
                 } else if (actionData.getObjectType().equals("shows")) {
                     if (actionData.getCriteria().equals("ratings")) {

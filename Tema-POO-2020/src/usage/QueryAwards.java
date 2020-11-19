@@ -23,13 +23,13 @@ public final class QueryAwards {
         this.awardsForChecking = awardsForChecking;
     }
 
-    public final int calculateAward(final Map<ActorsAwards, Integer> theAwards) {
+    public int calculateAward(final Map<ActorsAwards, Integer> theAwards) {
         final int[] sum = {0};
         theAwards.forEach((ActorsAwards x, Integer y) -> sum[0] += y);
         return sum[0];
     }
 
-    public final void makeTheSort(final ActionInputData action, final JSONArray arrayResult,
+    public void makeTheSort(final ActionInputData action, final JSONArray arrayResult,
                                   final Writer fileWriter) throws IOException {
         ArrayList<ActorsAndAwards> lastActors = new ArrayList<>();
 

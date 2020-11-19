@@ -87,7 +87,7 @@ public final class QueryAverage {
         }
 
         ArrayList<String> finalList = new ArrayList<>();
-        if ( theActorsWithRatings.size() < numberOfActors) {
+        if (theActorsWithRatings.size() < numberOfActors) {
 //            theActorsWithRatings.forEach(list -> finalList.add(list.getActorName()));
             for (ActorsAndRating theActorsWithRating : theActorsWithRatings) {
                 finalList.add(theActorsWithRating.getActorName());

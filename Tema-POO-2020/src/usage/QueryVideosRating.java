@@ -8,19 +8,20 @@ import org.json.simple.JSONArray;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public final class QueryVideosRating {
     private final ArrayList<Video> movieArrayList;
     private final ActionInputData action;
 
-    public QueryVideosRating(ArrayList<Video> movieArrayList, ActionInputData action) {
+    public QueryVideosRating(final ArrayList<Video> movieArrayList,
+                             final ActionInputData action) {
         this.movieArrayList = movieArrayList;
         this.action = action;
     }
 
-    public final void sortTheMovies(JSONArray arrayResult, Writer fileWriter) throws IOException {
+    public void sortTheMovies(final JSONArray arrayResult,
+                              final Writer fileWriter) throws IOException {
         ArrayList<VideosForRating> theMovies = new ArrayList<>();
         int yearIndex = 0;
         int genresIndex = 1;
@@ -48,7 +49,8 @@ public final class QueryVideosRating {
                 ok = false;
             }
             if (ok) {
-                VideosForRating toAdd = new VideosForRating(theVideo.getTitle(), theVideo.getRating());
+                VideosForRating toAdd = new VideosForRating(theVideo.getTitle(),
+                        theVideo.getRating());
                 theMovies.add(toAdd);
             }
         }

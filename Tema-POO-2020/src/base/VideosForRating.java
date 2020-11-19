@@ -4,7 +4,7 @@ public final class VideosForRating {
     private final String videoTitle;
     private final Double rating;
 
-    public VideosForRating(String videoTitle, Double rating) {
+    public VideosForRating(final String videoTitle, final Double rating) {
         this.videoTitle = videoTitle;
         this.rating = rating;
     }

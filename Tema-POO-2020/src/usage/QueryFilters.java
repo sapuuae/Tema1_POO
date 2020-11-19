@@ -6,18 +6,22 @@ import fileio.Writer;
 import org.json.simple.JSONArray;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
 
 public class QueryFilters {
     private final ArrayList<Actor> actorArrayList;
     private final List<String> filtersToCheck;
 
-    public QueryFilters(ArrayList<Actor> actorArrayList, List<String> filtersToCheck) {
+    public QueryFilters(final ArrayList<Actor> actorArrayList,
+                        final List<String> filtersToCheck) {
         this.actorArrayList = actorArrayList;
         this.filtersToCheck = filtersToCheck;
     }
 
-    public final void checkTheFilters(ActionInputData action, final JSONArray arrayResult,
+    public final void checkTheFilters(final ActionInputData action, final JSONArray arrayResult,
                                       Writer fileWriter) throws IOException {
         ArrayList<String> namesOfActors = new ArrayList<>();
         for (Actor myActor : actorArrayList) {
