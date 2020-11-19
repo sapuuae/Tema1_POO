@@ -134,8 +134,15 @@ public class DataList {
                     }
                 } else if (actionData.getObjectType().equals("movies")) {
                     if (actionData.getCriteria().equals("ratings")) {
-                        QueryMoviesRating theRatedSort = new QueryMoviesRating(movieArrayList, actionData);
-                        theRatedSort.sortTheVideos(arrayResult, fileWriter);
+                        QueryVideosRating theMoviesSorted = new QueryVideosRating(movieArrayList,
+                                actionData);
+                        theMoviesSorted.sortTheMovies(arrayResult, fileWriter);
+                    }
+                } else if (actionData.getObjectType().equals("shows")) {
+                    if (actionData.getCriteria().equals("ratings")) {
+                        QueryVideosRating theShowsSorted = new QueryVideosRating(showArrayList,
+                                actionData);
+                        theShowsSorted.sortTheMovies(arrayResult, fileWriter);
                     }
                 }
             }

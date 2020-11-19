@@ -11,37 +11,36 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public final class QueryMoviesRating {
+public final class QueryVideosRating {
     private final ArrayList<Video> movieArrayList;
     private final ActionInputData action;
 
-    public QueryMoviesRating(ArrayList<Video> movieArrayList, ActionInputData action) {
+    public QueryVideosRating(ArrayList<Video> movieArrayList, ActionInputData action) {
         this.movieArrayList = movieArrayList;
         this.action = action;
     }
 
-    public final void sortTheVideos(JSONArray arrayResult, Writer fileWriter) throws IOException {
+    public final void sortTheMovies(JSONArray arrayResult, Writer fileWriter) throws IOException {
         ArrayList<VideosForRating> theMovies = new ArrayList<>();
         int yearIndex = 0;
         int genresIndex = 1;
         for (Video theVideo : movieArrayList) {
             boolean ok = true;
             List<String> yearString = this.action.getFilters().get(yearIndex);
-            int year = Integer.parseInt(yearString.get(0));
+            int year = 0;
+            if (yearString.get(0) != null) {
+                year = Integer.parseInt(yearString.get(0));
+            }
             if (theVideo.getNumberOfRatings() != 0) {
-                if (theVideo.getYear() != year) {
+                if (theVideo.getYear() != year && year != 0) {
                     ok = false;
                 } else {
                     List<String> genresString = this.action.getFilters().get(genresIndex);
-                    if (genresString.size() != theVideo.getGenres().size()) {
-                        ok = false;
-                    } else {
-                        ArrayList<String> copyVideoGenres = new ArrayList<>(theVideo.getGenres());
-                        ArrayList<String> copyCommandGenres = new ArrayList<>(genresString);
-                        Collections.sort(copyVideoGenres);
-                        Collections.sort(copyCommandGenres);
-                        if (!copyVideoGenres.equals(copyCommandGenres)) {
+                    ArrayList<String> videoGenres = theVideo.getGenres();
+                    for (String s: genresString) {
+                        if (!videoGenres.contains(s)) {
                             ok = false;
+                            break;
                         }
                     }
                 }
