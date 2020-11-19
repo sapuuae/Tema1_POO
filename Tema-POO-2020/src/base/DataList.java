@@ -132,6 +132,11 @@ public class DataList {
                                 actionData.getFilters().get(listWithFiltersCnt));
                         theFilterQuery.checkTheFilters(actionData, arrayResult, fileWriter);
                     }
+                } else if (actionData.getObjectType().equals("movies")) {
+                    if (actionData.getCriteria().equals("ratings")) {
+                        QueryMoviesRating theRatedSort = new QueryMoviesRating(movieArrayList, actionData);
+                        theRatedSort.sortTheVideos(arrayResult, fileWriter);
+                    }
                 }
             }
         }

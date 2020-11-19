@@ -30,7 +30,6 @@ public class QueryFilters {
             }
             for (String s : filtersToCheck) {
                 if (!theWords.containsKey(s.toUpperCase())) {
-                    System.out.println(myActor.getName() + " " + s);
                     ok = false;
                     break;
                 }
@@ -54,6 +53,7 @@ public class QueryFilters {
                 finalList.add(namesOfActors.get(i));
             }
         }
+
         arrayResult.add(fileWriter.writeFile(action.getActionId(), "?",
                 "Query result: " + finalList + ""));
     }

@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class QueryAwards {
+public final class QueryAwards {
     private final ArrayList<Actor> actorArrayList;
     private final List<String> awardsForChecking;
 
@@ -49,7 +49,6 @@ public class QueryAwards {
                 lastActors.add(toAdd);
             }
         }
-//        System.out.println("BEFORE : " + lastActors);
         if (action.getSortType().equals("asc")) {
             lastActors.sort((o1, o2) -> {
                 int c;
