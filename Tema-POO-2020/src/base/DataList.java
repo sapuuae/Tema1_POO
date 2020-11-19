@@ -10,9 +10,7 @@ import fileio.SerialInputData;
 import fileio.UserInputData;
 import fileio.Writer;
 import org.json.simple.JSONArray;
-import usage.Command;
-import usage.QueryAverage;
-import usage.QueryAwards;
+import usage.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -128,6 +126,11 @@ public class DataList {
                         QueryAwards theAwardsQuery = new QueryAwards(actorArrayList,
                                 actionData.getFilters().get(actionData.getFilters().size() - 1));
                         theAwardsQuery.makeTheSort(actionData, arrayResult, fileWriter);
+                    } else if (actionData.getCriteria().equals("filter_description")) {
+                        int listWithFiltersCnt = 2;
+                        QueryFilters theFilterQuery = new QueryFilters(actorArrayList,
+                                actionData.getFilters().get(listWithFiltersCnt));
+                        theFilterQuery.checkTheFilters(actionData, arrayResult, fileWriter);
                     }
                 }
             }
