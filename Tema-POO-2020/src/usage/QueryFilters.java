@@ -28,7 +28,7 @@ public class QueryFilters {
             String theCareer = myActor.getCareerDescription();
             HashMap<String, Boolean> theWords = new HashMap<>();
             boolean ok = true;
-            String[] splitted = theCareer.split("\\s+|,|\\.");
+            String[] splitted = theCareer.split("\\s+|,|\\.|\\-");
             for (String s : splitted) {
                 theWords.put(s.toUpperCase(), true);
             }

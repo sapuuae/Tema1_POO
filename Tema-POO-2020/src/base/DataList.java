@@ -244,6 +244,10 @@ public class DataList {
                     RecommBestUnseen theUnseen = new RecommBestUnseen(movieArrayList,
                             showArrayList, actionData, userArrayList);
                     theUnseen.getTheBestUnseen(actionData.getUsername(), arrayResult, fileWriter);
+                } else if (actionData.getType().equals("search")) {
+                    RecommSearch theRecomm = new RecommSearch(userArrayList, actionData,
+                            totalVideoArray);
+                    theRecomm.searchTheVideos(arrayResult, fileWriter);
                 }
             }
         }

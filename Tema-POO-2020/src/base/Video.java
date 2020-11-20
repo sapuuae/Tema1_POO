@@ -7,7 +7,7 @@ public abstract class Video {
     private final int year;
     private final ArrayList<String> cast;
     private final ArrayList<String> genres;
-    private double rating;
+    private Double rating = 0.0;
     private Integer numberOfApparitionsInFavorite = 0;
     private Integer numberOfRatings = 0;
     private Integer totalNumberOfViewed = 0;
