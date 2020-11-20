@@ -28,7 +28,7 @@ public class QueryFilters {
             String theCareer = myActor.getCareerDescription();
             HashMap<String, Boolean> theWords = new HashMap<>();
             boolean ok = true;
-            String[] splitted = theCareer.split("\\\\s+|\\\\,|\\\\.");
+            String[] splitted = theCareer.split("\\s+|,|\\.");
             for (String s : splitted) {
                 theWords.put(s.toUpperCase(), true);
             }
@@ -50,12 +50,8 @@ public class QueryFilters {
             Collections.reverse(namesOfActors);
         }
         ArrayList<String> finalList = new ArrayList<>();
-        if (namesOfActors.size() < action.getNumber()) {
-            finalList.addAll(namesOfActors);
-        } else {
-            for (int i = 0; i < action.getNumber(); i++) {
-                finalList.add(namesOfActors.get(i));
-            }
+        for (int i = 0; i < namesOfActors.size(); i++) {
+            finalList.add(namesOfActors.get(i));
         }
 
         arrayResult.add(fileWriter.writeFile(action.getActionId(), "?",

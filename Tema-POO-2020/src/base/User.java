@@ -14,6 +14,7 @@ public class User {
     private final String username;
     private final Map<String, Integer> history;
     private final HashMap<String, Boolean> checkSettedRating;
+    private Integer givenRatings = 0;
 
     public User(final String userSubType, final ArrayList<String> favoriteMovies,
                 final String username, final Map<String, Integer> history) {
@@ -126,6 +127,7 @@ public class User {
             Movie theMovie = (Movie) video;
             theMovie.avgRating(grade);
             checkSettedRating.put(video.getTitle(), true);
+            this.setGivenRatings(this.getGivenRatings() + 1);
             //noinspection unchecked
             arrayResult.add(fileWriter.writeFile(actionId, "?",
                     "success -> " + video.getTitle() + " was rated with " + grade
@@ -165,20 +167,18 @@ public class User {
         internalShow.avgRating();
         internalShow.setNumberOfRatings(internalShow.getNumberOfRatings() + 1);
         checkSettedRating.put(getTheSeasonAndNumber, true);
+        this.setGivenRatings(this.getGivenRatings() + 1);
         //noinspection unchecked
         arrayResult.add(fileWriter.writeFile(actionId, "?",
                 "success -> " + video.getTitle() + " was rated with " + grade
                         + " by " + this.username));
     }
 
-    @Override
-    public final String toString() {
-        return "Users{"
-                + "userSubType='" + userSubType + '\''
-                + ", viewedMovies=" + favoriteMovies
-                + ", username='" + username + '\''
-                + ", history=" + history
-                + '}';
+    public Integer getGivenRatings() {
+        return givenRatings;
     }
 
+    public void setGivenRatings(Integer givenRatings) {
+        this.givenRatings = givenRatings;
+    }
 }

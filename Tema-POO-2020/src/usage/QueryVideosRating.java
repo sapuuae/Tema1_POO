@@ -20,35 +20,41 @@ public final class QueryVideosRating {
         this.action = action;
     }
 
-    public void sortTheMovies(final JSONArray arrayResult,
-                              final Writer fileWriter) throws IOException {
-        ArrayList<VideosForRating> theMovies = new ArrayList<>();
+    private boolean checkTheVideo (Video theVideo) {
+        boolean ok = true;
         int yearIndex = 0;
         int genresIndex = 1;
-        for (Video theVideo : movieArrayList) {
-            boolean ok = true;
-            List<String> yearString = this.action.getFilters().get(yearIndex);
-            int year = 0;
-            if (yearString.get(0) != null) {
-                year = Integer.parseInt(yearString.get(0));
-            }
-            if (theVideo.getNumberOfRatings() != 0) {
-                if (theVideo.getYear() != year && year != 0) {
-                    ok = false;
-                } else {
-                    List<String> genresString = this.action.getFilters().get(genresIndex);
+        List<String> yearString = this.action.getFilters().get(yearIndex);
+        int year = 0;
+        if (yearString.get(0) != null) {
+            year = Integer.parseInt(yearString.get(0));
+        }
+        if (theVideo.getNumberOfRatings() != 0) {
+            if (theVideo.getYear() != year && year != 0) {
+                ok = false;
+            } else {
+                List<String> genresString = this.action.getFilters().get(genresIndex);
+                if (genresString.get(0) != null) {
                     ArrayList<String> videoGenres = theVideo.getGenres();
-                    for (String s: genresString) {
+                    for (String s : genresString) {
                         if (!videoGenres.contains(s)) {
                             ok = false;
                             break;
                         }
                     }
                 }
-            } else {
-                ok = false;
             }
-            if (ok) {
+        } else {
+            ok = false;
+        }
+        return ok;
+    }
+
+    public void sortTheMovies(final JSONArray arrayResult,
+                              final Writer fileWriter) throws IOException {
+        ArrayList<VideosForRating> theMovies = new ArrayList<>();
+        for (Video theVideo : movieArrayList) {
+            if (checkTheVideo(theVideo)) {
                 VideosForRating toAdd = new VideosForRating(theVideo.getTitle(),
                         theVideo.getRating());
                 theMovies.add(toAdd);

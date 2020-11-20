@@ -34,11 +34,13 @@ public class QueryVideosFavorite {
                     ok = false;
                 } else {
                     List<String> genresString = this.action.getFilters().get(genresIndex);
-                    ArrayList<String> videoGenres = theVideo.getGenres();
-                    for (String s : genresString) {
-                        if (!videoGenres.contains(s)) {
-                            ok = false;
-                            break;
+                    if (genresString.get(0) != null) {
+                        ArrayList<String> videoGenres = theVideo.getGenres();
+                        for (String s : genresString) {
+                            if (!videoGenres.contains(s)) {
+                                ok = false;
+                                break;
+                            }
                         }
                     }
                 }

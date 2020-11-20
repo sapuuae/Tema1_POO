@@ -10,7 +10,7 @@ public abstract class Video {
     private double rating;
     private Integer numberOfApparitionsInFavorite = 0;
     private Integer numberOfRatings = 0;
-    private Integer totalNumberOfViewed;
+    private Integer totalNumberOfViewed = 0;
 
     public Video(final String title, final int year,
                  final ArrayList<String> cast, final ArrayList<String> genres) {

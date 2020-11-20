@@ -14,7 +14,6 @@ import usage.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 
 public class DataList {
@@ -124,15 +123,15 @@ public class DataList {
                 boolean ok = true;
                 for (Video v : movieArrayList) {
                     if (v.getTitle().equals(key)) {
-                        v.setTotalNumberOfViewed(views);
+                        v.setTotalNumberOfViewed(v.getTotalNumberOfViewed() + views);
                         ok = false;
                         break;
                     }
                 }
                 if (ok) {
-                    for (Video v :showArrayList) {
+                    for (Video v : showArrayList) {
                         if (v.getTitle().equals(key)) {
-                            v.setTotalNumberOfViewed(views);
+                            v.setTotalNumberOfViewed(v.getTotalNumberOfViewed() + views);
                             break;
                         }
                     }
@@ -196,6 +195,10 @@ public class DataList {
                         QueryVideosLongest theLongestMovies = new QueryVideosLongest(
                                 movieArrayList, actionData);
                         theLongestMovies.moviesLongestView(arrayResult, fileWriter);
+                    } else if (actionData.getCriteria().equals("most_viewed")) {
+                        QueryVideosMostViewed theMostViewed = new QueryVideosMostViewed(
+                                movieArrayList, actionData);
+                        theMostViewed.showTheMostViewed(arrayResult, fileWriter);
                     }
                 } else if (actionData.getObjectType().equals("shows")) {
                     if (actionData.getCriteria().equals("ratings")) {
@@ -210,6 +213,16 @@ public class DataList {
                         QueryVideosLongest theLongestShows = new QueryVideosLongest(
                                 showArrayList, actionData);
                         theLongestShows.showLongestShows(arrayResult, fileWriter);
+                    } else if (actionData.getCriteria().equals("most_viewed")) {
+                        QueryVideosMostViewed theMostViewed = new QueryVideosMostViewed(
+                                showArrayList, actionData);
+                        theMostViewed.showTheMostViewed(arrayResult, fileWriter);
+                    }
+                } else if (actionData.getObjectType().equals("users")) {
+                    if (actionData.getCriteria().equals("num_ratings")) {
+                        QueryUsersActive theActiveUsers = new QueryUsersActive(
+                                userArrayList, actionData);
+                        theActiveUsers.showTheUsers(arrayResult, fileWriter);
                     }
                 }
             }
