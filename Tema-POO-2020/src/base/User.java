@@ -93,7 +93,6 @@ public class User {
         } else {
             history.put(video.getTitle(), 1);
         }
-        video.setTotalNumberOfViewed(video.getTotalNumberOfViewed() + 1);
         //noinspection unchecked
         arrayResult.add(fileWriter.writeFile(actionId, "?",
                 "success -> " + video.getTitle() + " was viewed with total views "
