@@ -56,9 +56,6 @@ public final class RecommBestUnseen {
                 }
             }
         }
-        char ch1 = action.getType().charAt(0);
-        ch1 = Character.toUpperCase(ch1);
-        String s = action.getType().substring(1);
         if (recommendedVideo != null) {
             arrayResult.add(fileWriter.writeFile(action.getActionId(), "?",
                     "BestRatedUnseen" + "Recommendation " + "result: " + recommendedVideo));

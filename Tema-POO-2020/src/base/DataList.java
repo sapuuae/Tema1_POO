@@ -248,6 +248,10 @@ public class DataList {
                     RecommSearch theRecomm = new RecommSearch(userArrayList, actionData,
                             totalVideoArray);
                     theRecomm.searchTheVideos(arrayResult, fileWriter);
+                } else if (actionData.getType().equals("popular")) {
+                    RecommPopular theRecomm = new RecommPopular(totalVideoArray,
+                            actionData, userArrayList);
+                    theRecomm.showPopular(arrayResult, fileWriter);
                 }
             }
         }
