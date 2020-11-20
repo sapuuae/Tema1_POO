@@ -7,8 +7,8 @@ public class Movie extends Video {
 
     public Movie(final String title, final int year,
                  final ArrayList<String> cast, final ArrayList<String> genres,
-                 final int duration) {
-        super(title, year, cast, genres);
+                 final int duration, final Integer orderInDatabase) {
+        super(title, year, cast, genres, orderInDatabase);
         this.duration = duration;
     }
 

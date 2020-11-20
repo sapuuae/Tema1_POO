@@ -11,13 +11,16 @@ public abstract class Video {
     private Integer numberOfApparitionsInFavorite = 0;
     private Integer numberOfRatings = 0;
     private Integer totalNumberOfViewed = 0;
+    private final Integer orderInDatabase;
 
     public Video(final String title, final int year,
-                 final ArrayList<String> cast, final ArrayList<String> genres) {
+                 final ArrayList<String> cast, final ArrayList<String> genres,
+                 final Integer orderInDatabase) {
         this.title = title;
         this.year = year;
         this.cast = cast;
         this.genres = genres;
+        this.orderInDatabase = orderInDatabase;
     }
     /**
      * Makes the rating for Movie/Show.
@@ -72,5 +75,9 @@ public abstract class Video {
 
     public final Double getRating() {
         return rating;
+    }
+
+    public Integer getOrderInDatabase() {
+        return orderInDatabase;
     }
 }

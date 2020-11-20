@@ -34,6 +34,10 @@ public class DataList {
     Actors' list.
      */
     private ArrayList<Actor> actorArrayList;
+    /*
+    Total list of videos and serials.
+     */
+    private ArrayList<Video> totalVideoArray;
 
     public DataList(final Input input) {
         this.input = input;
@@ -44,6 +48,7 @@ public class DataList {
      * Put the fields in the arrays.
      */
     public final void initArrays() {
+        int order = 0;
         /*
         Convert data from input variable to
         users type variable
@@ -52,7 +57,7 @@ public class DataList {
         movieArrayList = new ArrayList<>();
         showArrayList = new ArrayList<>();
         actorArrayList = new ArrayList<>();
-
+        totalVideoArray = new ArrayList<>();
 
         /*
          * Complete data from movies list.
@@ -61,9 +66,11 @@ public class DataList {
             MovieInputData movieData = input.getMovies().get(i);
             Movie newMovie = new Movie(movieData.getTitle(),
                     movieData.getYear(), movieData.getCast(),
-                    movieData.getGenres(), movieData.getDuration());
+                    movieData.getGenres(), movieData.getDuration(), order);
 
             movieArrayList.add(newMovie);
+            totalVideoArray.add(newMovie);
+            order++;
         }
 
         /*
@@ -85,9 +92,11 @@ public class DataList {
             Show newShow = new Show(serialData.getTitle(),
                     serialData.getYear(), serialData.getCast(),
                     serialData.getGenres(), serialData.getNumberSeason(),
-                    newSeasonList, totalDuration);
+                    newSeasonList, totalDuration, order);
 
             showArrayList.add(newShow);
+            totalVideoArray.add(newShow);
+            order++;
         }
 
         /*
@@ -226,8 +235,17 @@ public class DataList {
                     }
                 }
             }
+            else if (actionData.getActionType().equals("recommendation")) {
+                if (actionData.getType().equals("standard")) {
+                    RecommStandard theRecomm = new RecommStandard(
+                            userArrayList, actionData, totalVideoArray);
+                    theRecomm.showUsers(actionData.getUsername(), arrayResult, fileWriter);
+                } else if (actionData.getType().equals("best_unseen")) {
+                    RecommBestUnseen theUnseen = new RecommBestUnseen(movieArrayList,
+                            showArrayList, actionData, userArrayList);
+                    theUnseen.getTheBestUnseen(actionData.getUsername(), arrayResult, fileWriter);
+                }
+            }
         }
     }
-
-
 }
