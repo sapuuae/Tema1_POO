@@ -252,6 +252,10 @@ public class DataList {
                     RecommPopular theRecomm = new RecommPopular(totalVideoArray,
                             actionData, userArrayList);
                     theRecomm.showPopular(arrayResult, fileWriter);
+                } else if (actionData.getType().equals("favorite")) {
+                    RecommFavorite theFavorite = new RecommFavorite(totalVideoArray,
+                            userArrayList, actionData);
+                    theFavorite.showFavorite(arrayResult, fileWriter);
                 }
             }
         }
