@@ -14,7 +14,6 @@ public class User {
     private final String username;
     private final Map<String, Integer> history;
     private final HashMap<String, Boolean> checkSettedRating;
-    private final HashMap<Integer, Boolean> settedRatingForSeason;
 
     public User(final String userSubType, final ArrayList<String> favoriteMovies,
                 final String username, final Map<String, Integer> history) {
@@ -23,7 +22,6 @@ public class User {
         this.username = username;
         this.history = history;
         this.checkSettedRating = new HashMap<>();
-        this.settedRatingForSeason = new HashMap<>();
     }
 
 
@@ -95,6 +93,7 @@ public class User {
         } else {
             history.put(video.getTitle(), 1);
         }
+        video.setTotalNumberOfViewed(video.getTotalNumberOfViewed() + 1);
         //noinspection unchecked
         arrayResult.add(fileWriter.writeFile(actionId, "?",
                 "success -> " + video.getTitle() + " was viewed with total views "

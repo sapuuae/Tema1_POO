@@ -3,7 +3,7 @@ package base;
 import java.util.ArrayList;
 
 public class Movie extends Video {
-    private final int duration;
+    private final Integer duration;
 
     public Movie(final String title, final int year,
                  final ArrayList<String> cast, final ArrayList<String> genres,
@@ -19,7 +19,7 @@ public class Movie extends Video {
         this.setRating(newRating);
     }
 
-    public final int getDuration() {
+    public final Integer getDuration() {
         return duration;
     }
 }

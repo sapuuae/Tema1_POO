@@ -29,17 +29,21 @@ public class QueryVideosFavorite {
             if (yearString.get(yearIndex) != null) {
                 year = Integer.parseInt(yearString.get(yearIndex));
             }
-            if (theVideo.getYear() != year && year != 0) {
-                ok = false;
-            } else {
-                List<String> genresString = this.action.getFilters().get(genresIndex);
-                ArrayList<String> videoGenres = theVideo.getGenres();
-                for (String s: genresString) {
-                    if (!videoGenres.contains(s)) {
-                        ok = false;
-                        break;
+            if (theVideo.getNumberofAparitionsInFavorite() != 0) {
+                if (theVideo.getYear() != year && year != 0) {
+                    ok = false;
+                } else {
+                    List<String> genresString = this.action.getFilters().get(genresIndex);
+                    ArrayList<String> videoGenres = theVideo.getGenres();
+                    for (String s : genresString) {
+                        if (!videoGenres.contains(s)) {
+                            ok = false;
+                            break;
+                        }
                     }
                 }
+            } else {
+                ok = false;
             }
             if (ok) {
                 copyOfVideos.add(theVideo);

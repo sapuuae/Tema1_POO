@@ -10,15 +10,12 @@ import fileio.SerialInputData;
 import fileio.UserInputData;
 import fileio.Writer;
 import org.json.simple.JSONArray;
-import usage.Command;
-import usage.QueryAverage;
-import usage.QueryAwards;
-import usage.QueryFilters;
-import usage.QueryVideosFavorite;
-import usage.QueryVideosRating;
+import usage.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class DataList {
     private final Input input;
@@ -82,11 +79,14 @@ public class DataList {
                         normalSeason.getDuration());
                 newSeasonList.add(newSeason);
             }
-//            System.out.println(newSeasonList);
+            int totalDuration = 0;
+            for (Season s : seasonList) {
+                totalDuration += s.getDuration();
+            }
             Show newShow = new Show(serialData.getTitle(),
                     serialData.getYear(), serialData.getCast(),
                     serialData.getGenres(), serialData.getNumberSeason(),
-                    newSeasonList);
+                    newSeasonList, totalDuration);
 
             showArrayList.add(newShow);
         }
@@ -111,10 +111,34 @@ public class DataList {
                         if (theShow.getTitle().equals(s)) {
                             theShow.setNumberofAparitionsInFavorite(
                                     theShow.getNumberofAparitionsInFavorite() + 1);
+                            break;
                         }
                     }
                 }
             }
+
+            for (Map.Entry<String, Integer> entry :
+                    input.getUsers().get(i).getHistory().entrySet()) {
+                String key = entry.getKey();
+                Integer views = entry.getValue();
+                boolean ok = true;
+                for (Video v : movieArrayList) {
+                    if (v.getTitle().equals(key)) {
+                        v.setTotalNumberOfViewed(views);
+                        ok = false;
+                        break;
+                    }
+                }
+                if (ok) {
+                    for (Video v :showArrayList) {
+                        if (v.getTitle().equals(key)) {
+                            v.setTotalNumberOfViewed(views);
+                            break;
+                        }
+                    }
+                }
+            }
+
             UserInputData userData = input.getUsers().get(i);
             User newUser = new User(userData.getSubscriptionType(),
                     userData.getFavoriteMovies(), userData.getUsername(),
@@ -168,12 +192,24 @@ public class DataList {
                         QueryVideosFavorite theFavorites = new QueryVideosFavorite(
                                 movieArrayList, actionData);
                         theFavorites.showTheFavorites(arrayResult, fileWriter);
+                    } else if (actionData.getCriteria().equals("longest")) {
+                        QueryVideosLongest theLongestMovies = new QueryVideosLongest(
+                                movieArrayList, actionData);
+                        theLongestMovies.moviesLongestView(arrayResult, fileWriter);
                     }
                 } else if (actionData.getObjectType().equals("shows")) {
                     if (actionData.getCriteria().equals("ratings")) {
                         QueryVideosRating theShowsSorted = new QueryVideosRating(showArrayList,
                                 actionData);
                         theShowsSorted.sortTheMovies(arrayResult, fileWriter);
+                    } else if (actionData.getCriteria().equals("favorite")) {
+                        QueryVideosFavorite theFavorites = new QueryVideosFavorite(
+                                showArrayList, actionData);
+                        theFavorites.showTheFavorites(arrayResult, fileWriter);
+                    } else if (actionData.getCriteria().equals("longest")) {
+                        QueryVideosLongest theLongestShows = new QueryVideosLongest(
+                                showArrayList, actionData);
+                        theLongestShows.showLongestShows(arrayResult, fileWriter);
                     }
                 }
             }
