@@ -14,15 +14,16 @@ public final class RecommFavorite {
     private final ArrayList<User> userArrayList;
     private final ActionInputData action;
 
-    public RecommFavorite(ArrayList<Video> totalVideoList,
-                          ArrayList<User> userArrayList,
-                          ActionInputData action) {
+    public RecommFavorite(final ArrayList<Video> totalVideoList,
+                          final ArrayList<User> userArrayList,
+                          final ActionInputData action) {
         this.totalVideoList = totalVideoList;
         this.userArrayList = userArrayList;
         this.action = action;
     }
 
-    public void showFavorite(JSONArray arrayResult, Writer fileWriter) throws IOException {
+    public void showFavorite(final JSONArray arrayResult,
+                             final Writer fileWriter) throws IOException {
         User theUser = null;
         for (User getTheName : userArrayList) {
             if (getTheName.getUsername().equals(action.getUsername())
@@ -40,9 +41,10 @@ public final class RecommFavorite {
             }
             theFavorites.sort((o1, o2) -> {
                 int c;
-                c = o2.getNumberofAparitionsInFavorite().compareTo(o1.getNumberofAparitionsInFavorite());
+                c = o2.getNumberofAparitionsInFavorite().compareTo(
+                        o1.getNumberofAparitionsInFavorite());
                 if (c == 0) {
-                    c = o2.getOrderInDatabase().compareTo(o1.getOrderInDatabase());
+                    c = o1.getOrderInDatabase().compareTo(o2.getOrderInDatabase());
                 }
                 return c;
             });

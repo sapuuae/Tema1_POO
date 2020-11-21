@@ -7,7 +7,8 @@ public final class VideosWithGenresAndViews {
     private final ArrayList<Video> videoList;
     private Integer numberOfViews;
 
-    public VideosWithGenresAndViews(String genre, Integer numberOfViews) {
+    public VideosWithGenresAndViews(final String genre,
+                                    final Integer numberOfViews) {
         this.genre = genre;
         this.numberOfViews = numberOfViews;
         this.videoList = new ArrayList<>();
@@ -21,7 +22,7 @@ public final class VideosWithGenresAndViews {
         return numberOfViews;
     }
 
-    public void setNumberOfViews(Integer numberOfViews) {
+    public void setNumberOfViews(final Integer numberOfViews) {
         this.numberOfViews = numberOfViews;
     }
 

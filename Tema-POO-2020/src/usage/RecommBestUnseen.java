@@ -17,17 +17,18 @@ public final class RecommBestUnseen {
     private final ActionInputData action;
     private final ArrayList<User> userArrayList;
 
-    public RecommBestUnseen(ArrayList<Video> movieArrayList,
-                            ArrayList<Video> showArrayList, final ActionInputData action,
-                            ArrayList<User> userArrayList) {
+    public RecommBestUnseen(final ArrayList<Video> movieArrayList,
+                            final ArrayList<Video> showArrayList,
+                            final ActionInputData action,
+                            final ArrayList<User> userArrayList) {
         this.movieArrayList = movieArrayList;
         this.showArrayList = showArrayList;
         this.action = action;
         this.userArrayList = userArrayList;
     }
 
-    public void getTheBestUnseen(String username, JSONArray arrayResult,
-                                 Writer fileWriter) throws IOException {
+    public void getTheBestUnseen(final String username, final JSONArray arrayResult,
+                                 final Writer fileWriter) throws IOException {
         ArrayList<Video> totalListWithRatingsSorted = new ArrayList<>();
         totalListWithRatingsSorted.addAll(movieArrayList);
         totalListWithRatingsSorted.addAll(showArrayList);

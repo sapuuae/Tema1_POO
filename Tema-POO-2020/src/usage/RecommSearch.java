@@ -23,7 +23,8 @@ public final class RecommSearch {
         this.totalVideoList = totalVideoList;
     }
 
-    public void searchTheVideos(JSONArray arrayResult, Writer fileWriter) throws IOException {
+    public void searchTheVideos(final JSONArray arrayResult,
+                                final Writer fileWriter) throws IOException {
         String genre = action.getGenre();
         User theUser = null;
         for (User getTheName : userArrayList) {

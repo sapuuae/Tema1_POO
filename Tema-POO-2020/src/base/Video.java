@@ -77,7 +77,7 @@ public abstract class Video {
         return rating;
     }
 
-    public Integer getOrderInDatabase() {
+    public final Integer getOrderInDatabase() {
         return orderInDatabase;
     }
 }

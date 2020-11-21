@@ -10,7 +10,20 @@ import fileio.SerialInputData;
 import fileio.UserInputData;
 import fileio.Writer;
 import org.json.simple.JSONArray;
-import usage.*;
+import usage.Command;
+import usage.QueryAverage;
+import usage.QueryAwards;
+import usage.QueryFilters;
+import usage.QueryUsersActive;
+import usage.QueryVideosFavorite;
+import usage.QueryVideosLongest;
+import usage.QueryVideosMostViewed;
+import usage.QueryVideosRating;
+import usage.RecommBestUnseen;
+import usage.RecommFavorite;
+import usage.RecommPopular;
+import usage.RecommSearch;
+import usage.RecommStandard;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -125,8 +138,8 @@ public class DataList {
                 }
             }
 
-            for (Map.Entry<String, Integer> entry :
-                    input.getUsers().get(i).getHistory().entrySet()) {
+            for (Map.Entry<String, Integer> entry
+                    : input.getUsers().get(i).getHistory().entrySet()) {
                 String key = entry.getKey();
                 Integer views = entry.getValue();
                 boolean ok = true;
@@ -234,8 +247,7 @@ public class DataList {
                         theActiveUsers.showTheUsers(arrayResult, fileWriter);
                     }
                 }
-            }
-            else if (actionData.getActionType().equals("recommendation")) {
+            } else if (actionData.getActionType().equals("recommendation")) {
                 if (actionData.getType().equals("standard")) {
                     RecommStandard theRecomm = new RecommStandard(
                             userArrayList, actionData, totalVideoArray);

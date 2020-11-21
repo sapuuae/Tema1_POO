@@ -20,7 +20,7 @@ public final class QueryVideosRating {
         this.action = action;
     }
 
-    private boolean checkTheVideo (Video theVideo) {
+    private boolean checkTheVideo(final Video theVideo) {
         boolean ok = true;
         int yearIndex = 0;
         int genresIndex = 1;

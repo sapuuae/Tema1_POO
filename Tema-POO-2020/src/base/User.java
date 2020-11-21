@@ -70,11 +70,11 @@ public class User {
                 }
             }
             favoriteMovies.add(video.getTitle());
+            video.setNumberofAparitionsInFavorite(
+                    video.getNumberofAparitionsInFavorite() + 1);
             //noinspection unchecked
             arrayResult.add(fileWriter.writeFile(actionId, "?",
                     "success -> " + video.getTitle() + " was added as favourite"));
-            video.setNumberofAparitionsInFavorite(
-                    video.getNumberofAparitionsInFavorite() + 1);
         } else {
             //noinspection unchecked
             arrayResult.add(fileWriter.writeFile(actionId, "?",
@@ -95,6 +95,7 @@ public class User {
             history.put(video.getTitle(), 1);
         }
         //noinspection unchecked
+        video.setTotalNumberOfViewed(video.getTotalNumberOfViewed() + 1);
         arrayResult.add(fileWriter.writeFile(actionId, "?",
                 "success -> " + video.getTitle() + " was viewed with total views "
                         + "of " + history.get(video.getTitle())));
@@ -174,11 +175,11 @@ public class User {
                         + " by " + this.username));
     }
 
-    public Integer getGivenRatings() {
+    public final Integer getGivenRatings() {
         return givenRatings;
     }
 
-    public void setGivenRatings(Integer givenRatings) {
+    public final void setGivenRatings(final Integer givenRatings) {
         this.givenRatings = givenRatings;
     }
 }

@@ -22,7 +22,7 @@ public class QueryFilters {
     }
 
     public final void checkTheFilters(final ActionInputData action, final JSONArray arrayResult,
-                                      Writer fileWriter) throws IOException {
+                                      final Writer fileWriter) throws IOException {
         ArrayList<String> namesOfActors = new ArrayList<>();
         for (Actor myActor : actorArrayList) {
             String theCareer = myActor.getCareerDescription();

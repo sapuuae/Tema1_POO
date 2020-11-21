@@ -14,12 +14,13 @@ public final class QueryVideosMostViewed {
     private final ArrayList<Video> videoArrayList;
     private final ActionInputData action;
 
-    public QueryVideosMostViewed(ArrayList<Video> videoArrayList, ActionInputData action) {
+    public QueryVideosMostViewed(final ArrayList<Video> videoArrayList,
+                                 final ActionInputData action) {
         this.videoArrayList = videoArrayList;
         this.action = action;
     }
 
-    private boolean checkVideo(Video theVideo) {
+    private boolean checkVideo(final Video theVideo) {
         boolean ok = true;
         int yearIndex = 0;
         int genresIndex = 1;
@@ -33,6 +34,7 @@ public final class QueryVideosMostViewed {
                 ok = false;
             } else {
                 List<String> genresString = this.action.getFilters().get(genresIndex);
+//                System.out.println("GENRES STRING " + genresString.get(0));
                 if (genresString.get(0) != null) {
                     ArrayList<String> videoGenres = theVideo.getGenres();
                     for (String s : genresString) {
@@ -49,7 +51,8 @@ public final class QueryVideosMostViewed {
         return ok;
     }
 
-    public void showTheMostViewed(JSONArray arrayResult, Writer fileWriter) throws IOException {
+    public void showTheMostViewed(final JSONArray arrayResult,
+                                  final Writer fileWriter) throws IOException {
         ArrayList<Video> showsList = new ArrayList<>();
         for (Video theVideo : videoArrayList) {
             if (checkVideo(theVideo)) {

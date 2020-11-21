@@ -14,7 +14,8 @@ public final class RecommStandard {
     private final ActionInputData action;
     private final ArrayList<Video> totalVideoArray;
 
-    public RecommStandard(ArrayList<User> userArrayList, ActionInputData action,
+    public RecommStandard(final ArrayList<User> userArrayList,
+                          final ActionInputData action,
                           final ArrayList<Video> totalVideoArray) {
         this.userArrayList = userArrayList;
         this.action = action;
@@ -22,7 +23,7 @@ public final class RecommStandard {
     }
 
     public void showUsers(final String username, final JSONArray arrayResult,
-                          Writer fileWriter) throws IOException {
+                          final Writer fileWriter) throws IOException {
         User theUser = null;
         for (User getTheName : userArrayList) {
             if (getTheName.getUsername().equals(username)) {

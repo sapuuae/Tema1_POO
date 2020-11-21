@@ -13,12 +13,14 @@ public class QueryVideosFavorite {
     private final ArrayList<Video> videoArrayList;
     private final ActionInputData action;
 
-    public QueryVideosFavorite(ArrayList<Video> videoArrayList, final ActionInputData action) {
+    public QueryVideosFavorite(final ArrayList<Video> videoArrayList,
+                               final ActionInputData action) {
         this.action = action;
         this.videoArrayList = videoArrayList;
     }
 
-    public final void showTheFavorites(JSONArray arrayResult, Writer fileWriter) throws IOException {
+    public final void showTheFavorites(final JSONArray arrayResult,
+                                       final Writer fileWriter) throws IOException {
         ArrayList<Video> copyOfVideos = new ArrayList<>();
         int yearIndex = 0;
         int genresIndex = 1;
@@ -51,16 +53,27 @@ public class QueryVideosFavorite {
                 copyOfVideos.add(theVideo);
             }
         }
-        copyOfVideos.sort((o1, o2) -> {
-            int c;
-            c = o2.getNumberofAparitionsInFavorite().compareTo(
-                    o1.getNumberofAparitionsInFavorite());
-            if (c == 0) {
-                c = o2.getTitle().compareTo(o1.getTitle());
-            }
-            return c;
-        });
-
+        if (action.getSortType().equals("asc")) {
+            copyOfVideos.sort((o1, o2) -> {
+                int c;
+                c = o1.getNumberofAparitionsInFavorite().compareTo(
+                        o2.getNumberofAparitionsInFavorite());
+                if (c == 0) {
+                    c = o1.getTitle().compareTo(o2.getTitle());
+                }
+                return c;
+            });
+        } else {
+            copyOfVideos.sort((o1, o2) -> {
+                int c;
+                c = o2.getNumberofAparitionsInFavorite().compareTo(
+                        o1.getNumberofAparitionsInFavorite());
+                if (c == 0) {
+                    c = o2.getTitle().compareTo(o1.getTitle());
+                }
+                return c;
+            });
+        }
         ArrayList<String> finalList = new ArrayList<>();
         if (copyOfVideos.size() < action.getNumber()) {
             for (Video copy : copyOfVideos) {

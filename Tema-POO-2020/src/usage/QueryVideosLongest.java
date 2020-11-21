@@ -15,12 +15,13 @@ public class QueryVideosLongest {
     private final ArrayList<Video> videoArrayList;
     private final ActionInputData action;
 
-    public QueryVideosLongest(ArrayList<Video> videoArrayList, ActionInputData action) {
+    public QueryVideosLongest(final ArrayList<Video> videoArrayList,
+                              final ActionInputData action) {
         this.videoArrayList = videoArrayList;
         this.action = action;
     }
 
-    private boolean checkVideo(Video theVideo) {
+    private boolean checkVideo(final Video theVideo) {
         boolean ok = true;
         int yearIndex = 0;
         int genresIndex = 1;
@@ -46,11 +47,12 @@ public class QueryVideosLongest {
         return ok;
     }
 
-    public final void showLongestShows(JSONArray arrayResult, Writer fileWriter) throws IOException {
+    public final void showLongestShows(final JSONArray arrayResult,
+                                       final Writer fileWriter) throws IOException {
         ArrayList<Show> showsList = new ArrayList<>();
         for (Video theVideo : videoArrayList) {
             if (checkVideo(theVideo)) {
-                showsList.add((Show)theVideo);
+                showsList.add((Show) theVideo);
             }
         }
         if (action.getSortType().equals("asc")) {
@@ -86,7 +88,8 @@ public class QueryVideosLongest {
                 "Query result: " + finalList + ""));
     }
 
-    public final void moviesLongestView(JSONArray arrayResult, Writer fileWriter) throws IOException {
+    public final void moviesLongestView(final JSONArray arrayResult,
+                                        final Writer fileWriter) throws IOException {
         ArrayList<Movie> videosList = new ArrayList<>();
         for (Video theVideo : videoArrayList) {
             if (checkVideo(theVideo)) {

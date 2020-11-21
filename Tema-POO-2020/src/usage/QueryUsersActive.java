@@ -12,12 +12,14 @@ public final class QueryUsersActive {
     private final ArrayList<User> userArray;
     private final ActionInputData action;
 
-    public QueryUsersActive(ArrayList<User> userArray, ActionInputData action) {
+    public QueryUsersActive(final ArrayList<User> userArray,
+                            final ActionInputData action) {
         this.userArray = userArray;
         this.action = action;
     }
 
-    public void showTheUsers(JSONArray arrayResult, Writer fileWriter) throws IOException {
+    public void showTheUsers(final JSONArray arrayResult,
+                             final Writer fileWriter) throws IOException {
         ArrayList<User> usersWhoGivenRating = new ArrayList<>();
         for (User theUser : userArray) {
             if (theUser.getGivenRatings() != 0) {

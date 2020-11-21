@@ -37,7 +37,7 @@ public class Show extends Video {
         this.setRating(sum);
     }
 
-    public Integer getTotalDuration() {
+    public final Integer getTotalDuration() {
         return totalDuration;
     }
 

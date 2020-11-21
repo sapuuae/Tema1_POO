@@ -16,15 +16,16 @@ public final class RecommPopular {
     private final ActionInputData action;
     private final ArrayList<User> userArrayList;
 
-    public RecommPopular(ArrayList<Video> totalVideoList,
+    public RecommPopular(final ArrayList<Video> totalVideoList,
                          final ActionInputData action,
-                         ArrayList<User> userArrayList) {
+                         final ArrayList<User> userArrayList) {
         this.totalVideoList = totalVideoList;
         this.action = action;
         this.userArrayList = userArrayList;
     }
 
-    public void showPopular(JSONArray arrayResult, Writer fileWriter) throws IOException {
+    public void showPopular(final JSONArray arrayResult,
+                            final Writer fileWriter) throws IOException {
         User theUser = null;
         for (User getTheName : userArrayList) {
             if (getTheName.getUsername().equals(action.getUsername())
@@ -40,10 +41,12 @@ public final class RecommPopular {
                 for (String s : v.getGenres()) {
                     if (theMap.containsKey(s)) {
                         VideosWithGenresAndViews getVideo = theMap.get(s);
-                        getVideo.setNumberOfViews(getVideo.getNumberOfViews() + v.getTotalNumberOfViewed());
+                        getVideo.setNumberOfViews(
+                                getVideo.getNumberOfViews() + v.getTotalNumberOfViewed());
                         getVideo.getVideoList().add(v);
                     } else {
-                        VideosWithGenresAndViews toAdd = new VideosWithGenresAndViews(s, v.getTotalNumberOfViewed());
+                        VideosWithGenresAndViews toAdd =
+                                new VideosWithGenresAndViews(s, v.getTotalNumberOfViewed());
                         toAdd.getVideoList().add(v);
                         theMap.put(s, toAdd);
                     }
