@@ -64,7 +64,7 @@ public class DataList {
         int order = 0;
         /*
         Convert data from input variable to
-        users type variable
+        my classes type lists.
         */
         userArrayList = new ArrayList<>();
         movieArrayList = new ArrayList<>();
@@ -73,9 +73,12 @@ public class DataList {
         totalVideoArray = new ArrayList<>();
 
         /*
-         * Complete data from movies list.
+         * Completes data from movies list.
          */
         for (int i = 0; i < input.getMovies().size(); i++) {
+            /*
+            Get the movies from the input and move them to a new list.
+             */
             MovieInputData movieData = input.getMovies().get(i);
             Movie newMovie = new Movie(movieData.getTitle(),
                     movieData.getYear(), movieData.getCast(),
@@ -83,21 +86,29 @@ public class DataList {
 
             movieArrayList.add(newMovie);
             totalVideoArray.add(newMovie);
-            order++;
+            order++; // make the counter for order bigger
         }
 
         /*
-         * Complete data from show list.
+         * Completes data from show list.
          */
         for (int i = 0; i < input.getSerials().size(); i++) {
+            /*
+            Get the shows from the input and move them to a new list.
+             */
             SerialInputData serialData = input.getSerials().get(i);
             ArrayList<Season> seasonList = serialData.getSeasons();
             ArrayList<MySeason> newSeasonList = new ArrayList<>();
+
+            /*
+            Create the new seasons list. (of type MySeason)
+             */
             for (Season normalSeason : seasonList) {
                 MySeason newSeason = new MySeason(normalSeason.getCurrentSeason(),
                         normalSeason.getDuration());
                 newSeasonList.add(newSeason);
             }
+
             int totalDuration = 0;
             for (Season s : seasonList) {
                 totalDuration += s.getDuration();
@@ -113,12 +124,19 @@ public class DataList {
         }
 
         /*
-        Complete data from users list
+        Get the users from the input and move them to a new list.
          */
         for (int i = 0; i < input.getUsers().size(); i++) {
             ArrayList<String> theFavorites = input.getUsers().get(i).getFavoriteMovies();
+            /*
+            Check the first videos from user's favorite list to set the number of seen in
+            favorite lists for every video.
+             */
             for (String s : theFavorites) {
                 boolean ok = true;
+                /*
+                Check if the title from the favorite list is in movies or shows list.
+                 */
                 for (Video theMovie : movieArrayList) {
                     if (theMovie.getTitle().equals(s)) {
                         theMovie.setNumberofAparitionsInFavorite(
@@ -138,6 +156,9 @@ public class DataList {
                 }
             }
 
+            /*
+            Get initial number of views for every video from the user's history Map.
+             */
             for (Map.Entry<String, Integer> entry
                     : input.getUsers().get(i).getHistory().entrySet()) {
                 String key = entry.getKey();
@@ -168,6 +189,9 @@ public class DataList {
             userArrayList.add(newUser);
         }
 
+        /*
+        Get the users from the input and move them to a new list.
+         */
         for (int i = 0; i < input.getActors().size(); i++) {
             ActorInputData actorData = input.getActors().get(i);
             Actor newActor = new Actor(actorData.getName(),
@@ -185,20 +209,35 @@ public class DataList {
                 Verify the actions.
              */
             if (actionData.getActionType().equals("command")) {
+                /*
+                Move every command to a different class and make it there.
+                 */
                 Command myCommand = new Command(userArrayList, movieArrayList, showArrayList);
                 myCommand.makeTheCommand(actionData, arrayResult, fileWriter);
             } else if (actionData.getActionType().equals("query")) {
+                /*
+                Check the object type for every query.
+                 */
                 if (actionData.getObjectType().equals("actors")) {
                     if (actionData.getCriteria().equals("average")) {
+                        /*
+                        Average query for actors.
+                         */
                         QueryAverage theAverageQuery = new QueryAverage(movieArrayList,
                                 showArrayList, actorArrayList);
                         theAverageQuery.makeTheAverage(actionData.getNumber(), arrayResult,
                                 fileWriter, actionData);
                     } else if (actionData.getCriteria().equals("awards")) {
+                        /*
+                        Awards query for actors.
+                         */
                         QueryAwards theAwardsQuery = new QueryAwards(actorArrayList,
                                 actionData.getFilters().get(actionData.getFilters().size() - 1));
                         theAwardsQuery.makeTheSort(actionData, arrayResult, fileWriter);
                     } else if (actionData.getCriteria().equals("filter_description")) {
+                        /*
+                        Filter the actors' descriptions.
+                         */
                         int listWithFiltersCnt = 2;
                         QueryFilters theFilterQuery = new QueryFilters(actorArrayList,
                                 actionData.getFilters().get(listWithFiltersCnt));
@@ -206,6 +245,9 @@ public class DataList {
                     }
                 } else if (actionData.getObjectType().equals("movies")) {
                     if (actionData.getCriteria().equals("ratings")) {
+                        /*
+                        Rating query for videos.
+                         */
                         QueryVideosRating theMoviesSorted = new QueryVideosRating(movieArrayList,
                                 actionData);
                         theMoviesSorted.sortTheMovies(arrayResult, fileWriter);

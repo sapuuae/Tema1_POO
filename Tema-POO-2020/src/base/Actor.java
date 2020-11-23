@@ -6,10 +6,10 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public final class Actor {
-    private String name;
-    private String careerDescription;
-    private ArrayList<String> filmography;
-    private Map<ActorsAwards, Integer> awards;
+    private final String name;
+    private final String careerDescription;
+    private final ArrayList<String> filmography;
+    private final Map<ActorsAwards, Integer> awards;
 
     public Actor(final String name, final String careerDescription,
                  final ArrayList<String> filmography,

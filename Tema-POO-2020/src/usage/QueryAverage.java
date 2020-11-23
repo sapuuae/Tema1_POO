@@ -45,7 +45,7 @@ public final class QueryAverage {
                 theVideo = getVideo(movieArrayList, myFilm);
                 if (theVideo == null) {
                     /*
-                    Il caut inca o data in lista de seriale, daca la filme nu s-a gasit.
+                    Search for it in the serials list, if it isn't found in the movie list.
                      */
                     theVideo = getVideo(showArrayList, myFilm);
                 }
@@ -58,12 +58,14 @@ public final class QueryAverage {
             }
             if (playsInVideos != 0) {
                 finalRatingForActor /= playsInVideos;
-                ActorsAndRating myActorWithRating = new ActorsAndRating(myActor.getName(),
-                        theFilmography, finalRatingForActor);
+                ActorsAndRating myActorWithRating = new ActorsAndRating(myActor.getName(), finalRatingForActor);
                 theActorsWithRatings.add(myActorWithRating);
             }
         }
         if (action.getSortType().equals("asc")) {
+            /*
+            Sort ascendent.
+             */
             theActorsWithRatings.sort((o1, o2) -> {
                 int c;
                 c = o1.getRatingOfActor().compareTo(o2.getRatingOfActor());
@@ -88,15 +90,13 @@ public final class QueryAverage {
 
         ArrayList<String> finalList = new ArrayList<>();
         if (theActorsWithRatings.size() < numberOfActors) {
-//            theActorsWithRatings.forEach(list -> finalList.add(list.getActorName()));
-            for (ActorsAndRating theActorsWithRating : theActorsWithRatings) {
-                finalList.add(theActorsWithRating.getActorName());
-            }
+            theActorsWithRatings.forEach(list -> finalList.add(list.getActorName()));
         } else {
-        for (int i = 0; i < numberOfActors; i++) {
-            finalList.add(theActorsWithRatings.get(i).getActorName());
+            for (int i = 0; i < numberOfActors; i++) {
+                finalList.add(theActorsWithRatings.get(i).getActorName());
+            }
         }
-        }
+        //noinspection unchecked
         arrayResult.add(fileWriter.writeFile(action.getActionId(), "?",
                 "Query result: " + finalList + ""));
     }
