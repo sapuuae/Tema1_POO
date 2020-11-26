@@ -21,6 +21,13 @@ public class QueryFilters {
         this.filtersToCheck = filtersToCheck;
     }
 
+    /**
+     * Give the actors which have these words in their description.
+     * @param action used to get the id of the query
+     * @param arrayResult the array used to write in file
+     * @param fileWriter used for writing in file
+     * @throws IOException check I/O
+     */
     public final void checkTheFilters(final ActionInputData action, final JSONArray arrayResult,
                                       final Writer fileWriter) throws IOException {
         ArrayList<String> namesOfActors = new ArrayList<>();

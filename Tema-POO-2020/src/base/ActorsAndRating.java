@@ -1,7 +1,5 @@
 package base;
 
-import java.util.ArrayList;
-
 public final class ActorsAndRating {
     private final String actorName;
     private final Double ratingOfActor;

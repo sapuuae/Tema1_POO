@@ -10,19 +10,25 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
 
-public final class RecommSearch {
+public final class SearchRecommendation {
     private final ArrayList<User> userArrayList;
     private final ActionInputData action;
     private final ArrayList<Video> totalVideoList;
 
-    public RecommSearch(final ArrayList<User> userArrayList,
-                        final ActionInputData action,
-                        final ArrayList<Video> totalVideoList) {
+    public SearchRecommendation(final ArrayList<User> userArrayList,
+                                final ActionInputData action,
+                                final ArrayList<Video> totalVideoList) {
         this.userArrayList = userArrayList;
         this.action = action;
         this.totalVideoList = totalVideoList;
     }
 
+    /**
+     * Give all the videos from a genre to a specified user.
+     * @param arrayResult the array used to write in file
+     * @param fileWriter used for writing in file
+     * @throws IOException check I/O
+     */
     public void searchTheVideos(final JSONArray arrayResult,
                                 final Writer fileWriter) throws IOException {
         String genre = action.getGenre();

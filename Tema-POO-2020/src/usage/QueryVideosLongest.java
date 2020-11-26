@@ -47,6 +47,12 @@ public class QueryVideosLongest {
         return ok;
     }
 
+    /**
+     * Sort the shows by the duration and name, then write them in the file.
+     * @param arrayResult the array used to write in file
+     * @param fileWriter used for writing in file
+     * @throws IOException check I/O
+     */
     public final void showLongestShows(final JSONArray arrayResult,
                                        final Writer fileWriter) throws IOException {
         ArrayList<Show> showsList = new ArrayList<>();
@@ -88,6 +94,12 @@ public class QueryVideosLongest {
                 "Query result: " + finalList + ""));
     }
 
+    /**
+     * Sort the movies by the duration and name, then write them in the file.
+     * @param arrayResult the array used to write in file
+     * @param fileWriter used for writing in file
+     * @throws IOException check I/O
+     */
     public final void moviesLongestView(final JSONArray arrayResult,
                                         final Writer fileWriter) throws IOException {
         ArrayList<Movie> videosList = new ArrayList<>();

@@ -50,6 +50,12 @@ public final class QueryVideosRating {
         return ok;
     }
 
+    /**
+     * Sort the videos using just rating and title.
+     * @param arrayResult the array used to write in file
+     * @param fileWriter used for writing in file
+     * @throws IOException check I/O
+     */
     public void sortTheMovies(final JSONArray arrayResult,
                               final Writer fileWriter) throws IOException {
         ArrayList<VideosForRating> theMovies = new ArrayList<>();

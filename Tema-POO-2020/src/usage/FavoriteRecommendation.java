@@ -9,19 +9,26 @@ import org.json.simple.JSONArray;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public final class RecommFavorite {
+public final class FavoriteRecommendation {
     private final ArrayList<Video> totalVideoList;
     private final ArrayList<User> userArrayList;
     private final ActionInputData action;
 
-    public RecommFavorite(final ArrayList<Video> totalVideoList,
-                          final ArrayList<User> userArrayList,
-                          final ActionInputData action) {
+    public FavoriteRecommendation(final ArrayList<Video> totalVideoList,
+                                  final ArrayList<User> userArrayList,
+                                  final ActionInputData action) {
         this.totalVideoList = totalVideoList;
         this.userArrayList = userArrayList;
         this.action = action;
     }
 
+    /**
+     * Check the type of user and show the most favorite movie
+     * from the database which isn't seen by him.
+     * @param arrayResult the array used to write in file
+     * @param fileWriter used for writing in file
+     * @throws IOException check I/O
+     */
     public void showFavorite(final JSONArray arrayResult,
                              final Writer fileWriter) throws IOException {
         User theUser = null;

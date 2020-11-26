@@ -23,10 +23,6 @@ public final class MySeason {
         this.ratings = new ArrayList<>();
     }
 
-    public int getCurrentSeason() {
-        return currentSeason;
-    }
-
     public int getDuration() {
         return duration;
     }
@@ -39,6 +35,10 @@ public final class MySeason {
         return avgRating;
     }
 
+    /**
+     * Modify the average rating for a season, using a new grade.
+     * @param grade the grade given by an user
+     */
     public void setAvgRating(final Double grade) {
         this.ratings.add(grade);
         double sum = 0;

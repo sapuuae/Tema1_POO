@@ -23,6 +23,12 @@ public final class QueryAverage {
         this.actorArrayList = actorArrayList;
     }
 
+    /**
+     * Get the video from the movie/shows list, using the title.
+     * @param list list of movies/shows
+     * @param videoTitle title of video
+     * @return specific video
+     */
     public Video getVideo(final ArrayList<Video> list, final String videoTitle) {
         for (Video video : list) {
             if (video.getTitle().equals(videoTitle)) {
@@ -32,6 +38,14 @@ public final class QueryAverage {
         return null;
     }
 
+    /**
+     *
+     * @param numberOfActors
+     * @param arrayResult
+     * @param fileWriter
+     * @param action
+     * @throws IOException
+     */
     public void makeTheAverage(final int numberOfActors, final JSONArray arrayResult,
                                final Writer fileWriter, final ActionInputData action)
             throws IOException {
@@ -58,7 +72,8 @@ public final class QueryAverage {
             }
             if (playsInVideos != 0) {
                 finalRatingForActor /= playsInVideos;
-                ActorsAndRating myActorWithRating = new ActorsAndRating(myActor.getName(), finalRatingForActor);
+                ActorsAndRating myActorWithRating = new ActorsAndRating(
+                        myActor.getName(), finalRatingForActor);
                 theActorsWithRatings.add(myActorWithRating);
             }
         }

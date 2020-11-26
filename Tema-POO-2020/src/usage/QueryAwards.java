@@ -23,12 +23,26 @@ public final class QueryAwards {
         this.awardsForChecking = awardsForChecking;
     }
 
+    /**
+     * Make the sum of the awards from an actor.
+     * @param theAwards map to get the value for every award.
+     * @return
+     */
     public int calculateAward(final Map<ActorsAwards, Integer> theAwards) {
         final int[] sum = {0};
         theAwards.forEach((ActorsAwards x, Integer y) -> sum[0] += y);
         return sum[0];
     }
 
+
+    /**
+     * Checks every actor to see if he has every award from the input.
+     * Add them in a list and then sort it by the number of awards and name.
+     * @param action used for sort, id and number of actors
+     * @param arrayResult the array used to write in file
+     * @param fileWriter used for writing in file
+     * @throws IOException check I/O
+     */
     public void makeTheSort(final ActionInputData action, final JSONArray arrayResult,
                                   final Writer fileWriter) throws IOException {
         ArrayList<ActorsAndAwards> lastActors = new ArrayList<>();

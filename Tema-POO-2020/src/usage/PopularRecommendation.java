@@ -11,19 +11,25 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public final class RecommPopular {
+public final class PopularRecommendation {
     private final ArrayList<Video> totalVideoList;
     private final ActionInputData action;
     private final ArrayList<User> userArrayList;
 
-    public RecommPopular(final ArrayList<Video> totalVideoList,
-                         final ActionInputData action,
-                         final ArrayList<User> userArrayList) {
+    public PopularRecommendation(final ArrayList<Video> totalVideoList,
+                                 final ActionInputData action,
+                                 final ArrayList<User> userArrayList) {
         this.totalVideoList = totalVideoList;
         this.action = action;
         this.userArrayList = userArrayList;
     }
 
+    /**
+     * Show the most popular video from that genre.
+     * @param arrayResult the array used to write in file
+     * @param fileWriter used for writing in file
+     * @throws IOException check I/O
+     */
     public void showPopular(final JSONArray arrayResult,
                             final Writer fileWriter) throws IOException {
         User theUser = null;

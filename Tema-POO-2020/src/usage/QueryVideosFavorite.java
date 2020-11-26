@@ -19,6 +19,12 @@ public class QueryVideosFavorite {
         this.videoArrayList = videoArrayList;
     }
 
+    /**
+     * Show the most added to favorite videos.
+     * @param arrayResult the array used to write in file
+     * @param fileWriter used for writing in file
+     * @throws IOException check I/O
+     */
     public final void showTheFavorites(final JSONArray arrayResult,
                                        final Writer fileWriter) throws IOException {
         ArrayList<Video> copyOfVideos = new ArrayList<>();
@@ -84,6 +90,7 @@ public class QueryVideosFavorite {
                 finalList.add(copyOfVideos.get(i).getTitle());
             }
         }
+        //noinspection unchecked
         arrayResult.add(fileWriter.writeFile(action.getActionId(), "?",
                 "Query result: " + finalList + ""));
     }

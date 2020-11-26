@@ -18,6 +18,12 @@ public final class QueryUsersActive {
         this.action = action;
     }
 
+    /**
+     * Show the most active users, who gave rating for movies and shows.
+     * @param arrayResult the array used to write in file
+     * @param fileWriter used for writing in file
+     * @throws IOException check I/O
+     */
     public void showTheUsers(final JSONArray arrayResult,
                              final Writer fileWriter) throws IOException {
         ArrayList<User> usersWhoGivenRating = new ArrayList<>();

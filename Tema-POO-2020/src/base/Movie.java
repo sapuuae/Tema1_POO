@@ -12,6 +12,10 @@ public class Movie extends Video {
         this.duration = duration;
     }
 
+    /**
+     * Make the average rating for a movie, updating it every time a new grade come.
+     * @param rating the rating for a movie, given by an user.
+     */
     public final void avgRating(final Double rating) {
         double newRating = this.getRating() * this.getNumberOfRatings() + rating;
         this.setNumberOfRatings(this.getNumberOfRatings() + 1);

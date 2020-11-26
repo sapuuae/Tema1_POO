@@ -19,11 +19,11 @@ import usage.QueryVideosFavorite;
 import usage.QueryVideosLongest;
 import usage.QueryVideosMostViewed;
 import usage.QueryVideosRating;
-import usage.RecommBestUnseen;
-import usage.RecommFavorite;
-import usage.RecommPopular;
-import usage.RecommSearch;
-import usage.RecommStandard;
+import usage.BestUnseenRecommendation;
+import usage.FavoriteRecommendation;
+import usage.PopularRecommendation;
+import usage.SearchRecommendation;
+import usage.StandardRecommendation;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -201,6 +201,13 @@ public class DataList {
         }
     }
 
+    /**
+     * Check every command from input.
+     * @param dataInput every data from the input
+     * @param arrayResult the array used to write in file
+     * @param fileWriter used for writing in file
+     * @throws IOException check I/O
+     */
     public final void checkActions(final Input dataInput, final JSONArray arrayResult,
                                    final Writer fileWriter) throws IOException {
         for (int i = 0; i < dataInput.getCommands().size(); i++) {
@@ -291,23 +298,23 @@ public class DataList {
                 }
             } else if (actionData.getActionType().equals("recommendation")) {
                 if (actionData.getType().equals("standard")) {
-                    RecommStandard theRecomm = new RecommStandard(
+                    StandardRecommendation theRecommendation = new StandardRecommendation(
                             userArrayList, actionData, totalVideoArray);
-                    theRecomm.showUsers(actionData.getUsername(), arrayResult, fileWriter);
+                    theRecommendation.showUsers(actionData.getUsername(), arrayResult, fileWriter);
                 } else if (actionData.getType().equals("best_unseen")) {
-                    RecommBestUnseen theUnseen = new RecommBestUnseen(movieArrayList,
-                            showArrayList, actionData, userArrayList);
+                    BestUnseenRecommendation theUnseen = new BestUnseenRecommendation(
+                            movieArrayList, showArrayList, actionData, userArrayList);
                     theUnseen.getTheBestUnseen(actionData.getUsername(), arrayResult, fileWriter);
                 } else if (actionData.getType().equals("search")) {
-                    RecommSearch theRecomm = new RecommSearch(userArrayList, actionData,
-                            totalVideoArray);
-                    theRecomm.searchTheVideos(arrayResult, fileWriter);
+                    SearchRecommendation theRecommendation = new SearchRecommendation(
+                            userArrayList, actionData, totalVideoArray);
+                    theRecommendation.searchTheVideos(arrayResult, fileWriter);
                 } else if (actionData.getType().equals("popular")) {
-                    RecommPopular theRecomm = new RecommPopular(totalVideoArray,
-                            actionData, userArrayList);
-                    theRecomm.showPopular(arrayResult, fileWriter);
+                    PopularRecommendation theRecommendation = new PopularRecommendation(
+                            totalVideoArray, actionData, userArrayList);
+                    theRecommendation.showPopular(arrayResult, fileWriter);
                 } else if (actionData.getType().equals("favorite")) {
-                    RecommFavorite theFavorite = new RecommFavorite(totalVideoArray,
+                    FavoriteRecommendation theFavorite = new FavoriteRecommendation(totalVideoArray,
                             userArrayList, actionData);
                     theFavorite.showFavorite(arrayResult, fileWriter);
                 }

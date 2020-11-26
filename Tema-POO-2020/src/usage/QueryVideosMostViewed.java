@@ -34,7 +34,6 @@ public final class QueryVideosMostViewed {
                 ok = false;
             } else {
                 List<String> genresString = this.action.getFilters().get(genresIndex);
-//                System.out.println("GENRES STRING " + genresString.get(0));
                 if (genresString.get(0) != null) {
                     ArrayList<String> videoGenres = theVideo.getGenres();
                     for (String s : genresString) {
@@ -51,6 +50,12 @@ public final class QueryVideosMostViewed {
         return ok;
     }
 
+    /**
+     * Show the most viewed videos, sorted by the number of views and name.
+     * @param arrayResult the array used to write in file
+     * @param fileWriter used for writing in file
+     * @throws IOException check I/O
+     */
     public void showTheMostViewed(final JSONArray arrayResult,
                                   final Writer fileWriter) throws IOException {
         ArrayList<Video> showsList = new ArrayList<>();

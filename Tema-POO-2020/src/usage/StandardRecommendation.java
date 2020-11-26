@@ -9,19 +9,26 @@ import org.json.simple.JSONArray;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public final class RecommStandard {
+public final class StandardRecommendation {
     private final ArrayList<User> userArrayList;
     private final ActionInputData action;
     private final ArrayList<Video> totalVideoArray;
 
-    public RecommStandard(final ArrayList<User> userArrayList,
-                          final ActionInputData action,
-                          final ArrayList<Video> totalVideoArray) {
+    public StandardRecommendation(final ArrayList<User> userArrayList,
+                                  final ActionInputData action,
+                                  final ArrayList<Video> totalVideoArray) {
         this.userArrayList = userArrayList;
         this.action = action;
         this.totalVideoArray = totalVideoArray;
     }
 
+    /**
+     * Give the first video unseen by user from the database.
+     * @param username username to give the recommendation
+     * @param arrayResult the array used to write in file
+     * @param fileWriter used for writing in file
+     * @throws IOException check I/O
+     */
     public void showUsers(final String username, final JSONArray arrayResult,
                           final Writer fileWriter) throws IOException {
         User theUser = null;
