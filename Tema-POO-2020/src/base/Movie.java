@@ -1,7 +1,9 @@
 package base;
 
 import java.util.ArrayList;
-
+/*
+Movie class.
+ */
 public class Movie extends Video {
     private final Integer duration;
 

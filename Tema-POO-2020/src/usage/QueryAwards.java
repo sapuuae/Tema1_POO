@@ -26,7 +26,7 @@ public final class QueryAwards {
     /**
      * Make the sum of the awards from an actor.
      * @param theAwards map to get the value for every award.
-     * @return
+     * @return return the sum of awards for actors.
      */
     public int calculateAward(final Map<ActorsAwards, Integer> theAwards) {
         final int[] sum = {0};
@@ -45,8 +45,10 @@ public final class QueryAwards {
      */
     public void makeTheSort(final ActionInputData action, final JSONArray arrayResult,
                                   final Writer fileWriter) throws IOException {
+        /*
+          Create a list just for actors which have all awards, then sort it.
+         */
         ArrayList<ActorsAndAwards> lastActors = new ArrayList<>();
-
         for (Actor myActor : actorArrayList) {
             final int[] ok = {0};
             Map<ActorsAwards, Integer> theAwards = myActor.getAwards();
@@ -92,6 +94,7 @@ public final class QueryAwards {
                 finalList.add(lastActors.get(i).getName());
             }
         }
+        // noinspection unchecked
         arrayResult.add(fileWriter.writeFile(action.getActionId(), "?",
                 "Query result: " + finalList + ""));
     }

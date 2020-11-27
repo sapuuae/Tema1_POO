@@ -39,12 +39,12 @@ public final class QueryAverage {
     }
 
     /**
-     *
-     * @param numberOfActors
-     * @param arrayResult
-     * @param fileWriter
-     * @param action
-     * @throws IOException
+     * Calculate the ratings for actors, then sort them.
+     * @param numberOfActors actors to write in arrayResult
+     * @param arrayResult the array used to write in file
+     * @param fileWriter used for writing in file
+     * @param action  used to get the id
+     * @throws IOException check I/O
      */
     public void makeTheAverage(final int numberOfActors, final JSONArray arrayResult,
                                final Writer fileWriter, final ActionInputData action)
@@ -59,12 +59,15 @@ public final class QueryAverage {
                 theVideo = getVideo(movieArrayList, myFilm);
                 if (theVideo == null) {
                     /*
-                    Search for it in the serials list, if it isn't found in the movie list.
+                    Search for it in the shows list, if it isn't found in the movie list.
                      */
                     theVideo = getVideo(showArrayList, myFilm);
                 }
                 if (theVideo != null) {
                     if (theVideo.getNumberOfRatings() != 0) {
+                        /*
+                        Increment the number of plays of actors in videos.
+                         */
                         playsInVideos++;
                         finalRatingForActor += theVideo.getRating();
                     }
@@ -79,7 +82,7 @@ public final class QueryAverage {
         }
         if (action.getSortType().equals("asc")) {
             /*
-            Sort ascendent.
+            Sort ascending.
              */
             theActorsWithRatings.sort((o1, o2) -> {
                 int c;
@@ -91,7 +94,7 @@ public final class QueryAverage {
             });
         } else {
             /*
-            Sort descdendent.
+            Sort descending.
              */
             theActorsWithRatings.sort((o1, o2) -> {
                 int c;
@@ -102,7 +105,6 @@ public final class QueryAverage {
                 return c;
             });
         }
-
         ArrayList<String> finalList = new ArrayList<>();
         if (theActorsWithRatings.size() < numberOfActors) {
             theActorsWithRatings.forEach(list -> finalList.add(list.getActorName()));

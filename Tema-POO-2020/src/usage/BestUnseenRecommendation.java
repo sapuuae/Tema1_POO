@@ -36,6 +36,10 @@ public final class BestUnseenRecommendation {
      */
     public void getTheBestUnseen(final String username, final JSONArray arrayResult,
                                  final Writer fileWriter) throws IOException {
+        /*
+        Create a list with movies and shows, then sort all of them
+        by rating and order in database.
+         */
         ArrayList<Video> totalListWithRatingsSorted = new ArrayList<>();
         totalListWithRatingsSorted.addAll(movieArrayList);
         totalListWithRatingsSorted.addAll(showArrayList);
@@ -57,6 +61,9 @@ public final class BestUnseenRecommendation {
         }
         String recommendedVideo = null;
         if (theUser != null) {
+            /*
+            Get the user and the video for him.
+             */
             for (Video v : totalListWithRatingsSorted) {
                 if (!theUser.getHistory().containsKey(v.getTitle())) {
                     recommendedVideo = v.getTitle();
@@ -65,9 +72,11 @@ public final class BestUnseenRecommendation {
             }
         }
         if (recommendedVideo != null) {
+            // noinspection unchecked
             arrayResult.add(fileWriter.writeFile(action.getActionId(), "?",
                     "BestRatedUnseen" + "Recommendation " + "result: " + recommendedVideo));
         } else {
+            // noinspection unchecked
             arrayResult.add(fileWriter.writeFile(action.getActionId(), "?",
                     "BestRatedUnseen" + "Recommendation " + "cannot be applied!"));
         }

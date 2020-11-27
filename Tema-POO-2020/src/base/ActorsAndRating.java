@@ -1,5 +1,8 @@
 package base;
 
+/*
+Used for query average.
+ */
 public final class ActorsAndRating {
     private final String actorName;
     private final Double ratingOfActor;
@@ -10,7 +13,7 @@ public final class ActorsAndRating {
     }
 
     /*
-    Keep the actor' name and rating for sorting.
+    Keep the actor's name and rating for sorting.
      */
     public Double getRatingOfActor() {
         return ratingOfActor;

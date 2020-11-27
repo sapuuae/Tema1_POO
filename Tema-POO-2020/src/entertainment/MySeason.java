@@ -12,7 +12,7 @@ public final class MySeason {
     /**
      * List of ratings from every user for the season
      */
-    private List<Double> ratings;
+    private final List<Double> ratings = new ArrayList<>();
 
     private double avgRating;
 
@@ -20,7 +20,10 @@ public final class MySeason {
     public MySeason(final int currentSeason, final int duration) {
         this.currentSeason = currentSeason;
         this.duration = duration;
-        this.ratings = new ArrayList<>();
+    }
+
+    public int getCurrentSeason() {
+        return currentSeason;
     }
 
     public int getDuration() {
@@ -46,14 +49,9 @@ public final class MySeason {
             sum += rating;
         }
         this.avgRating = sum / this.ratings.size();
-
     }
 
     public List<Double> getRatings() {
         return ratings;
-    }
-
-    public void setRatings(final List<Double> ratings) {
-        this.ratings = ratings;
     }
 }

@@ -3,7 +3,9 @@ package base;
 import entertainment.MySeason;
 
 import java.util.ArrayList;
-
+/*
+Show class.
+ */
 public class Show extends Video {
     private final int numberOfSeasons;
     private final ArrayList<MySeason> seasons;
@@ -17,10 +19,6 @@ public class Show extends Video {
         this.numberOfSeasons = numberOfSeasons;
         this.seasons = seasons;
         this.totalDuration = totalDuration;
-    }
-
-    public final int getNumberOfSeasons() {
-        return numberOfSeasons;
     }
 
     public final ArrayList<MySeason> getSeasons() {

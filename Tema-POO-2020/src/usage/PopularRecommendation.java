@@ -80,13 +80,16 @@ public final class PopularRecommendation {
                 }
             }
             if (recommendVideo != null) {
+                // noinspection unchecked
                 arrayResult.add(fileWriter.writeFile(action.getActionId(), "?",
                         "Popular" + "Recommendation " + "result: " + recommendVideo));
             } else {
+                // noinspection unchecked
                 arrayResult.add(fileWriter.writeFile(action.getActionId(), "?",
                         "Popular" + "Recommendation " + "cannot be applied!"));
             }
         } else {
+                // noinspection unchecked
             arrayResult.add(fileWriter.writeFile(action.getActionId(), "?",
                     "Popular" + "Recommendation " + "cannot be applied!"));
         }

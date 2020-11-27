@@ -1,12 +1,15 @@
 package utils;
 
 import actor.ActorsAwards;
+import base.Video;
 import common.Constants;
 import entertainment.Genre;
+import fileio.ActionInputData;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.LinkedHashMap;
 
@@ -89,7 +92,7 @@ public final class Utils {
     /**
      * Transforms an array of JSON's into a map
      * @param jsonActors array of JSONs
-     * @return a map with ActorsAwardsa as key and Integer as value
+     * @return a map with ActorsAwards as key and Integer as value
      */
     public static Map<ActorsAwards, Integer> convertAwards(final JSONArray jsonActors) {
         Map<ActorsAwards, Integer> awards = new LinkedHashMap<>();
@@ -101,6 +104,39 @@ public final class Utils {
         }
 
         return awards;
+    }
+
+    /**
+     * Used to check the genre and year for a video.
+     * @param theVideo the video to check the genres/year
+     * @param action used to get genre/year
+     * @return true if it meets the conditions and false if not
+     */
+    public static boolean checkVideo(final Video theVideo,
+                                     final ActionInputData action) {
+        boolean ok = true;
+        int yearIndex = 0;
+        int genresIndex = 1;
+        List<String> yearString = action.getFilters().get(yearIndex);
+        int year = 0;
+        if (yearString.get(0) != null) {
+            year = Integer.parseInt(yearString.get(0));
+        }
+        if (theVideo.getYear() != year && year != 0) {
+            ok = false;
+        } else {
+            List<String> genresString = action.getFilters().get(genresIndex);
+            if (genresString.get(0) != null) {
+                ArrayList<String> videoGenres = theVideo.getGenres();
+                for (String s : genresString) {
+                    if (!videoGenres.contains(s)) {
+                        ok = false;
+                        break;
+                    }
+                }
+            }
+        }
+        return ok;
     }
 
     /**

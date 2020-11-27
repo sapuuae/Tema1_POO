@@ -4,10 +4,10 @@ import base.Video;
 import fileio.ActionInputData;
 import fileio.Writer;
 import org.json.simple.JSONArray;
+import utils.Utils;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class QueryVideosFavorite {
     private final ArrayList<Video> videoArrayList;
@@ -27,31 +27,14 @@ public class QueryVideosFavorite {
      */
     public final void showTheFavorites(final JSONArray arrayResult,
                                        final Writer fileWriter) throws IOException {
+        /*
+        Add only videos which meets the criteria in this list.
+         */
         ArrayList<Video> copyOfVideos = new ArrayList<>();
-        int yearIndex = 0;
-        int genresIndex = 1;
         for (Video theVideo : videoArrayList) {
-            boolean ok = true;
-            List<String> yearString = this.action.getFilters().get(yearIndex);
-            int year = 0;
-            if (yearString.get(yearIndex) != null) {
-                year = Integer.parseInt(yearString.get(yearIndex));
-            }
-            if (theVideo.getNumberofAparitionsInFavorite() != 0) {
-                if (theVideo.getYear() != year && year != 0) {
-                    ok = false;
-                } else {
-                    List<String> genresString = this.action.getFilters().get(genresIndex);
-                    if (genresString.get(0) != null) {
-                        ArrayList<String> videoGenres = theVideo.getGenres();
-                        for (String s : genresString) {
-                            if (!videoGenres.contains(s)) {
-                                ok = false;
-                                break;
-                            }
-                        }
-                    }
-                }
+            boolean ok;
+            if (theVideo.getNumberOfApparitionsInFavorite() != 0) {
+                ok = Utils.checkVideo(theVideo, this.action);
             } else {
                 ok = false;
             }
@@ -62,8 +45,8 @@ public class QueryVideosFavorite {
         if (action.getSortType().equals("asc")) {
             copyOfVideos.sort((o1, o2) -> {
                 int c;
-                c = o1.getNumberofAparitionsInFavorite().compareTo(
-                        o2.getNumberofAparitionsInFavorite());
+                c = o1.getNumberOfApparitionsInFavorite().compareTo(
+                        o2.getNumberOfApparitionsInFavorite());
                 if (c == 0) {
                     c = o1.getTitle().compareTo(o2.getTitle());
                 }
@@ -72,8 +55,8 @@ public class QueryVideosFavorite {
         } else {
             copyOfVideos.sort((o1, o2) -> {
                 int c;
-                c = o2.getNumberofAparitionsInFavorite().compareTo(
-                        o1.getNumberofAparitionsInFavorite());
+                c = o2.getNumberOfApparitionsInFavorite().compareTo(
+                        o1.getNumberOfApparitionsInFavorite());
                 if (c == 0) {
                     c = o2.getTitle().compareTo(o1.getTitle());
                 }

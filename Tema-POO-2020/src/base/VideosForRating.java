@@ -1,5 +1,8 @@
 package base;
 
+/*
+    Used at query for videos rating.
+ */
 public final class VideosForRating {
     private final String videoTitle;
     private final Double rating;

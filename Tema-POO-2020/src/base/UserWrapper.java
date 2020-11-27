@@ -1,5 +1,8 @@
 package base;
 
+/*
+Used to modify an user in command class.
+ */
 public final class UserWrapper {
     private User interiorUser;
 

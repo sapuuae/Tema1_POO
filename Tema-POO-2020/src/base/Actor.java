@@ -35,13 +35,4 @@ public final class Actor {
     public Map<ActorsAwards, Integer> getAwards() {
         return awards;
     }
-
-    @Override
-    public String toString() {
-        return "Actors{"
-                + "name='" + name + '\''
-                + ", careerDescription='" + careerDescription + '\''
-                + ", filmography=" + filmography
-                + '}';
-    }
 }

@@ -8,9 +8,21 @@ public abstract class Video {
     private final ArrayList<String> cast;
     private final ArrayList<String> genres;
     private Double rating = 0.0;
+    /*
+    Used to get the number of added by users to favorite.
+     */
     private Integer numberOfApparitionsInFavorite = 0;
+    /*
+    Used to check if the rating is set.
+     */
     private Integer numberOfRatings = 0;
+    /*
+    Used to check if the video is seen.
+     */
     private Integer totalNumberOfViewed = 0;
+    /*
+    Used to check where is the video in database.
+     */
     private final Integer orderInDatabase;
 
     public Video(final String title, final int year,
@@ -23,10 +35,9 @@ public abstract class Video {
         this.orderInDatabase = orderInDatabase;
     }
     /**
-     * Makes the rating for Movie/Show.
+     * Makes the rating for Movie/Show. Is overwritten in movie and show classes.
      */
     public void avgRating() {
-
     }
 
     public final String getTitle() {
@@ -45,12 +56,13 @@ public abstract class Video {
         return genres;
     }
 
-    public final Integer getNumberofAparitionsInFavorite() {
+    public final Integer getNumberOfApparitionsInFavorite() {
         return numberOfApparitionsInFavorite;
     }
 
-    public final void setNumberofAparitionsInFavorite(final Integer numberofAparitionsInFavorite) {
-        this.numberOfApparitionsInFavorite = numberofAparitionsInFavorite;
+    public final void setNumberOfApparitionsInFavorite(
+            final Integer numberOfApparitionsInFavorite) {
+        this.numberOfApparitionsInFavorite = numberOfApparitionsInFavorite;
     }
 
     public final Integer getTotalNumberOfViewed() {

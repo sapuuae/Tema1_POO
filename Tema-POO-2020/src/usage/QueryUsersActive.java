@@ -61,6 +61,7 @@ public final class QueryUsersActive {
                 finalList.add(usersWhoGivenRating.get(i).getUsername());
             }
         }
+        // noinspection unchecked
         arrayResult.add(fileWriter.writeFile(action.getActionId(), "?",
                 "Query result: " + finalList + ""));
     }

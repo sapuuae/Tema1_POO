@@ -40,6 +40,9 @@ public final class SearchRecommendation {
                 break;
             }
         }
+        /*
+        Create the list with videos with genre from the input.
+         */
         ArrayList<Video> videosWithThatGenre = new ArrayList<>();
         if (theUser != null) {
             for (Video v : totalVideoList) {
@@ -66,9 +69,11 @@ public final class SearchRecommendation {
             for (Video v : videosWithThatGenre) {
                 finalList.add(v.getTitle());
             }
+            // noinspection unchecked
             arrayResult.add(fileWriter.writeFile(action.getActionId(), "?",
                     "Search" + "Recommendation result: " + finalList));
         } else {
+            // noinspection unchecked
             arrayResult.add(fileWriter.writeFile(action.getActionId(), "?",
                     "Search" + "Recommendation " + "cannot be applied!"));
         }

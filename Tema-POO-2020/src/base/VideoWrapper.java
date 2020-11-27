@@ -1,5 +1,9 @@
 package base;
 
+/*
+/*
+Used to modify a video in command class.
+ */
 public final class VideoWrapper {
     private Video interiorVideo;
 

@@ -42,14 +42,14 @@ public final class FavoriteRecommendation {
         if (theUser != null) {
             ArrayList<Video> theFavorites = new ArrayList<>();
             for (Video v : totalVideoList) {
-                if (v.getNumberofAparitionsInFavorite() != 0) {
+                if (v.getNumberOfApparitionsInFavorite() != 0) {
                     theFavorites.add(v);
                 }
             }
             theFavorites.sort((o1, o2) -> {
                 int c;
-                c = o2.getNumberofAparitionsInFavorite().compareTo(
-                        o1.getNumberofAparitionsInFavorite());
+                c = o2.getNumberOfApparitionsInFavorite().compareTo(
+                        o1.getNumberOfApparitionsInFavorite());
                 if (c == 0) {
                     c = o1.getOrderInDatabase().compareTo(o2.getOrderInDatabase());
                 }
@@ -63,10 +63,12 @@ public final class FavoriteRecommendation {
                 }
             }
             if (recommendedVideo != null) {
+                // noinspection unchecked
                 arrayResult.add(fileWriter.writeFile(action.getActionId(), "?",
                         "Favorite" + "Recommendation " + "result: " + recommendedVideo));
 
             } else {
+                // noinspection unchecked
                 arrayResult.add(fileWriter.writeFile(action.getActionId(), "?",
                         "Favorite" + "Recommendation " + "cannot be applied!"));
             }

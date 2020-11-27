@@ -1,5 +1,8 @@
 package actor;
 
+/*
+Used for query awards, to sort the list of actors.
+ */
 public final class ActorsAndAwards implements Comparable<ActorsAndAwards> {
     private final String name;
     private final Integer numberOfAwards;

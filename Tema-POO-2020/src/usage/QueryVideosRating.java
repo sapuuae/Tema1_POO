@@ -95,6 +95,7 @@ public final class QueryVideosRating {
                 theFinalList.add(theMovies.get(i).getVideoTitle());
             }
         }
+        // noinspection unchecked
         arrayResult.add(fileWriter.writeFile(action.getActionId(), "?",
                 "Query result: " + theFinalList + ""));
     }

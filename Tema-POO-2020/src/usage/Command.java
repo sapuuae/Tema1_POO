@@ -14,15 +14,15 @@ import java.util.ArrayList;
 public class Command {
     private static Command singleCommand = null;
     /*
-    Users' list.
+    Users list.
      */
     private final ArrayList<User> userArrayList;
     /*
-    Movies' list.
+    Movies list.
      */
     private final ArrayList<Video> movieArrayList;
     /*
-    Serials' list,
+    Shows list,
      */
     private final ArrayList<Video> showArrayList;
 
@@ -35,9 +35,10 @@ public class Command {
 
     /**
      * Use the singleton design pattern to get an instance.
-     * @param userArrayList users list
+     *
+     * @param userArrayList  users list
      * @param movieArrayList movies list
-     * @param showArrayList shows list
+     * @param showArrayList  shows list
      * @return get the instance
      */
     public static Command getInstance(final ArrayList<User> userArrayList,
@@ -51,9 +52,10 @@ public class Command {
 
     /**
      * Check every command and execute it.
-     * @param actionData used for checking the type of command
+     *
+     * @param actionData  used for checking the type of command
      * @param arrayResult the array used to write in file
-     * @param fileWriter used for writing in file
+     * @param fileWriter  used for writing in file
      * @throws IOException check I/O
      */
     public final void makeTheCommand(final ActionInputData actionData,
@@ -72,9 +74,9 @@ public class Command {
         }
         User myUser = getTheUser.getInteriorUser();
         Video myVideo = getTheVideo.getInteriorVideo();
-                /*
-                    Check favorite command.
-                 */
+        /*
+            Check favorite command.
+         */
         if (actionData.getType().equals("favorite")) {
             myUser.addFavorite(myVideo,
                     arrayResult, actionData.getActionId(), fileWriter);
@@ -96,7 +98,8 @@ public class Command {
 
     /**
      * Used to get the specific user from the user list by name.
-     * @param list list of users
+     *
+     * @param list     list of users
      * @param username the searched user
      * @return an User object
      */
@@ -111,7 +114,8 @@ public class Command {
 
     /**
      * Used to get the specific user from video list by title.
-     * @param list lit of movies/shows
+     *
+     * @param list       lit of movies/shows
      * @param videoTitle title of the searched video
      * @return a Video object
      */
@@ -126,9 +130,10 @@ public class Command {
 
     /**
      * Return the User and Video objects.
-     * @param username username of the User object
-     * @param videoTitle title of the Video object
-     * @param userWrapper a wrapper to move the User
+     *
+     * @param username     username of the User object
+     * @param videoTitle   title of the Video object
+     * @param userWrapper  a wrapper to move the User
      * @param videoWrapper a wrapper to move the Video
      */
     public final void getUsernameAndVideo(final String username, final String videoTitle,

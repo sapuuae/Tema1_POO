@@ -30,13 +30,13 @@ public class QueryFilters {
      */
     public final void checkTheFilters(final ActionInputData action, final JSONArray arrayResult,
                                       final Writer fileWriter) throws IOException {
-        ArrayList<String> namesOfActors = new ArrayList<>();
+        ArrayList<String> actorsWithWordsInDescription = new ArrayList<>();
         for (Actor myActor : actorArrayList) {
             String theCareer = myActor.getCareerDescription();
             HashMap<String, Boolean> theWords = new HashMap<>();
             boolean ok = true;
-            String[] splitted = theCareer.split("\\s+|,|\\.|\\-");
-            for (String s : splitted) {
+            String[] split = theCareer.split("\\s+|,|\\.|-");
+            for (String s : split) {
                 theWords.put(s.toUpperCase(), true);
             }
             for (String s : filtersToCheck) {
@@ -47,20 +47,17 @@ public class QueryFilters {
             }
             if (ok) {
                 String name = myActor.getName();
-                namesOfActors.add(name);
+                actorsWithWordsInDescription.add(name);
             }
         }
         if (action.getSortType().equals("asc")) {
-            Collections.sort(namesOfActors);
+            Collections.sort(actorsWithWordsInDescription);
         } else {
-            Collections.sort(namesOfActors);
-            Collections.reverse(namesOfActors);
+            Collections.sort(actorsWithWordsInDescription);
+            Collections.reverse(actorsWithWordsInDescription);
         }
-        ArrayList<String> finalList = new ArrayList<>();
-        for (int i = 0; i < namesOfActors.size(); i++) {
-            finalList.add(namesOfActors.get(i));
-        }
-
+        ArrayList<String> finalList = new ArrayList<>(actorsWithWordsInDescription);
+        // noinspection unchecked
         arrayResult.add(fileWriter.writeFile(action.getActionId(), "?",
                 "Query result: " + finalList + ""));
     }

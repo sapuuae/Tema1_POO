@@ -6,10 +6,10 @@ import base.Video;
 import fileio.ActionInputData;
 import fileio.Writer;
 import org.json.simple.JSONArray;
+import utils.Utils;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class QueryVideosLongest {
     private final ArrayList<Video> videoArrayList;
@@ -20,33 +20,6 @@ public class QueryVideosLongest {
         this.videoArrayList = videoArrayList;
         this.action = action;
     }
-
-    private boolean checkVideo(final Video theVideo) {
-        boolean ok = true;
-        int yearIndex = 0;
-        int genresIndex = 1;
-        List<String> yearString = this.action.getFilters().get(yearIndex);
-        int year = 0;
-        if (yearString.get(0) != null) {
-            year = Integer.parseInt(yearString.get(0));
-        }
-        if (theVideo.getYear() != year && year != 0) {
-            ok = false;
-        } else {
-            List<String> genresString = this.action.getFilters().get(genresIndex);
-            if (genresString.get(0) != null) {
-                ArrayList<String> videoGenres = theVideo.getGenres();
-                for (String s : genresString) {
-                    if (!videoGenres.contains(s)) {
-                        ok = false;
-                        break;
-                    }
-                }
-            }
-        }
-        return ok;
-    }
-
     /**
      * Sort the shows by the duration and name, then write them in the file.
      * @param arrayResult the array used to write in file
@@ -57,7 +30,7 @@ public class QueryVideosLongest {
                                        final Writer fileWriter) throws IOException {
         ArrayList<Show> showsList = new ArrayList<>();
         for (Video theVideo : videoArrayList) {
-            if (checkVideo(theVideo)) {
+            if (Utils.checkVideo(theVideo, this.action)) {
                 showsList.add((Show) theVideo);
             }
         }
@@ -90,6 +63,7 @@ public class QueryVideosLongest {
                 finalList.add(showsList.get(i).getTitle());
             }
         }
+        // noinspection unchecked
         arrayResult.add(fileWriter.writeFile(action.getActionId(), "?",
                 "Query result: " + finalList + ""));
     }
@@ -104,7 +78,7 @@ public class QueryVideosLongest {
                                         final Writer fileWriter) throws IOException {
         ArrayList<Movie> videosList = new ArrayList<>();
         for (Video theVideo : videoArrayList) {
-            if (checkVideo(theVideo)) {
+            if (Utils.checkVideo(theVideo, this.action)) {
                 videosList.add((Movie) theVideo);
             }
         }
@@ -137,6 +111,7 @@ public class QueryVideosLongest {
                 finalList.add(videosList.get(i).getTitle());
             }
         }
+        // noinspection unchecked
         arrayResult.add(fileWriter.writeFile(action.getActionId(), "?",
                 "Query result: " + finalList + ""));
     }

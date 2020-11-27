@@ -2,8 +2,17 @@ package base;
 
 import java.util.ArrayList;
 
+/*
+Used to make a map in PopularRecommendation class.
+ */
 public final class VideosWithGenresAndViews {
+    /*
+    Genre of the videos.
+     */
     private final String genre;
+    /*
+    Arraylist to save all videos which have this genre.
+     */
     private final ArrayList<Video> videoList;
     private Integer numberOfViews;
 

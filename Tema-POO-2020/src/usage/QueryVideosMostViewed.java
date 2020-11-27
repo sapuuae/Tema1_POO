@@ -93,6 +93,7 @@ public final class QueryVideosMostViewed {
                 finalList.add(showsList.get(i).getTitle());
             }
         }
+        // noinspection unchecked
         arrayResult.add(fileWriter.writeFile(action.getActionId(), "?",
                 "Query result: " + finalList + ""));
     }

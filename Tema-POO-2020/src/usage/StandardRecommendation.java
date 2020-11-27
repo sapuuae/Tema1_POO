@@ -32,6 +32,9 @@ public final class StandardRecommendation {
     public void showUsers(final String username, final JSONArray arrayResult,
                           final Writer fileWriter) throws IOException {
         User theUser = null;
+        /*
+        Get the object of type User by username.
+         */
         for (User getTheName : userArrayList) {
             if (getTheName.getUsername().equals(username)) {
                 theUser = getTheName;
@@ -51,9 +54,11 @@ public final class StandardRecommendation {
         ch1 = Character.toUpperCase(ch1);
         String s = action.getType().substring(1);
         if (recommendedVideo != null) {
+            // noinspection unchecked
             arrayResult.add(fileWriter.writeFile(action.getActionId(), "?",
                     ch1 + s + "Recommendation " + "result: " + recommendedVideo));
         } else {
+            // noinspection unchecked
             arrayResult.add(fileWriter.writeFile(action.getActionId(), "?",
                     ch1 + s + "Recommendation " + "cannot be applied!"));
         }

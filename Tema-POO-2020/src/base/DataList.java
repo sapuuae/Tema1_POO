@@ -139,8 +139,8 @@ public class DataList {
                  */
                 for (Video theMovie : movieArrayList) {
                     if (theMovie.getTitle().equals(s)) {
-                        theMovie.setNumberofAparitionsInFavorite(
-                                theMovie.getNumberofAparitionsInFavorite() + 1);
+                        theMovie.setNumberOfApparitionsInFavorite(
+                                theMovie.getNumberOfApparitionsInFavorite() + 1);
                         ok = false;
                         break;
                     }
@@ -148,8 +148,8 @@ public class DataList {
                 if (ok) {
                     for (Video theShow : showArrayList) {
                         if (theShow.getTitle().equals(s)) {
-                            theShow.setNumberofAparitionsInFavorite(
-                                    theShow.getNumberofAparitionsInFavorite() + 1);
+                            theShow.setNumberOfApparitionsInFavorite(
+                                    theShow.getNumberOfApparitionsInFavorite() + 1);
                             break;
                         }
                     }
@@ -222,9 +222,6 @@ public class DataList {
                 Command myCommand = new Command(userArrayList, movieArrayList, showArrayList);
                 myCommand.makeTheCommand(actionData, arrayResult, fileWriter);
             } else if (actionData.getActionType().equals("query")) {
-                /*
-                Check the object type for every query.
-                 */
                 if (actionData.getObjectType().equals("actors")) {
                     if (actionData.getCriteria().equals("average")) {
                         /*
@@ -253,43 +250,67 @@ public class DataList {
                 } else if (actionData.getObjectType().equals("movies")) {
                     if (actionData.getCriteria().equals("ratings")) {
                         /*
-                        Rating query for videos.
+                        Rating query for movies.
                          */
                         QueryVideosRating theMoviesSorted = new QueryVideosRating(movieArrayList,
                                 actionData);
                         theMoviesSorted.sortTheMovies(arrayResult, fileWriter);
                     } else if (actionData.getCriteria().equals("favorite")) {
+                        /*
+                        Favorite query for movies.
+                         */
                         QueryVideosFavorite theFavorites = new QueryVideosFavorite(
                                 movieArrayList, actionData);
                         theFavorites.showTheFavorites(arrayResult, fileWriter);
                     } else if (actionData.getCriteria().equals("longest")) {
+                        /*
+                        Longest query for movies.
+                         */
                         QueryVideosLongest theLongestMovies = new QueryVideosLongest(
                                 movieArrayList, actionData);
                         theLongestMovies.moviesLongestView(arrayResult, fileWriter);
                     } else if (actionData.getCriteria().equals("most_viewed")) {
+                        /*
+                        MostViewed query for movies.
+                         */
                         QueryVideosMostViewed theMostViewed = new QueryVideosMostViewed(
                                 movieArrayList, actionData);
                         theMostViewed.showTheMostViewed(arrayResult, fileWriter);
                     }
                 } else if (actionData.getObjectType().equals("shows")) {
                     if (actionData.getCriteria().equals("ratings")) {
+                        /*
+                        Rating query for shows.
+                         */
                         QueryVideosRating theShowsSorted = new QueryVideosRating(showArrayList,
                                 actionData);
                         theShowsSorted.sortTheMovies(arrayResult, fileWriter);
                     } else if (actionData.getCriteria().equals("favorite")) {
+                        /*
+                        Favorite query for shows.
+                         */
                         QueryVideosFavorite theFavorites = new QueryVideosFavorite(
                                 showArrayList, actionData);
                         theFavorites.showTheFavorites(arrayResult, fileWriter);
                     } else if (actionData.getCriteria().equals("longest")) {
+                        /*
+                        Longest query for shows.
+                         */
                         QueryVideosLongest theLongestShows = new QueryVideosLongest(
                                 showArrayList, actionData);
                         theLongestShows.showLongestShows(arrayResult, fileWriter);
                     } else if (actionData.getCriteria().equals("most_viewed")) {
+                        /*
+                        MostViewed query for shows.
+                         */
                         QueryVideosMostViewed theMostViewed = new QueryVideosMostViewed(
                                 showArrayList, actionData);
                         theMostViewed.showTheMostViewed(arrayResult, fileWriter);
                     }
                 } else if (actionData.getObjectType().equals("users")) {
+                    /*
+                    Query for users, to get the most active users.
+                     */
                     if (actionData.getCriteria().equals("num_ratings")) {
                         QueryUsersActive theActiveUsers = new QueryUsersActive(
                                 userArrayList, actionData);
@@ -298,22 +319,37 @@ public class DataList {
                 }
             } else if (actionData.getActionType().equals("recommendation")) {
                 if (actionData.getType().equals("standard")) {
+                    /*
+                    Standard recommendation.
+                     */
                     StandardRecommendation theRecommendation = new StandardRecommendation(
                             userArrayList, actionData, totalVideoArray);
                     theRecommendation.showUsers(actionData.getUsername(), arrayResult, fileWriter);
                 } else if (actionData.getType().equals("best_unseen")) {
+                    /*
+                    BestUnseen recommendation.
+                     */
                     BestUnseenRecommendation theUnseen = new BestUnseenRecommendation(
                             movieArrayList, showArrayList, actionData, userArrayList);
                     theUnseen.getTheBestUnseen(actionData.getUsername(), arrayResult, fileWriter);
                 } else if (actionData.getType().equals("search")) {
+                    /*
+                    Search recommendation.
+                     */
                     SearchRecommendation theRecommendation = new SearchRecommendation(
                             userArrayList, actionData, totalVideoArray);
                     theRecommendation.searchTheVideos(arrayResult, fileWriter);
                 } else if (actionData.getType().equals("popular")) {
+                    /*
+                    Popular recommendation.
+                     */
                     PopularRecommendation theRecommendation = new PopularRecommendation(
                             totalVideoArray, actionData, userArrayList);
                     theRecommendation.showPopular(arrayResult, fileWriter);
                 } else if (actionData.getType().equals("favorite")) {
+                    /*
+                    Favorite recommendation.
+                     */
                     FavoriteRecommendation theFavorite = new FavoriteRecommendation(totalVideoArray,
                             userArrayList, actionData);
                     theFavorite.showFavorite(arrayResult, fileWriter);
