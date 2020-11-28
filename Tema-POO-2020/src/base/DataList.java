@@ -1,6 +1,5 @@
 package base;
 
-import entertainment.MySeason;
 import entertainment.Season;
 import fileio.ActionInputData;
 import fileio.ActorInputData;
@@ -254,7 +253,7 @@ public class DataList {
                          */
                         QueryVideosRating theMoviesSorted = new QueryVideosRating(movieArrayList,
                                 actionData);
-                        theMoviesSorted.sortTheMovies(arrayResult, fileWriter);
+                        theMoviesSorted.sortTheVideos(arrayResult, fileWriter);
                     } else if (actionData.getCriteria().equals("favorite")) {
                         /*
                         Favorite query for movies.
@@ -268,14 +267,14 @@ public class DataList {
                          */
                         QueryVideosLongest theLongestMovies = new QueryVideosLongest(
                                 movieArrayList, actionData);
-                        theLongestMovies.moviesLongestView(arrayResult, fileWriter);
+                        theLongestMovies.longestMovies(arrayResult, fileWriter);
                     } else if (actionData.getCriteria().equals("most_viewed")) {
                         /*
                         MostViewed query for movies.
                          */
                         QueryVideosMostViewed theMostViewed = new QueryVideosMostViewed(
                                 movieArrayList, actionData);
-                        theMostViewed.showTheMostViewed(arrayResult, fileWriter);
+                        theMostViewed.mostViewedVideos(arrayResult, fileWriter);
                     }
                 } else if (actionData.getObjectType().equals("shows")) {
                     if (actionData.getCriteria().equals("ratings")) {
@@ -284,7 +283,7 @@ public class DataList {
                          */
                         QueryVideosRating theShowsSorted = new QueryVideosRating(showArrayList,
                                 actionData);
-                        theShowsSorted.sortTheMovies(arrayResult, fileWriter);
+                        theShowsSorted.sortTheVideos(arrayResult, fileWriter);
                     } else if (actionData.getCriteria().equals("favorite")) {
                         /*
                         Favorite query for shows.
@@ -298,14 +297,14 @@ public class DataList {
                          */
                         QueryVideosLongest theLongestShows = new QueryVideosLongest(
                                 showArrayList, actionData);
-                        theLongestShows.showLongestShows(arrayResult, fileWriter);
+                        theLongestShows.longestShows(arrayResult, fileWriter);
                     } else if (actionData.getCriteria().equals("most_viewed")) {
                         /*
                         MostViewed query for shows.
                          */
                         QueryVideosMostViewed theMostViewed = new QueryVideosMostViewed(
                                 showArrayList, actionData);
-                        theMostViewed.showTheMostViewed(arrayResult, fileWriter);
+                        theMostViewed.mostViewedVideos(arrayResult, fileWriter);
                     }
                 } else if (actionData.getObjectType().equals("users")) {
                     /*
@@ -330,7 +329,7 @@ public class DataList {
                     BestUnseen recommendation.
                      */
                     BestUnseenRecommendation theUnseen = new BestUnseenRecommendation(
-                            movieArrayList, showArrayList, actionData, userArrayList);
+                            totalVideoArray, actionData, userArrayList);
                     theUnseen.getTheBestUnseen(actionData.getUsername(), arrayResult, fileWriter);
                 } else if (actionData.getType().equals("search")) {
                     /*

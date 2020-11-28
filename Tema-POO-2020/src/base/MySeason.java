@@ -1,4 +1,4 @@
-package entertainment;
+package base;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,9 +13,7 @@ public final class MySeason {
      * List of ratings from every user for the season
      */
     private final List<Double> ratings = new ArrayList<>();
-
     private double avgRating;
-
 
     public MySeason(final int currentSeason, final int duration) {
         this.currentSeason = currentSeason;

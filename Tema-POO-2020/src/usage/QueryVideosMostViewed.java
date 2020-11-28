@@ -56,16 +56,16 @@ public final class QueryVideosMostViewed {
      * @param fileWriter used for writing in file
      * @throws IOException check I/O
      */
-    public void showTheMostViewed(final JSONArray arrayResult,
-                                  final Writer fileWriter) throws IOException {
-        ArrayList<Video> showsList = new ArrayList<>();
+    public void mostViewedVideos(final JSONArray arrayResult,
+                                 final Writer fileWriter) throws IOException {
+        ArrayList<Video> videosList = new ArrayList<>();
         for (Video theVideo : videoArrayList) {
             if (checkVideo(theVideo)) {
-                showsList.add(theVideo);
+                videosList.add(theVideo);
             }
         }
         if (action.getSortType().equals("asc")) {
-            showsList.sort((o1, o2) -> {
+            videosList.sort((o1, o2) -> {
                 int c;
                 c = o1.getTotalNumberOfViewed().compareTo(o2.getTotalNumberOfViewed());
                 if (c == 0) {
@@ -74,7 +74,7 @@ public final class QueryVideosMostViewed {
                 return c;
             });
         } else {
-            showsList.sort((o1, o2) -> {
+            videosList.sort((o1, o2) -> {
                 int c;
                 c = o2.getTotalNumberOfViewed().compareTo(o1.getTotalNumberOfViewed());
                 if (c == 0) {
@@ -84,13 +84,13 @@ public final class QueryVideosMostViewed {
             });
         }
         ArrayList<String> finalList = new ArrayList<>();
-        if (showsList.size() < action.getNumber()) {
-            for (Video theShow : showsList) {
-                finalList.add(theShow.getTitle());
+        if (videosList.size() < action.getNumber()) {
+            for (Video theVideo : videosList) {
+                finalList.add(theVideo.getTitle());
             }
         } else {
             for (int i = 0; i < action.getNumber(); i++) {
-                finalList.add(showsList.get(i).getTitle());
+                finalList.add(videosList.get(i).getTitle());
             }
         }
         // noinspection unchecked

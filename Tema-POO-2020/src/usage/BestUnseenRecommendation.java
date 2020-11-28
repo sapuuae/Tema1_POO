@@ -11,20 +11,12 @@ import fileio.Writer;
 import org.json.simple.JSONArray;
 
 
-public final class BestUnseenRecommendation {
-    private final ArrayList<Video> movieArrayList;
-    private final ArrayList<Video> showArrayList;
-    private final ActionInputData action;
-    private final ArrayList<User> userArrayList;
+public final class BestUnseenRecommendation extends Recommendation {
 
-    public BestUnseenRecommendation(final ArrayList<Video> movieArrayList,
-                                    final ArrayList<Video> showArrayList,
+    public BestUnseenRecommendation(final ArrayList<Video> totalVideoArray,
                                     final ActionInputData action,
                                     final ArrayList<User> userArrayList) {
-        this.movieArrayList = movieArrayList;
-        this.showArrayList = showArrayList;
-        this.action = action;
-        this.userArrayList = userArrayList;
+        super(action, userArrayList, totalVideoArray);
     }
 
     /**
@@ -40,10 +32,8 @@ public final class BestUnseenRecommendation {
         Create a list with movies and shows, then sort all of them
         by rating and order in database.
          */
-        ArrayList<Video> totalListWithRatingsSorted = new ArrayList<>();
-        totalListWithRatingsSorted.addAll(movieArrayList);
-        totalListWithRatingsSorted.addAll(showArrayList);
-        totalListWithRatingsSorted.sort((o1, o2) -> {
+        ArrayList<Video> totalList = new ArrayList<>(getTotalVideoList());
+        totalList.sort((o1, o2) -> {
             int c;
             c = o2.getRating().compareTo(o1.getRating());
             if (c == 0) {
@@ -51,33 +41,15 @@ public final class BestUnseenRecommendation {
             }
             return c;
         });
-
-        User theUser = null;
-        for (User getTheName : userArrayList) {
-            if (getTheName.getUsername().equals(username)) {
-                theUser = getTheName;
-                break;
-            }
-        }
-        String recommendedVideo = null;
-        if (theUser != null) {
-            /*
-            Get the user and the video for him.
-             */
-            for (Video v : totalListWithRatingsSorted) {
-                if (!theUser.getHistory().containsKey(v.getTitle())) {
-                    recommendedVideo = v.getTitle();
-                    break;
-                }
-            }
-        }
+        User theUser = getTheUser(username);
+        String recommendedVideo = getRecommendedVideo(theUser, totalList);
         if (recommendedVideo != null) {
             // noinspection unchecked
-            arrayResult.add(fileWriter.writeFile(action.getActionId(), "?",
+            arrayResult.add(fileWriter.writeFile(getAction().getActionId(), "?",
                     "BestRatedUnseen" + "Recommendation " + "result: " + recommendedVideo));
         } else {
             // noinspection unchecked
-            arrayResult.add(fileWriter.writeFile(action.getActionId(), "?",
+            arrayResult.add(fileWriter.writeFile(getAction().getActionId(), "?",
                     "BestRatedUnseen" + "Recommendation " + "cannot be applied!"));
         }
     }

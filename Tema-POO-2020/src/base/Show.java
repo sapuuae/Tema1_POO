@@ -1,7 +1,5 @@
 package base;
 
-import entertainment.MySeason;
-
 import java.util.ArrayList;
 /*
 Show class.

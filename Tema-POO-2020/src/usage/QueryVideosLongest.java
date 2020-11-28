@@ -26,8 +26,8 @@ public class QueryVideosLongest {
      * @param fileWriter used for writing in file
      * @throws IOException check I/O
      */
-    public final void showLongestShows(final JSONArray arrayResult,
-                                       final Writer fileWriter) throws IOException {
+    public final void longestShows(final JSONArray arrayResult,
+                                   final Writer fileWriter) throws IOException {
         ArrayList<Show> showsList = new ArrayList<>();
         for (Video theVideo : videoArrayList) {
             if (Utils.checkVideo(theVideo, this.action)) {
@@ -74,8 +74,8 @@ public class QueryVideosLongest {
      * @param fileWriter used for writing in file
      * @throws IOException check I/O
      */
-    public final void moviesLongestView(final JSONArray arrayResult,
-                                        final Writer fileWriter) throws IOException {
+    public final void longestMovies(final JSONArray arrayResult,
+                                    final Writer fileWriter) throws IOException {
         ArrayList<Movie> videosList = new ArrayList<>();
         for (Video theVideo : videoArrayList) {
             if (Utils.checkVideo(theVideo, this.action)) {
@@ -115,7 +115,4 @@ public class QueryVideosLongest {
         arrayResult.add(fileWriter.writeFile(action.getActionId(), "?",
                 "Query result: " + finalList + ""));
     }
-
-
-
 }

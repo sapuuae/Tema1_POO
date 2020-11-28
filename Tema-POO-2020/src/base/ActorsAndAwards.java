@@ -1,9 +1,9 @@
-package actor;
+package base;
 
 /*
 Used for query awards, to sort the list of actors.
- */
-public final class ActorsAndAwards implements Comparable<ActorsAndAwards> {
+*/
+public final class ActorsAndAwards {
     private final String name;
     private final Integer numberOfAwards;
 
@@ -19,10 +19,4 @@ public final class ActorsAndAwards implements Comparable<ActorsAndAwards> {
     public Integer getNumberOfAwards() {
         return numberOfAwards;
     }
-
-    @Override
-    public int compareTo(final ActorsAndAwards o) {
-        return 0;
-    }
-
 }

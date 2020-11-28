@@ -1,49 +1,28 @@
 package usage;
 
 import base.Video;
-import base.VideosForRating;
 import fileio.ActionInputData;
 import fileio.Writer;
 import org.json.simple.JSONArray;
+import utils.Utils;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 public final class QueryVideosRating {
-    private final ArrayList<Video> movieArrayList;
+    private final ArrayList<Video> videoArrayList;
     private final ActionInputData action;
 
-    public QueryVideosRating(final ArrayList<Video> movieArrayList,
+    public QueryVideosRating(final ArrayList<Video> videoArrayList,
                              final ActionInputData action) {
-        this.movieArrayList = movieArrayList;
+        this.videoArrayList = videoArrayList;
         this.action = action;
     }
 
     private boolean checkTheVideo(final Video theVideo) {
-        boolean ok = true;
-        int yearIndex = 0;
-        int genresIndex = 1;
-        List<String> yearString = this.action.getFilters().get(yearIndex);
-        int year = 0;
-        if (yearString.get(0) != null) {
-            year = Integer.parseInt(yearString.get(0));
-        }
+        boolean ok;
         if (theVideo.getNumberOfRatings() != 0) {
-            if (theVideo.getYear() != year && year != 0) {
-                ok = false;
-            } else {
-                List<String> genresString = this.action.getFilters().get(genresIndex);
-                if (genresString.get(0) != null) {
-                    ArrayList<String> videoGenres = theVideo.getGenres();
-                    for (String s : genresString) {
-                        if (!videoGenres.contains(s)) {
-                            ok = false;
-                            break;
-                        }
-                    }
-                }
-            }
+            ok = Utils.checkVideo(theVideo, action);
         } else {
             ok = false;
         }
@@ -56,14 +35,12 @@ public final class QueryVideosRating {
      * @param fileWriter used for writing in file
      * @throws IOException check I/O
      */
-    public void sortTheMovies(final JSONArray arrayResult,
+    public void sortTheVideos(final JSONArray arrayResult,
                               final Writer fileWriter) throws IOException {
-        ArrayList<VideosForRating> theMovies = new ArrayList<>();
-        for (Video theVideo : movieArrayList) {
+        ArrayList<Video> theMovies = new ArrayList<>();
+        for (Video theVideo : videoArrayList) {
             if (checkTheVideo(theVideo)) {
-                VideosForRating toAdd = new VideosForRating(theVideo.getTitle(),
-                        theVideo.getRating());
-                theMovies.add(toAdd);
+                theMovies.add(theVideo);
             }
         }
         if (action.getSortType().equals("asc")) {
@@ -71,7 +48,7 @@ public final class QueryVideosRating {
                 int c;
                 c = o1.getRating().compareTo(o2.getRating());
                 if (c == 0) {
-                    c = o1.getVideoTitle().compareTo(o2.getVideoTitle());
+                    c = o1.getTitle().compareTo(o2.getTitle());
                 }
                 return c;
             });
@@ -80,19 +57,19 @@ public final class QueryVideosRating {
                 int c;
                 c = o2.getRating().compareTo(o1.getRating());
                 if (c == 0) {
-                    c = o2.getVideoTitle().compareTo(o1.getVideoTitle());
+                    c = o2.getTitle().compareTo(o1.getTitle());
                 }
                 return c;
             });
         }
         ArrayList<String> theFinalList = new ArrayList<>();
         if (theMovies.size() < action.getNumber()) {
-            for (VideosForRating theVideo : theMovies) {
-                theFinalList.add(theVideo.getVideoTitle());
+            for (Video theVideo : theMovies) {
+                theFinalList.add(theVideo.getTitle());
             }
         } else {
             for (int i = 0; i < action.getNumber(); i++) {
-                theFinalList.add(theMovies.get(i).getVideoTitle());
+                theFinalList.add(theMovies.get(i).getTitle());
             }
         }
         // noinspection unchecked

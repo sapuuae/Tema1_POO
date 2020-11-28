@@ -10,17 +10,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
 
-public final class SearchRecommendation {
-    private final ArrayList<User> userArrayList;
-    private final ActionInputData action;
-    private final ArrayList<Video> totalVideoList;
+public final class SearchRecommendation extends Recommendation {
 
     public SearchRecommendation(final ArrayList<User> userArrayList,
                                 final ActionInputData action,
                                 final ArrayList<Video> totalVideoList) {
-        this.userArrayList = userArrayList;
-        this.action = action;
-        this.totalVideoList = totalVideoList;
+        super(action, userArrayList, totalVideoList);
     }
 
     /**
@@ -31,10 +26,10 @@ public final class SearchRecommendation {
      */
     public void searchTheVideos(final JSONArray arrayResult,
                                 final Writer fileWriter) throws IOException {
-        String genre = action.getGenre();
+        String genre = getAction().getGenre();
         User theUser = null;
-        for (User getTheName : userArrayList) {
-            if (getTheName.getUsername().equals(action.getUsername())
+        for (User getTheName : getUserArrayList()) {
+            if (getTheName.getUsername().equals(getAction().getUsername())
             && getTheName.getUserSubType().equals("PREMIUM")) {
                 theUser = getTheName;
                 break;
@@ -45,7 +40,7 @@ public final class SearchRecommendation {
          */
         ArrayList<Video> videosWithThatGenre = new ArrayList<>();
         if (theUser != null) {
-            for (Video v : totalVideoList) {
+            for (Video v : getTotalVideoList()) {
                 ArrayList<String> videoGenres = v.getGenres();
                 boolean ok = videoGenres.contains(genre);
                 if (ok) {
@@ -70,11 +65,11 @@ public final class SearchRecommendation {
                 finalList.add(v.getTitle());
             }
             // noinspection unchecked
-            arrayResult.add(fileWriter.writeFile(action.getActionId(), "?",
+            arrayResult.add(fileWriter.writeFile(getAction().getActionId(), "?",
                     "Search" + "Recommendation result: " + finalList));
         } else {
             // noinspection unchecked
-            arrayResult.add(fileWriter.writeFile(action.getActionId(), "?",
+            arrayResult.add(fileWriter.writeFile(getAction().getActionId(), "?",
                     "Search" + "Recommendation " + "cannot be applied!"));
         }
     }

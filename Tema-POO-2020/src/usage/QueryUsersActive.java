@@ -28,14 +28,14 @@ public final class QueryUsersActive {
                              final Writer fileWriter) throws IOException {
         ArrayList<User> usersWhoGivenRating = new ArrayList<>();
         for (User theUser : userArray) {
-            if (theUser.getGivenRatings() != 0) {
+            if (theUser.getNumberOfGivenRatings() != 0) {
                 usersWhoGivenRating.add(theUser);
             }
         }
         if (action.getSortType().equals("asc")) {
             usersWhoGivenRating.sort((o1, o2) -> {
                 int c;
-                c = o1.getGivenRatings().compareTo(o2.getGivenRatings());
+                c = o1.getNumberOfGivenRatings().compareTo(o2.getNumberOfGivenRatings());
                 if (c == 0) {
                     c = o1.getUsername().compareTo(o2.getUsername());
                 }
@@ -44,7 +44,7 @@ public final class QueryUsersActive {
         } else {
             usersWhoGivenRating.sort((o1, o2) -> {
                 int c;
-                c = o2.getGivenRatings().compareTo(o1.getGivenRatings());
+                c = o2.getNumberOfGivenRatings().compareTo(o1.getNumberOfGivenRatings());
                 if (c == 0) {
                     c = o2.getUsername().compareTo(o1.getUsername());
                 }

@@ -9,17 +9,12 @@ import org.json.simple.JSONArray;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public final class FavoriteRecommendation {
-    private final ArrayList<Video> totalVideoList;
-    private final ArrayList<User> userArrayList;
-    private final ActionInputData action;
+public final class FavoriteRecommendation extends Recommendation {
 
     public FavoriteRecommendation(final ArrayList<Video> totalVideoList,
                                   final ArrayList<User> userArrayList,
                                   final ActionInputData action) {
-        this.totalVideoList = totalVideoList;
-        this.userArrayList = userArrayList;
-        this.action = action;
+        super(action, userArrayList, totalVideoList);
     }
 
     /**
@@ -32,8 +27,8 @@ public final class FavoriteRecommendation {
     public void showFavorite(final JSONArray arrayResult,
                              final Writer fileWriter) throws IOException {
         User theUser = null;
-        for (User getTheName : userArrayList) {
-            if (getTheName.getUsername().equals(action.getUsername())
+        for (User getTheName : getUserArrayList()) {
+            if (getTheName.getUsername().equals(getAction().getUsername())
                     && getTheName.getUserSubType().equals("PREMIUM")) {
                 theUser = getTheName;
                 break;
@@ -41,7 +36,7 @@ public final class FavoriteRecommendation {
         }
         if (theUser != null) {
             ArrayList<Video> theFavorites = new ArrayList<>();
-            for (Video v : totalVideoList) {
+            for (Video v : getTotalVideoList()) {
                 if (v.getNumberOfApparitionsInFavorite() != 0) {
                     theFavorites.add(v);
                 }
@@ -64,12 +59,12 @@ public final class FavoriteRecommendation {
             }
             if (recommendedVideo != null) {
                 // noinspection unchecked
-                arrayResult.add(fileWriter.writeFile(action.getActionId(), "?",
+                arrayResult.add(fileWriter.writeFile(getAction().getActionId(), "?",
                         "Favorite" + "Recommendation " + "result: " + recommendedVideo));
 
             } else {
                 // noinspection unchecked
-                arrayResult.add(fileWriter.writeFile(action.getActionId(), "?",
+                arrayResult.add(fileWriter.writeFile(getAction().getActionId(), "?",
                         "Favorite" + "Recommendation " + "cannot be applied!"));
             }
         }

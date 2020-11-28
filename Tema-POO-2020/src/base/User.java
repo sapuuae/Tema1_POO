@@ -17,7 +17,7 @@ public class User {
     Used to check if an user gave rating for a show/movie.
      */
     private final HashMap<String, Boolean> checkRatingSet;
-    private Integer givenRatings = 0;
+    private Integer numberOfGivenRatings = 0;
 
     public User(final String userSubType, final ArrayList<String> favoriteMovies,
                 final String username, final Map<String, Integer> history) {
@@ -135,7 +135,7 @@ public class User {
             Movie theMovie = (Movie) video;
             theMovie.avgRating(grade);
             checkRatingSet.put(video.getTitle(), true);
-            this.setGivenRatings(this.getGivenRatings() + 1);
+            this.setNumberOfGivenRatings(this.getNumberOfGivenRatings() + 1);
             //noinspection unchecked
             arrayResult.add(fileWriter.writeFile(actionId, "?",
                     "success -> " + video.getTitle() + " was rated with " + grade
@@ -178,18 +178,18 @@ public class User {
         internalShow.avgRating();
         internalShow.setNumberOfRatings(internalShow.getNumberOfRatings() + 1);
         checkRatingSet.put(getTheSeasonAndNumber, true);
-        this.setGivenRatings(this.getGivenRatings() + 1);
+        this.setNumberOfGivenRatings(this.getNumberOfGivenRatings() + 1);
         //noinspection unchecked
         arrayResult.add(fileWriter.writeFile(actionId, "?",
                 "success -> " + video.getTitle() + " was rated with " + grade
                         + " by " + this.username));
     }
 
-    public final Integer getGivenRatings() {
-        return givenRatings;
+    public final Integer getNumberOfGivenRatings() {
+        return numberOfGivenRatings;
     }
 
-    public final void setGivenRatings(final Integer givenRatings) {
-        this.givenRatings = givenRatings;
+    public final void setNumberOfGivenRatings(final Integer numberOfGivenRatings) {
+        this.numberOfGivenRatings = numberOfGivenRatings;
     }
 }

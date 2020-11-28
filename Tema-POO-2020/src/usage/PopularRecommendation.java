@@ -11,17 +11,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public final class PopularRecommendation {
-    private final ArrayList<Video> totalVideoList;
-    private final ActionInputData action;
-    private final ArrayList<User> userArrayList;
+public final class PopularRecommendation extends Recommendation {
 
     public PopularRecommendation(final ArrayList<Video> totalVideoList,
                                  final ActionInputData action,
                                  final ArrayList<User> userArrayList) {
-        this.totalVideoList = totalVideoList;
-        this.action = action;
-        this.userArrayList = userArrayList;
+        super(action, userArrayList, totalVideoList);
     }
 
     /**
@@ -33,8 +28,8 @@ public final class PopularRecommendation {
     public void showPopular(final JSONArray arrayResult,
                             final Writer fileWriter) throws IOException {
         User theUser = null;
-        for (User getTheName : userArrayList) {
-            if (getTheName.getUsername().equals(action.getUsername())
+        for (User getTheName : getUserArrayList()) {
+            if (getTheName.getUsername().equals(getAction().getUsername())
                     && getTheName.getUserSubType().equals("PREMIUM")) {
                 theUser = getTheName;
                 break;
@@ -43,7 +38,7 @@ public final class PopularRecommendation {
         String recommendVideo = null;
         if (theUser != null) {
             HashMap<String, VideosWithGenresAndViews> theMap = new HashMap<>();
-            for (Video v : totalVideoList) {
+            for (Video v : getTotalVideoList()) {
                 for (String s : v.getGenres()) {
                     if (theMap.containsKey(s)) {
                         VideosWithGenresAndViews getVideo = theMap.get(s);
@@ -81,16 +76,16 @@ public final class PopularRecommendation {
             }
             if (recommendVideo != null) {
                 // noinspection unchecked
-                arrayResult.add(fileWriter.writeFile(action.getActionId(), "?",
+                arrayResult.add(fileWriter.writeFile(getAction().getActionId(), "?",
                         "Popular" + "Recommendation " + "result: " + recommendVideo));
             } else {
                 // noinspection unchecked
-                arrayResult.add(fileWriter.writeFile(action.getActionId(), "?",
+                arrayResult.add(fileWriter.writeFile(getAction().getActionId(), "?",
                         "Popular" + "Recommendation " + "cannot be applied!"));
             }
         } else {
                 // noinspection unchecked
-            arrayResult.add(fileWriter.writeFile(action.getActionId(), "?",
+            arrayResult.add(fileWriter.writeFile(getAction().getActionId(), "?",
                     "Popular" + "Recommendation " + "cannot be applied!"));
         }
     }

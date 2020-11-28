@@ -1,6 +1,6 @@
 package usage;
 
-import actor.ActorsAndAwards;
+import base.ActorsAndAwards;
 import actor.ActorsAwards;
 import base.Actor;
 import fileio.ActionInputData;

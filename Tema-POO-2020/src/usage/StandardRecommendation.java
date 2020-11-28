@@ -9,17 +9,12 @@ import org.json.simple.JSONArray;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public final class StandardRecommendation {
-    private final ArrayList<User> userArrayList;
-    private final ActionInputData action;
-    private final ArrayList<Video> totalVideoArray;
+public final class StandardRecommendation extends Recommendation {
 
     public StandardRecommendation(final ArrayList<User> userArrayList,
                                   final ActionInputData action,
                                   final ArrayList<Video> totalVideoArray) {
-        this.userArrayList = userArrayList;
-        this.action = action;
-        this.totalVideoArray = totalVideoArray;
+        super(action, userArrayList, totalVideoArray);
     }
 
     /**
@@ -31,35 +26,18 @@ public final class StandardRecommendation {
      */
     public void showUsers(final String username, final JSONArray arrayResult,
                           final Writer fileWriter) throws IOException {
-        User theUser = null;
-        /*
-        Get the object of type User by username.
-         */
-        for (User getTheName : userArrayList) {
-            if (getTheName.getUsername().equals(username)) {
-                theUser = getTheName;
-                break;
-            }
-        }
-        String recommendedVideo = null;
-        if (theUser != null) {
-            for (Video v : totalVideoArray) {
-                if (!theUser.getHistory().containsKey(v.getTitle())) {
-                    recommendedVideo = v.getTitle();
-                    break;
-                }
-            }
-        }
-        char ch1 = action.getType().charAt(0);
+        User theUser = getTheUser(username);
+        String recommendedVideo = getRecommendedVideo(theUser, getTotalVideoList());
+        char ch1 = getAction().getType().charAt(0);
         ch1 = Character.toUpperCase(ch1);
-        String s = action.getType().substring(1);
+        String s = getAction().getType().substring(1);
         if (recommendedVideo != null) {
             // noinspection unchecked
-            arrayResult.add(fileWriter.writeFile(action.getActionId(), "?",
+            arrayResult.add(fileWriter.writeFile(getAction().getActionId(), "?",
                     ch1 + s + "Recommendation " + "result: " + recommendedVideo));
         } else {
             // noinspection unchecked
-            arrayResult.add(fileWriter.writeFile(action.getActionId(), "?",
+            arrayResult.add(fileWriter.writeFile(getAction().getActionId(), "?",
                     ch1 + s + "Recommendation " + "cannot be applied!"));
         }
     }
