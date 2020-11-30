@@ -6,7 +6,7 @@ O sa atasez link-ul de github: https://github.com/sapuuae/Tema1_POO.git.
 Precizez ca toate commit-urile au fost date pe branch-ul Develop, in final urmand sa dau
 merge pe main.
 
-#Am ales sa structurez tema in mai multe package-uri:
+#Am ales sa structurez tema in mai multe package-uri: <br />
     * in base, mi-am creat clase pentru filme, seriale, useri si actori. De asemenea,
     aici am clasa DataList, in care voi completa baza de date si voi verifica fiecare
     comanda data in input. 
