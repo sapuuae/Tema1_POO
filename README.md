@@ -1,4 +1,5 @@
 # Tema1_POO
+<pre>
 Sapunaru Andrei, 321CA
 VideosDB, Programare Orientata pe Obiecte
 
@@ -6,38 +7,38 @@ O sa atasez link-ul de github: https://github.com/sapuuae/Tema1_POO.git.
 Precizez ca toate commit-urile au fost date pe branch-ul Develop, in final urmand sa dau
 merge pe main.
 
-Am ales sa structurez tema in mai multe package-uri: <br />
-    * in base, mi-am creat clase pentru filme, seriale, useri si actori. De asemenea, <br />
-    aici am clasa DataList, in care voi completa baza de date si voi verifica fiecare <br />
-    comanda data in input. <br />
-    Clasele Movie, Show, User si Video sunt asemanatoare celor din fileio, dar am mai <br />
-    adaugat unele metode/campuri pentru a ma ajuta in rezolvarea cerintelor: <br />
-        * in user am adaugat un Map pentru a sti la ce filme a acordat rating si un <br />
-        camp pentru a vedea cate rating-uri a dat. De asemenea, metodele pentru comenzile <br />
-        favorite, view si rating le-am implementat in aceasta clasa: <br />
-            * pentru favorite, am verificat daca l-a vazut. Apoi, am verificat daca il are <br />
-            deja adaugat in lista de favorite. In final, daca primele doua nu se indeplinesc, <br />
-            l-am adaugat. <br /> 
-            * pentru view, am repetat aceiasi pasi ca la favorite, numai ca aici am modificat<br />
-            numarul de vizualizari din Map-ul history.<br />
-            * pentru rating, am verificat, initial, daca este film sau sezon. Am creat o metoda<br />
-            pe care am folosit overloading (addRatingVideo), pentru a o putea folosi la cele<br />
-            doua cazuri. De fiecare data cand user-ul dadea rating la un film/sezon dintr-un<br />
-            serial, adaugam titlul/titlul serialulului + numarul sezonului in map-ul in care<br />
-            salvam la ce video-uri s-a acordat rating.<br />
-        * in video am adaugat numarul de aparitii in favorite, de rating-uri primite,<br />
-        de vizualizari si indicele din baza de date. De asemenea, am adaugat o metoda<br />
-        pentru a calcula rating-ul, care va fi suprascrisa in clasele Movie si Show.<br />
-        * in MySeason este o clasa asemanatoare cu cea din Season, dar in care am adaugat<br />
-        o metoda care sa calculeze rating-ul mediu pentru fiecare sezon.<br />
-    * in usage, am implementat fiecare comanda, pentru Query si recomandari creand cate o clasa<br />
-     separata:<br />
-        * pentru query-urile pe actori:<br />
-            * la average, am creat o clasa noua, ActorsAndRating, in care am salvat doar numele<br />
-            si rating-ul acestora. Apoi, am parcurs lista de actori, am luat filmografia pentru<br />
-            fiecare, si am verificat ce filme dintre cele care in care a jucat au primit rating.<br />
-            Am creat o lista de obiecte ActorsAndRating, pe care urmeaza sa o sortez dupa rating<br />
-            si nume.<br />
+Am ales sa structurez tema in mai multe package-uri:
+    * in base, mi-am creat clase pentru filme, seriale, useri si actori. De asemenea,
+    aici am clasa DataList, in care voi completa baza de date si voi verifica fiecare
+    comanda data in input. 
+    Clasele Movie, Show, User si Video sunt asemanatoare celor din fileio, dar am mai
+    adaugat unele metode/campuri pentru a ma ajuta in rezolvarea cerintelor:
+        * in user am adaugat un Map pentru a sti la ce filme a acordat rating si un
+        camp pentru a vedea cate rating-uri a dat. De asemenea, metodele pentru comenzile
+        favorite, view si rating le-am implementat in aceasta clasa:
+            * pentru favorite, am verificat daca l-a vazut. Apoi, am verificat daca il are
+            deja adaugat in lista de favorite. In final, daca primele doua nu se indeplinesc,
+            l-am adaugat.
+            * pentru view, am repetat aceiasi pasi ca la favorite, numai ca aici am modificat
+            numarul de vizualizari din Map-ul history.
+            * pentru rating, am verificat, initial, daca este film sau sezon. Am creat o metoda
+            pe care am folosit overloading (addRatingVideo), pentru a o putea folosi la cele
+            doua cazuri. De fiecare data cand user-ul dadea rating la un film/sezon dintr-un
+            serial, adaugam titlul/titlul serialulului + numarul sezonului in map-ul in care
+            salvam la ce video-uri s-a acordat rating.
+        * in video am adaugat numarul de aparitii in favorite, de rating-uri primite,
+        de vizualizari si indicele din baza de date. De asemenea, am adaugat o metoda
+        pentru a calcula rating-ul, care va fi suprascrisa in clasele Movie si Show.
+        * in MySeason este o clasa asemanatoare cu cea din Season, dar in care am adaugat
+        o metoda care sa calculeze rating-ul mediu pentru fiecare sezon.
+    * in usage, am implementat fiecare comanda, pentru Query si recomandari creand cate o clasa
+     separata:
+        * pentru query-urile pe actori:
+            * la average, am creat o clasa noua, ActorsAndRating, in care am salvat doar numele
+            si rating-ul acestora. Apoi, am parcurs lista de actori, am luat filmografia pentru
+            fiecare, si am verificat ce filme dintre cele care in care a jucat au primit rating.
+            Am creat o lista de obiecte ActorsAndRating, pe care urmeaza sa o sortez dupa rating
+            si nume.
             * la awards, am creat o clasa noua, ActorsAndAwards, in care am salvat numele si
             numarul de premii primite. Pentru a vedea daca un actor are toate premiile, am
             parcurs map-ul de premii, verificand string-urile din input cu enum-urile de tip
@@ -79,3 +80,4 @@ Am ales sa structurez tema in mai multe package-uri: <br />
             * la search, am adaugat toate filmele care au genul respectiv intr-o noua lista,
             pe care am sortat-o crescator dupa rating si nume. Apoi, am adaugat filmele intr-o lista
             de tip String pe care o pun in arrayResult.
+            </pre>
