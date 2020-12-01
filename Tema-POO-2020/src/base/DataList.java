@@ -218,8 +218,9 @@ public class DataList {
                 /*
                 Move every command to a different class and make it there.
                  */
-                Command myCommand = new Command(userArrayList, movieArrayList, showArrayList);
-                myCommand.makeTheCommand(actionData, arrayResult, fileWriter);
+                Command myCommand = Command.getInstance();
+                myCommand.makeTheCommand(actionData, arrayResult, fileWriter,
+                        userArrayList, movieArrayList, showArrayList);
             } else if (actionData.getActionType().equals("query")) {
                 if (actionData.getObjectType().equals("actors")) {
                     if (actionData.getCriteria().equals("average")) {

@@ -11,41 +11,18 @@ import org.json.simple.JSONArray;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class Command {
+public final class Command {
     private static Command singleCommand = null;
-    /*
-    Users list.
-     */
-    private final ArrayList<User> userArrayList;
-    /*
-    Movies list.
-     */
-    private final ArrayList<Video> movieArrayList;
-    /*
-    Shows list,
-     */
-    private final ArrayList<Video> showArrayList;
 
-    public Command(final ArrayList<User> userArrayList, final ArrayList<Video> movieArrayList,
-                   final ArrayList<Video> showArrayList) {
-        this.userArrayList = userArrayList;
-        this.movieArrayList = movieArrayList;
-        this.showArrayList = showArrayList;
+    private Command() {
     }
 
     /**
      * Use the singleton design pattern to get an instance.
-     *
-     * @param userArrayList  users list
-     * @param movieArrayList movies list
-     * @param showArrayList  shows list
-     * @return get the instance
      */
-    public static Command getInstance(final ArrayList<User> userArrayList,
-                                      final ArrayList<Video> movieArrayList,
-                                      final ArrayList<Video> showArrayList) {
+    public static Command getInstance() {
         if (singleCommand == null) {
-            singleCommand = new Command(userArrayList, movieArrayList, showArrayList);
+            singleCommand = new Command();
         }
         return singleCommand;
     }
@@ -58,8 +35,11 @@ public class Command {
      * @param fileWriter  used for writing in file
      * @throws IOException check I/O
      */
-    public final void makeTheCommand(final ActionInputData actionData,
-                                     final JSONArray arrayResult, final Writer fileWriter)
+    public void makeTheCommand(final ActionInputData actionData,
+                                     final JSONArray arrayResult, final Writer fileWriter,
+                                     final ArrayList<User> userArrayList,
+                                     final ArrayList<Video> movieArrayList,
+                                     final  ArrayList<Video> showArrayList)
             throws IOException {
         /*
                 Get the User and Video for the command, using title and username.
@@ -67,7 +47,7 @@ public class Command {
         UserWrapper getTheUser = new UserWrapper();
         VideoWrapper getTheVideo = new VideoWrapper();
         getUsernameAndVideo(actionData.getUsername(), actionData.getTitle(),
-                getTheUser, getTheVideo);
+                getTheUser, getTheVideo, userArrayList, movieArrayList, showArrayList);
         if (getTheUser.getInteriorUser() == null
                 || getTheVideo.getInteriorVideo() == null) {
             return;
@@ -103,7 +83,7 @@ public class Command {
      * @param username the searched user
      * @return an User object
      */
-    public final User getUser(final ArrayList<User> list, final String username) {
+    public User getUser(final ArrayList<User> list, final String username) {
         for (User user : list) {
             if (user.getUsername().equals(username)) {
                 return user;
@@ -119,7 +99,7 @@ public class Command {
      * @param videoTitle title of the searched video
      * @return a Video object
      */
-    public final Video getVideo(final ArrayList<Video> list, final String videoTitle) {
+    public Video getVideo(final ArrayList<Video> list, final String videoTitle) {
         for (Video video : list) {
             if (video.getTitle().equals(videoTitle)) {
                 return video;
@@ -136,14 +116,17 @@ public class Command {
      * @param userWrapper  a wrapper to move the User
      * @param videoWrapper a wrapper to move the Video
      */
-    public final void getUsernameAndVideo(final String username, final String videoTitle,
+    public void getUsernameAndVideo(final String username, final String videoTitle,
                                           final UserWrapper userWrapper,
-                                          final VideoWrapper videoWrapper) {
-        User addedUser = getUser(this.userArrayList, username);
+                                          final VideoWrapper videoWrapper,
+                                          final ArrayList<User> userArrayList,
+                                          final ArrayList<Video> movieArrayList,
+                                          final ArrayList<Video> showArrayList) {
+        User addedUser = getUser(userArrayList, username);
         userWrapper.setInteriorUser(addedUser);
-        Video addedVideo = getVideo(this.movieArrayList, videoTitle);
+        Video addedVideo = getVideo(movieArrayList, videoTitle);
         if (addedVideo == null) {
-            addedVideo = getVideo(this.showArrayList, videoTitle);
+            addedVideo = getVideo(showArrayList, videoTitle);
         }
         videoWrapper.setInteriorVideo(addedVideo);
     }
